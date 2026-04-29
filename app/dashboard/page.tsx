@@ -43,17 +43,19 @@ type WorkoutEntry = {
   created_at: string;
 };
 
+type JoinedProfile = {
+  id: string;
+  display_name: string | null;
+  username: string | null;
+  avatar_url: string | null;
+};
+
 type GlobalWorkoutRow = {
   user_id: string;
   weight: number | string;
   reps: number;
   sets: number;
-  profiles: {
-    id: string;
-    display_name: string | null;
-    username: string | null;
-    avatar_url: string | null;
-  } | null;
+  profiles: JoinedProfile | JoinedProfile[] | null;
 };
 
 type LeaderboardRow = {
@@ -70,7 +72,11 @@ type TeamMembershipRow = {
     id: string;
     name: string;
     description: string | null;
-  } | null;
+  } | {
+    id: string;
+    name: string;
+    description: string | null;
+  }[] | null;
 };
 
 type MyTeamRow = {
@@ -112,11 +118,7 @@ type RecentActivityRow = {
   reps: number;
   sets: number;
   created_at: string;
-  profiles: {
-    display_name: string | null;
-    username: string | null;
-    avatar_url: string | null;
-  } | null;
+  profiles: Omit<JoinedProfile, "id"> | Omit<JoinedProfile, "id">[] | null;
 };
 
 export default function DashboardPage() {
@@ -442,13 +444,11 @@ export default function DashboardPage() {
 
     for (const entry of allEntries) {
       const entryWeight = Number(entry.weight);
+      const profile = Array.isArray(entry.profiles) ? entry.profiles[0] : entry.profiles;
       const currentRow = rowsByUser.get(entry.user_id) ?? {
         userId: entry.user_id,
-        displayName: publicDisplayName(
-          entry.profiles?.display_name ?? null,
-          entry.profiles?.username ?? null,
-        ),
-        avatarUrl: entry.profiles?.avatar_url ?? null,
+        displayName: publicDisplayName(profile?.display_name ?? null, profile?.username ?? null),
+        avatarUrl: profile?.avatar_url ?? null,
         totalVolume: 0,
         bestLift: 0,
       };
@@ -480,13 +480,17 @@ export default function DashboardPage() {
 
     const memberships = (data ?? []) as TeamMembershipRow[];
     const mappedTeams: MyTeamRow[] = memberships
-      .filter((membership) => membership.teams !== null)
-      .map((membership) => ({
-        id: membership.teams!.id,
-        name: membership.teams!.name,
-        description: membership.teams!.description,
-        role: membership.role,
-      }));
+      .map((membership) => {
+        const team = Array.isArray(membership.teams) ? membership.teams[0] : membership.teams;
+        if (!team) return null;
+        return {
+          id: team?.id,
+          name: team?.name,
+          description: team?.description ?? null,
+          role: membership.role,
+        };
+      })
+      .filter((team): team is MyTeamRow => team !== null);
 
     setMyTeams(mappedTeams);
   };
@@ -1398,9 +1402,10 @@ export default function DashboardPage() {
                 </thead>
                 <tbody>
                   {recentActivity.map((entry) => {
+                    const profile = Array.isArray(entry.profiles) ? entry.profiles[0] : entry.profiles;
                     const athleteName = publicDisplayName(
-                      entry.profiles?.display_name ?? null,
-                      entry.profiles?.username ?? null,
+                      profile?.display_name ?? null,
+                      profile?.username ?? null,
                     );
                     return (
                       <tr key={entry.id} className="border-b border-slate-800">
@@ -1408,7 +1413,7 @@ export default function DashboardPage() {
                           <div className="flex items-center gap-2">
                             <Avatar
                               name={athleteName}
-                              avatarUrl={entry.profiles?.avatar_url ?? null}
+                              avatarUrl={profile?.avatar_url ?? null}
                               size="sm"
                             />
                             <span>{athleteName}</span>
