@@ -1,351 +1,122 @@
-import Link from "next/link";
-import { createClient } from "@supabase/supabase-js";
-import { Avatar } from "@/components/avatar";
-
-type ProfileRow = {
-  id: string;
-  display_name: string | null;
-  username: string | null;
-  avatar_url: string | null;
-};
-
-type WorkoutRow = {
-  user_id: string;
-  weight: number | string;
-  reps: number;
-  sets: number;
-};
-
-type TeamRow = {
-  id: string;
-  name: string;
-};
-
-type TeamMemberRow = {
-  team_id: string;
-  user_id: string;
-};
-
-type IndividualLeaderboardRow = {
-  userId: string;
-  displayName: string;
-  avatarUrl: string | null;
-  totalVolume: number;
-  bestLift: number;
-};
-
-type TeamLeaderboardRow = {
-  teamId: string;
-  teamName: string;
-  totalVolume: number;
-  bestLift: number;
-};
-
-type RecentActivityRow = {
-  id: string;
-  exercise_name: string;
-  weight: number | string;
-  reps: number;
-  sets: number;
-  created_at: string;
-  profiles:
-    | {
-        display_name: string | null;
-        username: string | null;
-        avatar_url: string | null;
-      }
-    | {
-        display_name: string | null;
-        username: string | null;
-        avatar_url: string | null;
-      }[]
-    | null;
-};
-
-function isEmailLike(value: string | null | undefined) {
-  return Boolean(value && value.includes("@"));
-}
-
-function publicDisplayName(displayName: string | null, username: string | null) {
-  const cleanDisplayName = displayName?.trim() ?? null;
-  if (cleanDisplayName && !isEmailLike(cleanDisplayName)) return cleanDisplayName;
-  if (username?.trim()) return username.trim();
-  return "Unknown User";
-}
-
-function formatRelativeTime(value: string) {
-  const ms = new Date(value).getTime() - Date.now();
-  const formatter = new Intl.RelativeTimeFormat("en", { numeric: "auto" });
-  const minute = 60 * 1000;
-  const hour = 60 * minute;
-  const day = 24 * hour;
-  if (Math.abs(ms) < hour) return formatter.format(Math.round(ms / minute), "minute");
-  if (Math.abs(ms) < day) return formatter.format(Math.round(ms / hour), "hour");
-  return formatter.format(Math.round(ms / day), "day");
-}
-
-export default async function Home() {
-  const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL!;
-  const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!;
-  const supabase = createClient(supabaseUrl, supabaseAnonKey);
-
-  const [profilesResponse, workoutsResponse, teamsResponse, membersResponse, recentActivityResponse] =
-    await Promise.all([
-    supabase.from("profiles").select("id, display_name, username, avatar_url"),
-    supabase.from("workout_entries").select("user_id, weight, reps, sets"),
-    supabase.from("teams").select("id, name"),
-    supabase.from("team_members").select("team_id, user_id"),
-    supabase
-      .from("workout_entries")
-      .select("id, exercise_name, weight, reps, sets, created_at, profiles(display_name, username, avatar_url)")
-      .order("created_at", { ascending: false })
-      .limit(15),
-    ]);
-
-  const profiles = (profilesResponse.data ?? []) as ProfileRow[];
-  const workouts = (workoutsResponse.data ?? []) as WorkoutRow[];
-  const teams = (teamsResponse.data ?? []) as TeamRow[];
-  const teamMembers = (membersResponse.data ?? []) as TeamMemberRow[];
-  const recentActivity = (recentActivityResponse.data ?? []) as RecentActivityRow[];
-
-  const usersById = new Map<string, IndividualLeaderboardRow>();
-  for (const profile of profiles) {
-    usersById.set(profile.id, {
-      userId: profile.id,
-      displayName: publicDisplayName(profile.display_name, profile.username),
-      avatarUrl: profile.avatar_url,
-      totalVolume: 0,
-      bestLift: 0,
-    });
-  }
-
-  for (const workout of workouts) {
-    const existing = usersById.get(workout.user_id) ?? {
-      userId: workout.user_id,
-      displayName: "Unknown User",
-      avatarUrl: null,
-      totalVolume: 0,
-      bestLift: 0,
-    };
-    const workoutWeight = Number(workout.weight);
-    existing.totalVolume += workoutWeight * workout.reps * workout.sets;
-    existing.bestLift = Math.max(existing.bestLift, workoutWeight);
-    usersById.set(workout.user_id, existing);
-  }
-
-  const globalLeaderboard = Array.from(usersById.values()).sort((a, b) => b.totalVolume - a.totalVolume);
-
-  const usersByTeam = new Map<string, Set<string>>();
-  for (const membership of teamMembers) {
-    const existing = usersByTeam.get(membership.team_id) ?? new Set<string>();
-    existing.add(membership.user_id);
-    usersByTeam.set(membership.team_id, existing);
-  }
-
-  const workoutsByUser = new Map<string, WorkoutRow[]>();
-  for (const workout of workouts) {
-    const existing = workoutsByUser.get(workout.user_id) ?? [];
-    existing.push(workout);
-    workoutsByUser.set(workout.user_id, existing);
-  }
-
-  const teamLeaderboard: TeamLeaderboardRow[] = teams
-    .filter((team) => (usersByTeam.get(team.id)?.size ?? 0) > 0)
-    .map((team) => {
-      let totalVolume = 0;
-      let bestLift = 0;
-
-      for (const userId of Array.from(usersByTeam.get(team.id) ?? [])) {
-        const userWorkouts = workoutsByUser.get(userId) ?? [];
-        for (const workout of userWorkouts) {
-          const workoutWeight = Number(workout.weight);
-          totalVolume += workoutWeight * workout.reps * workout.sets;
-          bestLift = Math.max(bestLift, workoutWeight);
-        }
-      }
-
-      return {
-        teamId: team.id,
-        teamName: team.name,
-        totalVolume,
-        bestLift,
-      };
-    })
-    .sort((a, b) => b.totalVolume - a.totalVolume);
-
+export default function Home() {
   return (
-    <div className="min-h-screen bg-slate-950 px-4 py-10 text-slate-100">
-      <main className="mx-auto flex w-full max-w-4xl flex-col gap-8">
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8">
-          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">LiftBoard</h1>
-          <p className="mt-2 text-sm text-slate-300 sm:text-base">
-            Track your latest lifts and see how you stack up on the leaderboard.
+    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+      <div className="mx-auto flex w-full max-w-6xl justify-end px-6 pt-6">
+        <a
+          href="/dashboard"
+          className="rounded-lg border border-cyan-400/40 bg-zinc-900/80 px-3 py-1.5 text-sm font-semibold text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200"
+        >
+          Open Leaderboard
+        </a>
+      </div>
+
+      <section className="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-6 py-16">
+        <div className="mb-10 inline-flex w-fit rounded-full border border-cyan-400/30 px-4 py-2 text-sm text-cyan-300">
+          Systems • Support • Infrastructure
+        </div>
+
+        <h1 className="max-w-4xl text-5xl font-bold tracking-tight sm:text-7xl">
+          Forgeonix
+        </h1>
+
+        <p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-300">
+          Practical IT support, systems troubleshooting, automation, and
+          infrastructure-minded solutions built for reliability.
+        </p>
+
+        <div className="mt-10 flex flex-wrap gap-4">
+          <a
+            href="mailto:ethan@forgeonix.dev"
+            className="rounded-2xl border border-zinc-700 px-6 py-3 font-semibold text-zinc-100 hover:border-cyan-400"
+          >
+            Contact Me
+          </a>
+
+          <a
+            href="#projects"
+            className="rounded-2xl border border-zinc-700 px-6 py-3 font-semibold text-zinc-100 hover:border-cyan-400"
+          >
+            View Projects
+          </a>
+        </div>
+      </section>
+
+      <section className="border-t border-zinc-800 px-6 py-20">
+        <div className="mx-auto grid max-w-6xl gap-6 md:grid-cols-2 xl:grid-cols-4">
+          <Card
+            title="IT Support"
+            text="Hands-on troubleshooting for Windows systems, printers, software issues, performance problems, and user support."
+          />
+          <Card
+            title="Systems & Homelab"
+            text="Homelab, Docker, Proxmox, monitoring, backups, remote access, and practical infrastructure projects."
+          />
+          <Card
+            title="Automation"
+            text="Small tools, scripts, dashboards, and workflow improvements that save time and reduce repeated work."
+          />
+          <Card
+            title="Web & App Projects"
+            text="Modern web and app builds with pragmatic architecture, reliable deployment, and maintainable code."
+          />
+        </div>
+      </section>
+
+      <section id="projects" className="border-t border-zinc-800 px-6 py-20">
+        <div className="mx-auto max-w-6xl">
+          <h2 className="text-3xl font-bold">Projects</h2>
+          <p className="mt-3 max-w-2xl text-zinc-400">
+            Real builds, practical learning, and systems-focused experiments.
           </p>
-          <div className="mt-5 flex flex-wrap gap-3">
-            <Link
-              href="/signup"
-              className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400"
-            >
-              Sign up
-            </Link>
-            <Link
-              href="/login"
-              className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-800"
-            >
-              Log in
-            </Link>
-            <Link
-              href="/dashboard"
-              className="rounded-lg border border-slate-600 px-4 py-2 text-sm font-semibold text-slate-100 transition hover:bg-slate-800"
-            >
-              Dashboard
-            </Link>
-          </div>
-        </section>
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-100">Workout Submission</h2>
-          <p className="mt-3 text-sm text-slate-300">
-            Workout logging is available from your dashboard after login.
+          <div className="mt-8 grid gap-6 md:grid-cols-2">
+            <Project
+              title="Workout Leaderboard App"
+              text="A full-stack fitness leaderboard with authentication, user profiles, workout logging, team features, and live deployment."
+            />
+            <Project
+              title="Home Infrastructure Lab"
+              text="A self-hosted environment using Proxmox, Docker, monitoring tools, Home Assistant, and remote access services."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-zinc-800 px-6 py-20">
+        <div className="mx-auto max-w-6xl rounded-3xl border border-cyan-400/20 bg-zinc-900 p-8">
+          <h2 className="text-3xl font-bold">Let’s build something solid.</h2>
+          <p className="mt-4 max-w-2xl text-zinc-300">
+            Whether it’s troubleshooting, systems support, automation, or a
+            practical tech project, Forgeonix is built around dependable
+            solutions.
           </p>
-          <div className="mt-4">
-            <Link
-              href="/login"
-              className="rounded-lg bg-emerald-500 px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-emerald-400"
-            >
-              Log in to Submit Workouts
-            </Link>
-          </div>
-        </section>
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-100">Global Individual Leaderboard</h2>
-          <div className="mt-4 overflow-x-auto">
-            <table className="min-w-full border-collapse text-left text-sm">
-              <thead>
-                <tr className="border-b border-slate-700 text-slate-200">
-                  <th className="px-3 py-2 font-semibold">Rank</th>
-                  <th className="px-3 py-2 font-semibold">Athlete</th>
-                  <th className="px-3 py-2 font-semibold">Total Volume</th>
-                  <th className="px-3 py-2 font-semibold">Best Lift</th>
-                </tr>
-              </thead>
-              <tbody>
-                {globalLeaderboard.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="px-3 py-4 text-slate-300">
-                      No workout entries yet.
-                    </td>
-                  </tr>
-                ) : (
-                  globalLeaderboard.map((entry, index) => (
-                    <tr key={entry.userId} className="border-b border-slate-800">
-                      <td className="px-3 py-2 font-semibold">{index + 1}</td>
-                      <td className="px-3 py-2">
-                        <div className="flex items-center gap-2">
-                          <Avatar name={entry.displayName} avatarUrl={entry.avatarUrl} size="sm" />
-                          <span>{entry.displayName}</span>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2">{entry.totalVolume.toLocaleString()}</td>
-                      <td className="px-3 py-2">{entry.bestLift.toLocaleString()}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </section>
+          <a
+            href="mailto:ethan@forgeonix.dev"
+            className="mt-8 inline-block rounded-2xl bg-cyan-400 px-6 py-3 font-semibold text-zinc-950 hover:bg-cyan-300"
+          >
+            ethan@forgeonix.dev
+          </a>
+        </div>
+      </section>
+    </main>
+  );
+}
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-100">Team Leaderboard</h2>
-          <div className="mt-4 overflow-x-auto">
-            <table className="min-w-full border-collapse text-left text-sm">
-              <thead>
-                <tr className="border-b border-slate-700 text-slate-200">
-                  <th className="px-3 py-2 font-semibold">Rank</th>
-                  <th className="px-3 py-2 font-semibold">Team</th>
-                  <th className="px-3 py-2 font-semibold">Total Volume</th>
-                  <th className="px-3 py-2 font-semibold">Best Lift</th>
-                </tr>
-              </thead>
-              <tbody>
-                {teamLeaderboard.length === 0 ? (
-                  <tr>
-                    <td colSpan={4} className="px-3 py-4 text-slate-300">
-                      No teams with members yet.
-                    </td>
-                  </tr>
-                ) : (
-                  teamLeaderboard.map((entry, index) => (
-                    <tr key={entry.teamId} className="border-b border-slate-800">
-                      <td className="px-3 py-2 font-semibold">{index + 1}</td>
-                      <td className="px-3 py-2">
-                        <div className="flex items-center gap-2">
-                          <Avatar name={entry.teamName} avatarUrl={null} size="sm" />
-                          <span>{entry.teamName}</span>
-                        </div>
-                      </td>
-                      <td className="px-3 py-2">{entry.totalVolume.toLocaleString()}</td>
-                      <td className="px-3 py-2">{entry.bestLift.toLocaleString()}</td>
-                    </tr>
-                  ))
-                )}
-              </tbody>
-            </table>
-          </div>
-        </section>
+function Card({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+      <h3 className="text-xl font-semibold">{title}</h3>
+      <p className="mt-3 text-zinc-400">{text}</p>
+    </div>
+  );
+}
 
-        <section className="rounded-2xl border border-slate-800 bg-slate-900 p-6 shadow-xl sm:p-8">
-          <h2 className="text-xl font-semibold text-slate-100">Recent Activity</h2>
-          {recentActivity.length === 0 ? (
-            <p className="mt-3 text-sm text-slate-300">No recent workouts yet.</p>
-          ) : (
-            <div className="mt-4 overflow-x-auto">
-              <table className="min-w-full border-collapse text-left text-sm">
-                <thead>
-                  <tr className="border-b border-slate-700 text-slate-200">
-                    <th className="px-3 py-2 font-semibold">Athlete</th>
-                    <th className="px-3 py-2 font-semibold">Workout</th>
-                    <th className="px-3 py-2 font-semibold">Timestamp</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {recentActivity.map((entry) => {
-                    const profile = Array.isArray(entry.profiles) ? entry.profiles[0] : entry.profiles;
-                    const athleteName = publicDisplayName(
-                      profile?.display_name ?? null,
-                      profile?.username ?? null,
-                    );
-                    const volume = Number(entry.weight) * entry.reps * entry.sets;
-                    return (
-                      <tr key={entry.id} className="border-b border-slate-800">
-                        <td className="px-3 py-2">
-                          <div className="flex items-center gap-2">
-                            <Avatar name={athleteName} avatarUrl={profile?.avatar_url ?? null} size="sm" />
-                            <span>{athleteName}</span>
-                          </div>
-                        </td>
-                        <td className="px-3 py-2">
-                          <div className="text-slate-100">
-                            {entry.exercise_name} - {Number(entry.weight).toLocaleString()} x {entry.reps} x{" "}
-                            {entry.sets}
-                          </div>
-                          <div className="text-xs text-slate-400">Volume: {volume.toLocaleString()}</div>
-                        </td>
-                        <td className="px-3 py-2">
-                          <div className="text-slate-100">{formatRelativeTime(entry.created_at)}</div>
-                          <div className="text-xs text-slate-400">{new Date(entry.created_at).toLocaleString()}</div>
-                        </td>
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-      </main>
+function Project({ title, text }: { title: string; text: string }) {
+  return (
+    <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+      <h3 className="text-2xl font-semibold">{title}</h3>
+      <p className="mt-3 text-zinc-400">{text}</p>
     </div>
   );
 }

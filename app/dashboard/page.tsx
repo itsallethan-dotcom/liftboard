@@ -2008,8 +2008,11 @@ export default function DashboardPage() {
         </section>
 
         <div className="mt-6">
-          <Link href="/" className="text-sm font-medium text-emerald-400 underline">
-            Back to home
+          <Link
+            href="/"
+            className="inline-flex rounded-lg border border-cyan-400/40 bg-slate-900 px-3 py-1.5 text-sm font-semibold text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200"
+          >
+            Back to Forgeonix
           </Link>
         </div>
           </>
