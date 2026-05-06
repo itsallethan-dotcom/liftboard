@@ -1,8 +1,12 @@
 import { ForgeonixHeroMark, ForgeonixNavMark } from "@/components/forgeonix-mark";
+import { LandingBackgroundLayer } from "@/components/landing-background-layer";
 
 export default function Home() {
   return (
-    <main className="min-h-screen bg-zinc-950 text-zinc-100">
+    <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
+      <LandingBackgroundLayer />
+
+      <div className="relative z-10">
       <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-md">
         <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-5">
           <a
@@ -18,6 +22,12 @@ export default function Home() {
             </a>
             <a className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300" href="#projects">
               Projects
+            </a>
+            <a className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300" href="/troubleshooting">
+              Troubleshooting
+            </a>
+            <a className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300" href="/resume">
+              Resume
             </a>
             <a
               href="/dashboard"
@@ -55,8 +65,8 @@ export default function Home() {
             </h1>
 
             <p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-300">
-              I build, fix, and maintain reliable systems — from everyday tech
-              issues to full homelab infrastructure and automation.
+              Systems-focused IT professional specializing in troubleshooting,
+              infrastructure, and production-ready deployments.
             </p>
 
             <p className="mt-8 text-lg font-semibold text-zinc-200">
@@ -82,6 +92,34 @@ export default function Home() {
               className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
             >
               Open Leaderboard
+            </a>
+
+            <a
+              href="#projects"
+              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+            >
+              View Projects
+            </a>
+
+            <a
+              href="/infrastructure"
+              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+            >
+              View Infrastructure
+            </a>
+
+            <a
+              href="/troubleshooting"
+              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+            >
+              View Troubleshooting
+            </a>
+
+            <a
+              href="/resume"
+              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+            >
+              View Resume
             </a>
           </div>
         </div>
@@ -181,6 +219,7 @@ export default function Home() {
           </a>
         </div>
       </footer>
+      </div>
     </main>
   );
 }

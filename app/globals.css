@@ -56,6 +56,20 @@ body {
   }
 }
 
+@keyframes slow-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-slow-spin {
+  animation: slow-spin 70s linear infinite;
+  transform-origin: center;
+}
+
 @keyframes fn-cine-enter-logo {
   from {
     opacity: 0;
@@ -96,6 +110,11 @@ body {
   overflow: clip;
   background: #020203;
   color: #f4f4f5;
+}
+
+/* Inner portfolio routes only — tighter hero height (homepage keeps default .fn-cine-hero) */
+.fn-cine-hero--compact {
+  min-height: 60dvh;
 }
 
 .fn-cine-hero__bg {
@@ -408,5 +427,9 @@ body {
   .fn-hero-mark__shine {
     opacity: 0.35;
     background-position: 50% 50%;
+  }
+
+  .animate-slow-spin {
+    animation: none !important;
   }
 }
