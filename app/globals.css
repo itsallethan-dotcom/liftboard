@@ -24,3 +24,389 @@ body {
   color: var(--foreground);
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
+
+/* ——— Cyber-tech hero canvas (behind content; logo floats above in markup) ——— */
+@keyframes fn-cine-bloom-drift {
+  0%,
+  100% {
+    transform: translate(-5%, -3%) scale(1);
+    opacity: 0.52;
+  }
+  50% {
+    transform: translate(6%, 4%) scale(1.05);
+    opacity: 0.68;
+  }
+}
+
+@keyframes fn-cine-dots-shift {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 28px 28px;
+  }
+}
+
+@keyframes fn-cine-light-sweep {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+@keyframes fn-cine-enter-logo {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes fn-cine-enter-copy {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fn-cine-enter-cta {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fn-cine-hero {
+  position: relative;
+  isolation: isolate;
+  min-height: 100dvh;
+  overflow: clip;
+  background: #020203;
+  color: #f4f4f5;
+}
+
+.fn-cine-hero__bg {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.fn-cine-hero__bg-base {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 100% 72% at 50% -12%, rgba(8, 51, 68, 0.42), transparent 50%),
+    linear-gradient(180deg, #06060a 0%, #030304 42%, #010102 100%);
+}
+
+.fn-cine-hero__bg-bloom {
+  position: absolute;
+  inset: -32% -18% -22% -18%;
+  background:
+    radial-gradient(ellipse 46% 40% at 50% 34%, rgba(34, 211, 238, 0.14), transparent 68%),
+    radial-gradient(ellipse 36% 34% at 64% 56%, rgba(6, 182, 212, 0.08), transparent 64%);
+  filter: blur(48px);
+  animation: fn-cine-bloom-drift 24s ease-in-out infinite;
+  opacity: 0.88;
+}
+
+.fn-cine-hero__grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.042) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.042) 1px, transparent 1px);
+  background-size: 52px 52px;
+  mask-image: radial-gradient(ellipse 88% 68% at 50% 30%, black 10%, transparent 74%);
+  opacity: 0.88;
+}
+
+.fn-cine-hero__dots {
+  position: absolute;
+  inset: 0;
+  opacity: 0.38;
+  background-image: radial-gradient(rgba(34, 211, 238, 0.1) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: radial-gradient(ellipse 92% 72% at 50% 32%, black 14%, transparent 78%);
+  animation: fn-cine-dots-shift 75s linear infinite;
+}
+
+.fn-cine-hero__scan {
+  position: absolute;
+  inset: 0;
+  opacity: 0.085;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 3px,
+    rgba(255, 255, 255, 0.02) 3px,
+    rgba(255, 255, 255, 0.02) 4px
+  );
+  mix-blend-mode: overlay;
+}
+
+.fn-cine-hero__light {
+  position: absolute;
+  left: 50%;
+  top: 28%;
+  width: 140%;
+  height: 70%;
+  transform: translate(-50%, -50%);
+  background: conic-gradient(
+    from 210deg at 50% 50%,
+    transparent 0deg,
+    rgba(34, 211, 238, 0.045) 70deg,
+    transparent 130deg,
+    rgba(6, 182, 212, 0.035) 220deg,
+    transparent 300deg
+  );
+  opacity: 0.5;
+  animation: fn-cine-light-sweep 52s linear infinite;
+  mask-image: radial-gradient(ellipse 58% 48% at 50% 50%, black 0%, transparent 70%);
+  -webkit-mask-image: radial-gradient(ellipse 58% 48% at 50% 50%, black 0%, transparent 70%);
+}
+
+.fn-cine-hero__vignette {
+  position: absolute;
+  inset: 0;
+  box-shadow:
+    inset 0 0 90px rgba(0, 0, 0, 0.62),
+    inset 0 -72px 100px rgba(0, 0, 0, 0.48);
+}
+
+.fn-cine-hero__stagger--logo {
+  opacity: 0;
+  animation: fn-cine-enter-logo 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.fn-cine-hero__stagger--text {
+  opacity: 0;
+  animation: fn-cine-enter-copy 1s cubic-bezier(0.16, 1, 0.3, 1) 0.42s forwards;
+}
+
+.fn-cine-hero__stagger--cta {
+  opacity: 0;
+  animation: fn-cine-enter-cta 0.92s cubic-bezier(0.16, 1, 0.3, 1) 0.78s forwards;
+}
+
+.fn-cine-title {
+  background: linear-gradient(115deg, #fafafa 0%, #e4e4e7 18%, #a5f3fc 45%, #22d3ee 58%, #67e8f9 75%, #f4f4f5 100%);
+  background-size: 150% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.fn-cine-btn {
+  transition:
+    box-shadow 0.32s ease,
+    border-color 0.32s ease,
+    background-color 0.32s ease;
+}
+
+.fn-cine-btn--primary {
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.22),
+    0 4px 20px rgba(34, 211, 238, 0.1);
+}
+
+.fn-cine-btn--primary:hover {
+  box-shadow:
+    0 0 0 1px rgba(103, 232, 249, 0.4),
+    0 0 22px rgba(34, 211, 238, 0.28),
+    0 0 48px rgba(34, 211, 238, 0.1);
+}
+
+.fn-cine-btn--ghost:hover {
+  border-color: rgba(34, 211, 238, 0.4);
+  box-shadow:
+    0 0 0 1px rgba(34, 211, 238, 0.2),
+    0 0 18px rgba(34, 211, 238, 0.12);
+}
+
+/* ——— Forgeonix transparent PNG hero mark (no frame, no plate behind art) ——— */
+@keyframes fn-hero-mark-glow-pulse {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.05);
+  }
+}
+
+@keyframes fn-hero-mark-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes fn-hero-mark-shine {
+  0%,
+  18% {
+    background-position: 125% 50%;
+  }
+  52%,
+  100% {
+    background-position: -35% 50%;
+  }
+}
+
+.fn-hero-mark {
+  position: relative;
+  display: block;
+  width: fit-content;
+  max-width: min(92vw, 480px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.fn-hero-mark__glow {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 0;
+  width: min(130%, 640px);
+  height: min(88%, 360px);
+  transform: translate(-50%, -50%);
+  background: radial-gradient(
+    ellipse closest-side,
+    rgba(34, 211, 238, 0.22) 0%,
+    rgba(34, 211, 238, 0.07) 52%,
+    transparent 74%
+  );
+  pointer-events: none;
+  filter: blur(1px);
+  animation: fn-hero-mark-glow-pulse 5.5s ease-in-out infinite;
+}
+
+.fn-hero-mark__float {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: fit-content;
+  max-width: inherit;
+  margin: 0 auto;
+  animation: fn-hero-mark-float 8s ease-in-out infinite;
+}
+
+/* Tight box around raster only — sheen is masked to PNG alpha (same URL as hero Image). */
+.fn-hero-mark__mask-wrap {
+  position: relative;
+  display: inline-block;
+  max-width: inherit;
+  line-height: 0;
+  vertical-align: top;
+  isolation: isolate;
+}
+
+.fn-hero-mark__img {
+  position: relative;
+  z-index: 1;
+  display: block;
+  height: auto;
+  width: auto;
+  max-width: min(92vw, 480px);
+  max-height: min(40vh, 360px);
+  object-fit: contain;
+  filter: drop-shadow(0 0 22px rgba(34, 211, 238, 0.1))
+    drop-shadow(0 0 52px rgba(34, 211, 238, 0.05));
+}
+
+/* Sheen clipped to opaque logo pixels only (no sweep across transparent bounds). */
+.fn-hero-mark__shine {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(
+    102deg,
+    transparent 0%,
+    transparent 38%,
+    rgba(255, 255, 255, 0.06) 46%,
+    rgba(255, 255, 255, 0.14) 50%,
+    rgba(255, 255, 255, 0.06) 54%,
+    transparent 62%,
+    transparent 100%
+  );
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  mix-blend-mode: soft-light;
+  animation: fn-hero-mark-shine 8.5s ease-in-out infinite;
+  -webkit-mask-image: url("/forgeonix-logo-transparent.png");
+  mask-image: url("/forgeonix-logo-transparent.png");
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
+  mask-mode: alpha;
+}
+
+.fn-nav-mark__img {
+  display: block;
+  width: auto;
+  height: 2rem;
+  max-height: 2.25rem;
+  object-fit: contain;
+  filter: drop-shadow(0 0 10px rgba(34, 211, 238, 0.14));
+}
+
+@media (min-width: 640px) {
+  .fn-nav-mark__img {
+    height: 2.25rem;
+    max-height: 2.25rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fn-cine-hero__bg-bloom,
+  .fn-cine-hero__dots,
+  .fn-cine-hero__light {
+    animation: none !important;
+  }
+
+  .fn-cine-hero__stagger--logo,
+  .fn-cine-hero__stagger--text,
+  .fn-cine-hero__stagger--cta {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  .fn-hero-mark__glow,
+  .fn-hero-mark__float,
+  .fn-hero-mark__shine {
+    animation: none !important;
+  }
+
+  .fn-hero-mark__float {
+    transform: none !important;
+  }
+
+  .fn-hero-mark__shine {
+    opacity: 0.35;
+    background-position: 50% 50%;
+  }
+}

@@ -1,0 +1,40 @@
+# Forgeonix Branding Refinement
+
+## Goal
+Refine an existing logo and animation style into a professional tech brand identity.
+
+## Assets
+- logo.png = base logo
+- frame1.png, frame2.png, frame3.png, frame4.png, frame5.png, frame6.png = animation references
+
+## Keep
+- Geometric "F" shape
+- Angular, sharp design
+- Assembly-style animation concept
+- Cinematic feel
+
+## Change
+- Remove all metallic textures and 3D shading
+- Remove purple neon color
+- Replace with:
+  - Primary: black / charcoal
+  - Accent: amber/orange OR electric blue
+- Reduce glow intensity significantly
+- Remove gaming/esports aesthetic
+
+## Style Direction
+- Minimalist
+- Professional
+- Systems engineering / infrastructure feel
+- Clean, modern tech brand
+
+## Animation Direction
+- Logo assembles smoothly (not flashy)
+- Subtle energy pulse (like system booting)
+- No excessive particles
+- Final frame must be clean and usable as a static logo
+
+## Deliverables
+- Refined flat logo (SVG preferred)
+- Dark and light versions
+- Optional: simple web animation (CSS or Three.js)

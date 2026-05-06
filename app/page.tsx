@@ -1,10 +1,16 @@
+import { ForgeonixHeroMark, ForgeonixNavMark } from "@/components/forgeonix-mark";
+
 export default function Home() {
   return (
     <main className="min-h-screen bg-zinc-950 text-zinc-100">
-      <header className="border-b border-zinc-800/80">
-        <nav className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 py-5">
-          <a href="/" className="text-base font-semibold tracking-wide text-zinc-100">
-            Forgeonix
+      <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-md">
+        <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-5">
+          <a
+            href="/"
+            className="flex items-center gap-2.5 text-base font-semibold tracking-wide text-zinc-100"
+          >
+            <ForgeonixNavMark />
+            <span>Forgeonix</span>
           </a>
           <div className="flex items-center gap-3 text-sm">
             <a className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300" href="/">
@@ -23,43 +29,61 @@ export default function Home() {
         </nav>
       </header>
 
-      <section className="mx-auto flex min-h-[70vh] max-w-6xl flex-col justify-center px-6 py-20">
-        <div className="mb-8 inline-flex w-fit rounded-full border border-cyan-400/30 px-4 py-2 text-sm text-cyan-300">
-          IT Support • Systems • Automation
+      <section className="fn-cine-hero">
+        <div className="fn-cine-hero__bg" aria-hidden>
+          <div className="fn-cine-hero__bg-base" />
+          <div className="fn-cine-hero__bg-bloom" />
+          <div className="fn-cine-hero__grid" />
+          <div className="fn-cine-hero__dots" />
+          <div className="fn-cine-hero__scan" />
+          <div className="fn-cine-hero__light" />
+          <div className="fn-cine-hero__vignette" />
         </div>
 
-        <h1 className="max-w-4xl text-5xl font-bold tracking-tight sm:text-7xl">
-          Forgeonix
-        </h1>
+        <div className="relative z-[1] mx-auto flex min-h-[100dvh] max-w-6xl flex-col justify-center px-6 py-16 text-left sm:py-20">
+          <div className="fn-cine-hero__stagger fn-cine-hero__stagger--logo mb-10 flex w-full justify-center sm:mb-12">
+            <ForgeonixHeroMark />
+          </div>
 
-        <p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-300">
-          I build, fix, and maintain reliable systems — from everyday tech
-          issues to full homelab infrastructure and automation.
-        </p>
+          <div className="fn-cine-hero__stagger fn-cine-hero__stagger--text">
+            <div className="mb-8 inline-flex w-fit rounded-full border border-cyan-400/25 bg-black/20 px-4 py-2 text-sm text-cyan-300/95 backdrop-blur-sm">
+              IT Support • Systems • Automation
+            </div>
 
-        <p className="mt-8 text-lg font-semibold text-zinc-200">
-          Ethan Edwards
-        </p>
-        <p className="text-zinc-400">IT Support & Systems Builder</p>
-        <p className="mt-4 max-w-3xl text-sm text-cyan-300/90">
-          5+ years hands-on IT experience • Windows systems • troubleshooting
-          • user support
-        </p>
+            <h1 className="fn-cine-title max-w-4xl text-5xl font-bold leading-[1.05] tracking-tight sm:text-7xl">
+              Forgeonix
+            </h1>
 
-        <div className="mt-10 flex flex-wrap gap-4">
-          <a
-            href="mailto:ethan@forgeonix.dev"
-            className="rounded-2xl bg-cyan-400 px-6 py-3 font-semibold text-zinc-950 transition hover:bg-cyan-300"
-          >
-            Contact Me
-          </a>
+            <p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-300">
+              I build, fix, and maintain reliable systems — from everyday tech
+              issues to full homelab infrastructure and automation.
+            </p>
 
-          <a
-            href="/dashboard"
-            className="rounded-2xl border border-zinc-700 px-6 py-3 font-semibold text-zinc-100 hover:border-cyan-400"
-          >
-            Open Leaderboard
-          </a>
+            <p className="mt-8 text-lg font-semibold text-zinc-200">
+              Ethan Edwards
+            </p>
+            <p className="text-zinc-400">IT Support & Systems Builder</p>
+            <p className="mt-4 max-w-3xl text-sm text-cyan-300/85">
+              5+ years hands-on IT experience • Windows systems • troubleshooting
+              • user support
+            </p>
+          </div>
+
+          <div className="fn-cine-hero__stagger fn-cine-hero__stagger--cta mt-10 flex flex-wrap gap-4">
+            <a
+              href="mailto:ethan@forgeonix.dev"
+              className="fn-cine-btn fn-cine-btn--primary rounded-2xl bg-gradient-to-b from-cyan-300 to-cyan-500 px-6 py-3 font-semibold text-zinc-950"
+            >
+              Contact Me
+            </a>
+
+            <a
+              href="/dashboard"
+              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+            >
+              Open Leaderboard
+            </a>
+          </div>
         </div>
       </section>
 
