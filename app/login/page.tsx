@@ -82,6 +82,12 @@ export default function LoginPage() {
   return (
     <main className="flex min-h-screen items-center justify-center bg-gray-950 px-4 py-10">
       <section className="w-full max-w-md rounded-xl bg-gray-900 p-6 shadow sm:p-8">
+        <Link
+          href="/"
+          className="inline-flex rounded-lg border border-gray-600 bg-neutral-900 px-3 py-1.5 text-xs font-semibold text-gray-200 hover:border-cyan-400/40 hover:text-cyan-300"
+        >
+          Back to Forgeonix
+        </Link>
         <h1 className="text-2xl font-bold text-white">Log in</h1>
         <p className="mt-1 text-sm text-gray-300">Welcome back to LiftBoard.</p>
 

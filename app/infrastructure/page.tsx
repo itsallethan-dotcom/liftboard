@@ -106,7 +106,7 @@ export default function InfrastructurePage() {
                 Open Leaderboard
               </a>
               <a
-                href="mailto:admin@forgeonix.dev"
+                href="mailto:ethan@forgeonix.dev"
                 className="fn-cine-btn fn-cine-btn--primary rounded-2xl bg-gradient-to-b from-cyan-300 to-cyan-500 px-6 py-3 font-semibold text-zinc-950"
               >
                 Contact Me
@@ -328,8 +328,8 @@ export default function InfrastructurePage() {
         <footer className="border-t border-zinc-800 px-6 py-8">
           <div className="mx-auto flex max-w-6xl flex-col justify-between gap-2 text-sm text-zinc-400 sm:flex-row">
             <p>Forgeonix © 2026</p>
-            <a href="mailto:admin@forgeonix.dev" className="hover:text-cyan-300">
-              admin@forgeonix.dev
+            <a href="mailto:ethan@forgeonix.dev" className="hover:text-cyan-300">
+              ethan@forgeonix.dev
             </a>
           </div>
         </footer>

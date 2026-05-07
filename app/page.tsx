@@ -1,6 +1,9 @@
 import { ForgeonixHeroMark, ForgeonixNavMark } from "@/components/forgeonix-mark";
 import { LandingBackgroundLayer } from "@/components/landing-background-layer";
 
+const subtleHover =
+  "transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] hover:border-cyan-400/40";
+
 export default function Home() {
   return (
     <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
@@ -30,7 +33,7 @@ export default function Home() {
               Resume
             </a>
             <a
-              href="/dashboard"
+              href="/leaderboard"
               className="rounded-md border border-cyan-400/40 bg-zinc-900/80 px-3 py-1.5 font-semibold text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200"
             >
               Open Leaderboard
@@ -64,7 +67,7 @@ export default function Home() {
               Forgeonix
             </h1>
 
-            <p className="mt-6 max-w-2xl text-xl leading-8 text-zinc-300">
+            <p className="mt-6 max-w-3xl text-xl leading-8 text-zinc-300">
               Systems-focused IT professional specializing in troubleshooting,
               infrastructure, and production-ready deployments.
             </p>
@@ -82,44 +85,30 @@ export default function Home() {
           <div className="fn-cine-hero__stagger fn-cine-hero__stagger--cta mt-10 flex flex-wrap gap-4">
             <a
               href="mailto:ethan@forgeonix.dev"
-              className="fn-cine-btn fn-cine-btn--primary rounded-2xl bg-gradient-to-b from-cyan-300 to-cyan-500 px-6 py-3 font-semibold text-zinc-950"
+              className={`fn-cine-btn fn-cine-btn--primary rounded-2xl bg-gradient-to-b from-cyan-300 to-cyan-500 px-6 py-3 font-semibold text-zinc-950 ${subtleHover}`}
             >
               Contact Me
             </a>
 
             <a
-              href="/dashboard"
-              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+              href="/resume"
+              className={`fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm ${subtleHover}`}
             >
-              Open Leaderboard
-            </a>
-
-            <a
-              href="#projects"
-              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-            >
-              View Projects
+              View Resume
             </a>
 
             <a
               href="/infrastructure"
-              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+              className={`fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm ${subtleHover}`}
             >
               View Infrastructure
             </a>
 
             <a
               href="/troubleshooting"
-              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
+              className={`fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm ${subtleHover}`}
             >
               View Troubleshooting
-            </a>
-
-            <a
-              href="/resume"
-              className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-            >
-              View Resume
             </a>
           </div>
         </div>
@@ -177,16 +166,16 @@ export default function Home() {
         <div className="mx-auto max-w-6xl">
           <h2 className="text-3xl font-bold">Currently Building</h2>
           <div className="mt-6 grid gap-3 text-zinc-300 md:grid-cols-2">
-            <p className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+            <p className={`rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 ${subtleHover}`}>
               Expanding homelab infrastructure
             </p>
-            <p className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+            <p className={`rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 ${subtleHover}`}>
               Building automation workflows
             </p>
-            <p className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+            <p className={`rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 ${subtleHover}`}>
               Improving system monitoring and dashboards
             </p>
-            <p className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3">
+            <p className={`rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 ${subtleHover}`}>
               Developing Forgeonix as a portfolio and future IT services brand
             </p>
           </div>
@@ -226,7 +215,7 @@ export default function Home() {
 
 function Card({ title, text }: { title: string; text: string }) {
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className={`rounded-3xl border border-zinc-800 bg-zinc-900 p-6 ${subtleHover}`}>
       <h3 className="text-xl font-semibold">{title}</h3>
       <p className="mt-3 text-zinc-400">{text}</p>
     </div>
@@ -235,7 +224,7 @@ function Card({ title, text }: { title: string; text: string }) {
 
 function Project({ title, text }: { title: string; text: string }) {
   return (
-    <div className="rounded-3xl border border-zinc-800 bg-zinc-900 p-6">
+    <div className={`rounded-3xl border border-zinc-800 bg-zinc-900 p-6 ${subtleHover}`}>
       <h3 className="text-2xl font-semibold">{title}</h3>
       <p className="mt-3 text-zinc-400">{text}</p>
     </div>
