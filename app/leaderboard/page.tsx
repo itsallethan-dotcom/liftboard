@@ -1,15 +1,18 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LandingBackgroundLayer } from "@/components/landing-background-layer";
+import { NavBar } from "@/components/NavBar";
+import { SiteButton } from "@/components/SiteButton";
+import { SiteLayout } from "@/components/SiteLayout";
+import { SitePageHero } from "@/components/SitePageHero";
+import { SitePanel } from "@/components/SitePanel";
+import { SiteSection } from "@/components/SiteSection";
+import { SiteSectionLabel } from "@/components/SiteSectionLabel";
 
 export const metadata: Metadata = {
   title: "Workout Leaderboard | Forgeonix",
   description:
     "Live gym leaderboards that drive competition with member rankings, team challenges, and PR tracking.",
 };
-
-const subtleHover =
-  "transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] hover:border-cyan-400/40";
 
 const features = [
   {
@@ -47,177 +50,107 @@ const previewRows = [
 
 export default function LeaderboardLandingPage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
-      <LandingBackgroundLayer />
+    <SiteLayout>
+      <NavBar activeHref="/leaderboard" showCta={false} />
+      <SitePageHero
+        eyebrow="Workout Leaderboard"
+        title="Live Gym Leaderboards That Drive Competition"
+        description="Track workouts, rank members, and run challenges that keep people coming back."
+        actions={
+          <>
+            <SiteButton href="/dashboard" variant="primary">
+              Try Demo
+            </SiteButton>
+            <SiteButton href="/login">Log In</SiteButton>
+            <SiteButton href="/signup">Sign Up</SiteButton>
+          </>
+        }
+      />
 
-      <div className="relative z-10">
-        <header className="border-b border-zinc-800/80 bg-zinc-950/80 backdrop-blur-md">
-          <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-4">
+      <SiteSection>
+        <SiteSectionLabel>// FEATURES</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">What It Does</h2>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {features.map((feature) => (
+            <SitePanel key={feature.title} className="p-5">
+              <h3 className="text-lg font-semibold text-[#e8e8e8]">{feature.title}</h3>
+              <p className="mt-2 text-sm text-[#a0a0a0]">{feature.text}</p>
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
+
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SiteSectionLabel>// WORKFLOW</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">How It Works</h2>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2">
+          {steps.map((step, index) => (
+            <SitePanel key={step} className="p-4">
+              <p className="font-mono text-xs font-semibold tracking-wider text-[#a5f3fc]/90 uppercase">
+                Step {index + 1}
+              </p>
+              <p className="mt-2 text-[#e0e0e0]">{step}</p>
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
+
+      <SiteSection>
+        <SiteSectionLabel>// PREVIEW</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Preview the Leaderboard Experience</h2>
+        <SitePanel className="mt-6 p-4" hover={false}>
+          <div className="rounded-sm border border-white/[0.06] bg-[#141414]/80 p-3">
+            <div className="grid grid-cols-4 border-b border-white/[0.06] px-2 py-2 font-mono text-xs font-semibold tracking-wide text-[#a0a0a0] uppercase">
+              <span>Rank</span>
+              <span>Athlete</span>
+              <span>Total Volume</span>
+              <span>Best Lift</span>
+            </div>
+            {previewRows.map((row) => (
+              <div
+                key={row.rank}
+                className="grid grid-cols-4 border-b border-white/[0.04] px-2 py-2 text-sm text-[#e0e0e0] last:border-0"
+              >
+                <span>{row.rank}</span>
+                <span>{row.name}</span>
+                <span>{row.volume}</span>
+                <span>{row.bestLift}</span>
+              </div>
+            ))}
+          </div>
+        </SitePanel>
+      </SiteSection>
+
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SiteSectionLabel>// USE CASES</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Use Cases</h2>
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+          {useCases.map((item) => (
+            <SitePanel key={item} className="px-4 py-3 text-[#e0e0e0]">
+              {item}
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
+
+      <SiteSection>
+        <SitePanel className="p-8" hover={false}>
+          <SiteSectionLabel>// GET STARTED</SiteSectionLabel>
+          <h2 className="text-3xl font-bold text-white">Ready to start a challenge?</h2>
+          <div className="mt-6 flex flex-wrap gap-3">
+            <SiteButton href="/dashboard" variant="primary">
+              Try Demo
+            </SiteButton>
+            <SiteButton href="/signup">Create Account</SiteButton>
             <Link
               href="/"
-              className="rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-semibold text-zinc-100"
+              className="forgeonix-btn-ghost rounded-sm border border-white/20 px-5 py-2.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
             >
               Back to Forgeonix
             </Link>
-            <div className="flex flex-wrap items-center gap-2">
-              <Link
-                href="/dashboard"
-                className={`rounded-lg border border-cyan-400/40 bg-zinc-900 px-3 py-1.5 text-sm font-semibold text-cyan-300 ${subtleHover}`}
-              >
-                Try Demo
-              </Link>
-              <Link
-                href="/login"
-                className={`rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-semibold text-zinc-100 ${subtleHover}`}
-              >
-                Log In
-              </Link>
-              <Link
-                href="/signup"
-                className={`rounded-lg border border-zinc-700 bg-zinc-900 px-3 py-1.5 text-sm font-semibold text-zinc-100 ${subtleHover}`}
-              >
-                Sign Up
-              </Link>
-            </div>
-          </nav>
-        </header>
-
-        <section className="border-b border-zinc-800/80 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <p className="inline-flex rounded-full border border-cyan-400/30 bg-zinc-900/70 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-cyan-300">
-              Workout Leaderboard
-            </p>
-            <h1 className="mt-6 max-w-4xl text-4xl font-bold leading-tight sm:text-6xl">
-              Live Gym Leaderboards That Drive Competition
-            </h1>
-            <p className="mt-5 max-w-3xl text-lg text-zinc-300">
-              Track workouts, rank members, and run challenges that keep people coming back.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                href="/dashboard"
-                className={`rounded-xl border border-cyan-400/40 bg-cyan-400 px-5 py-2.5 text-sm font-semibold text-zinc-950 ${subtleHover}`}
-              >
-                Try Demo
-              </Link>
-              <Link
-                href="/login"
-                className={`rounded-xl border border-zinc-700 bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-zinc-100 ${subtleHover}`}
-              >
-                Log In
-              </Link>
-              <Link
-                href="/signup"
-                className={`rounded-xl border border-zinc-700 bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-zinc-100 ${subtleHover}`}
-              >
-                Sign Up
-              </Link>
-            </div>
           </div>
-        </section>
-
-        <section className="border-b border-zinc-800/80 px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">What It Does</h2>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {features.map((feature) => (
-                <article
-                  key={feature.title}
-                  className={`rounded-2xl border border-zinc-800 bg-zinc-900/80 p-5 ${subtleHover}`}
-                >
-                  <h3 className="text-lg font-semibold text-zinc-100">{feature.title}</h3>
-                  <p className="mt-2 text-sm text-zinc-400">{feature.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-zinc-800/80 px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">How It Works</h2>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {steps.map((step, index) => (
-                <div
-                  key={step}
-                  className={`rounded-2xl border border-zinc-800 bg-zinc-900/80 p-4 ${subtleHover}`}
-                >
-                  <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300/90">
-                    Step {index + 1}
-                  </p>
-                  <p className="mt-2 text-zinc-200">{step}</p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-zinc-800/80 px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <p className="text-xs font-semibold uppercase tracking-wider text-cyan-300/90">
-              Live Demo Preview
-            </p>
-            <h2 className="mt-2 text-3xl font-bold">Preview the Leaderboard Experience</h2>
-            <div className="mt-6 rounded-2xl border border-zinc-800 bg-zinc-900/85 p-4">
-              <div className="rounded-xl border border-zinc-800 bg-zinc-950/80 p-3">
-                <div className="grid grid-cols-4 border-b border-zinc-800 px-2 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-400">
-                  <span>Rank</span>
-                  <span>Athlete</span>
-                  <span>Total Volume</span>
-                  <span>Best Lift</span>
-                </div>
-                {previewRows.map((row) => (
-                  <div
-                    key={row.rank}
-                    className="grid grid-cols-4 border-b border-zinc-900 px-2 py-2 text-sm text-zinc-200 last:border-0"
-                  >
-                    <span>{row.rank}</span>
-                    <span>{row.name}</span>
-                    <span>{row.volume}</span>
-                    <span>{row.bestLift}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-b border-zinc-800/80 px-6 py-16">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Use Cases</h2>
-            <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-              {useCases.map((item) => (
-                <div
-                  key={item}
-                  className={`rounded-2xl border border-zinc-800 bg-zinc-900/80 px-4 py-3 text-zinc-200 ${subtleHover}`}
-                >
-                  {item}
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="px-6 py-16">
-          <div className="mx-auto max-w-6xl rounded-3xl border border-cyan-400/20 bg-zinc-900 p-8">
-            <h2 className="text-3xl font-bold">Ready to start a challenge?</h2>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                href="/dashboard"
-                className={`rounded-xl border border-cyan-400/40 bg-cyan-400 px-5 py-2.5 text-sm font-semibold text-zinc-950 ${subtleHover}`}
-              >
-                Try Demo
-              </Link>
-              <Link
-                href="/signup"
-                className={`rounded-xl border border-zinc-700 bg-zinc-900 px-5 py-2.5 text-sm font-semibold text-zinc-100 ${subtleHover}`}
-              >
-                Create Account
-              </Link>
-            </div>
-          </div>
-        </section>
-      </div>
-    </main>
+        </SitePanel>
+      </SiteSection>
+    </SiteLayout>
   );
 }

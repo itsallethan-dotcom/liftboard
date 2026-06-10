@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+@source "../components";
+@source "../app";
+@source "../lib";
+
 :root {
   --background: #0b1220;
   --foreground: #f8fafc;
@@ -431,5 +435,679 @@ body {
 
   .animate-slow-spin {
     animation: none !important;
+  }
+}
+
+/* ——— Forgeonix command center: accent tokens (cyan default) ——— */
+:root {
+  --forgeonix-accent: #67e8f9;
+  --forgeonix-accent-dark: #0e7490;
+  --forgeonix-accent-soft: #a5f3fc;
+  --forgeonix-accent-dim: rgba(103, 232, 249, 0.35);
+  --forgeonix-accent-glow: rgba(103, 232, 249, 0.15);
+  --forgeonix-accent-border: rgba(103, 232, 249, 0.25);
+  --forgeonix-accent-line: rgba(103, 232, 249, 0.4);
+  --forgeonix-accent-grid: rgba(103, 232, 249, 0.04);
+  --forgeonix-accent-radial-strong: rgba(103, 232, 249, 0.09);
+  --forgeonix-accent-radial-weak: rgba(103, 232, 249, 0.03);
+  --forgeonix-accent-hero: rgba(103, 232, 249, 0.14);
+  --forgeonix-accent-inner: rgba(103, 232, 249, 0.08);
+  --forgeonix-accent-hover-border: rgba(103, 232, 249, 0.45);
+  --forgeonix-accent-hover-glow: rgba(103, 232, 249, 0.12);
+  --forgeonix-accent-corner: rgba(103, 232, 249, 0.55);
+  --forgeonix-accent-corner-hover: rgba(165, 243, 252, 0.85);
+  --forgeonix-accent-soft-muted: rgba(165, 243, 252, 0.9);
+  --forgeonix-accent-heading: rgba(165, 243, 252, 0.85);
+  --forgeonix-accent-flow-start: rgba(103, 232, 249, 0.35);
+  --forgeonix-accent-flow-end: rgba(103, 232, 249, 0.05);
+  --forgeonix-accent-flow-chevron: rgba(103, 232, 249, 0.5);
+  --forgeonix-accent-label: #a0a0a0;
+  --forgeonix-cyan: var(--forgeonix-accent);
+  --forgeonix-cyan-dim: var(--forgeonix-accent-dim);
+  --forgeonix-cyan-glow: var(--forgeonix-accent-glow);
+}
+
+/* Infrastructure: mission-control red (page-scoped via SiteLayout) */
+.forgeonix-theme-ops {
+  --forgeonix-accent-label: rgba(239, 68, 68, 0.72);
+  --forgeonix-accent: #dc2626;
+  --forgeonix-accent-dark: #991b1b;
+  --forgeonix-accent-soft: #ef4444;
+  --forgeonix-accent-dim: rgba(220, 38, 38, 0.32);
+  --forgeonix-accent-glow: rgba(153, 27, 27, 0.14);
+  --forgeonix-accent-border: rgba(220, 38, 38, 0.28);
+  --forgeonix-accent-line: rgba(239, 68, 68, 0.42);
+  --forgeonix-accent-grid: rgba(220, 38, 38, 0.032);
+  --forgeonix-accent-radial-strong: rgba(153, 27, 27, 0.09);
+  --forgeonix-accent-radial-weak: rgba(220, 38, 38, 0.022);
+  --forgeonix-accent-hero: rgba(153, 27, 27, 0.11);
+  --forgeonix-accent-inner: rgba(220, 38, 38, 0.055);
+  --forgeonix-accent-hover-border: rgba(239, 68, 68, 0.42);
+  --forgeonix-accent-hover-glow: rgba(153, 27, 27, 0.14);
+  --forgeonix-accent-corner: rgba(220, 38, 38, 0.52);
+  --forgeonix-accent-corner-hover: rgba(239, 68, 68, 0.78);
+  --forgeonix-accent-soft-muted: rgba(239, 68, 68, 0.88);
+  --forgeonix-accent-heading: rgba(239, 68, 68, 0.82);
+  --forgeonix-accent-flow-start: rgba(220, 38, 38, 0.34);
+  --forgeonix-accent-flow-end: rgba(153, 27, 27, 0.06);
+  --forgeonix-accent-flow-chevron: rgba(220, 38, 38, 0.48);
+}
+
+/* Troubleshooting: amber diagnostics (page-scoped via SiteLayout) */
+.forgeonix-theme-diagnostics {
+  --forgeonix-accent: #f59e0b;
+  --forgeonix-accent-dark: #d97706;
+  --forgeonix-accent-soft: #fbbf24;
+  --forgeonix-accent-dim: rgba(245, 158, 11, 0.32);
+  --forgeonix-accent-glow: rgba(217, 119, 6, 0.14);
+  --forgeonix-accent-border: rgba(245, 158, 11, 0.28);
+  --forgeonix-accent-line: rgba(251, 191, 36, 0.42);
+  --forgeonix-accent-grid: rgba(245, 158, 11, 0.032);
+  --forgeonix-accent-radial-strong: rgba(217, 119, 6, 0.09);
+  --forgeonix-accent-radial-weak: rgba(245, 158, 11, 0.022);
+  --forgeonix-accent-hero: rgba(217, 119, 6, 0.11);
+  --forgeonix-accent-inner: rgba(245, 158, 11, 0.055);
+  --forgeonix-accent-hover-border: rgba(251, 191, 36, 0.42);
+  --forgeonix-accent-hover-glow: rgba(217, 119, 6, 0.14);
+  --forgeonix-accent-corner: rgba(245, 158, 11, 0.52);
+  --forgeonix-accent-corner-hover: rgba(251, 191, 36, 0.78);
+  --forgeonix-accent-soft-muted: rgba(251, 191, 36, 0.88);
+  --forgeonix-accent-heading: rgba(251, 191, 36, 0.82);
+  --forgeonix-accent-flow-start: rgba(245, 158, 11, 0.34);
+  --forgeonix-accent-flow-end: rgba(217, 119, 6, 0.06);
+  --forgeonix-accent-flow-chevron: rgba(245, 158, 11, 0.48);
+  --forgeonix-accent-label: rgba(251, 191, 36, 0.72);
+}
+
+/* Resume: executive silver/chrome (page-scoped via SiteLayout) */
+.forgeonix-theme-executive {
+  --forgeonix-accent: #d4d4d4;
+  --forgeonix-accent-dark: #6b7280;
+  --forgeonix-accent-soft: #f5f5f5;
+  --forgeonix-accent-dim: rgba(212, 212, 212, 0.18);
+  --forgeonix-accent-glow: rgba(156, 163, 175, 0.075);
+  --forgeonix-accent-border: rgba(212, 212, 212, 0.14);
+  --forgeonix-accent-line: rgba(245, 245, 245, 0.22);
+  --forgeonix-accent-grid: rgba(156, 163, 175, 0.02);
+  --forgeonix-accent-radial-strong: rgba(156, 163, 175, 0.045);
+  --forgeonix-accent-radial-weak: rgba(156, 163, 175, 0.015);
+  --forgeonix-accent-hero: rgba(212, 212, 212, 0.07);
+  --forgeonix-accent-inner: rgba(245, 245, 245, 0.04);
+  --forgeonix-accent-hover-border: rgba(245, 245, 245, 0.24);
+  --forgeonix-accent-hover-glow: rgba(156, 163, 175, 0.06);
+  --forgeonix-accent-corner: rgba(212, 212, 212, 0.35);
+  --forgeonix-accent-corner-hover: rgba(245, 245, 245, 0.55);
+  --forgeonix-accent-soft-muted: rgba(212, 212, 212, 0.85);
+  --forgeonix-accent-heading: rgba(156, 163, 175, 0.9);
+  --forgeonix-accent-flow-start: rgba(212, 212, 212, 0.2);
+  --forgeonix-accent-flow-end: rgba(107, 114, 128, 0.04);
+  --forgeonix-accent-flow-chevron: rgba(156, 163, 175, 0.45);
+  --forgeonix-accent-label: rgba(156, 163, 175, 0.75);
+}
+
+@keyframes forgeonix-logo-glow-pulse {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 12px rgba(192, 192, 192, 0.15))
+      drop-shadow(0 0 20px var(--forgeonix-accent-glow));
+  }
+  50% {
+    filter: drop-shadow(0 0 28px rgba(232, 232, 232, 0.28))
+      drop-shadow(0 0 36px var(--forgeonix-accent-dim));
+  }
+}
+
+@keyframes forgeonix-status-pulse {
+  0%,
+  100% {
+    opacity: 1;
+    box-shadow: 0 0 6px var(--forgeonix-accent-dim);
+  }
+  50% {
+    opacity: 0.65;
+    box-shadow: 0 0 10px var(--forgeonix-accent-hover-border);
+  }
+}
+
+@keyframes forgeonix-scanline-drift {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
+@keyframes forgeonix-radial-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 0.75;
+  }
+}
+
+/* Site-wide command center atmosphere */
+.forgeonix-command-bg {
+  overflow: hidden;
+}
+
+.forgeonix-hud-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(var(--forgeonix-accent-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--forgeonix-accent-grid) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 80% 70% at 50% 40%, black 20%, transparent 75%);
+}
+
+.forgeonix-radial-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse 60% 45% at 50% 35%,
+    var(--forgeonix-accent-radial-strong) 0%,
+    var(--forgeonix-accent-radial-weak) 35%,
+    transparent 70%
+  );
+  animation: forgeonix-radial-breathe 8s ease-in-out infinite;
+}
+
+.forgeonix-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.12) 2px,
+    rgba(0, 0, 0, 0.12) 4px
+  );
+  opacity: 0.35;
+  animation: forgeonix-scanline-drift 12s linear infinite;
+}
+
+.forgeonix-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(0, 0, 0, 0.55) 100%
+  );
+}
+
+.forgeonix-hero-glow {
+  background: radial-gradient(
+    ellipse 55% 50% at 50% 45%,
+    var(--forgeonix-accent-hero) 0%,
+    rgba(192, 192, 192, 0.04) 40%,
+    transparent 70%
+  );
+}
+
+.forgeonix-hero-eyebrow {
+  margin-bottom: 1rem;
+  display: inline-flex;
+  max-width: 100%;
+  flex-wrap: wrap;
+  gap: 0 0.5rem;
+  border-radius: 0.125rem;
+  border: 1px solid var(--forgeonix-accent-border);
+  background: rgba(20, 20, 20, 0.6);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--forgeonix-accent-soft-muted);
+  text-transform: uppercase;
+  backdrop-filter: blur(4px);
+}
+
+@media (min-width: 640px) {
+  .forgeonix-hero-eyebrow {
+    font-size: 0.875rem;
+  }
+}
+
+.forgeonix-panel-accent-line {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--forgeonix-accent-line),
+    transparent
+  );
+}
+
+.forgeonix-section-label {
+  margin-bottom: 0.75rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--forgeonix-accent-label);
+  text-transform: uppercase;
+}
+
+.forgeonix-field-label {
+  margin-top: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--forgeonix-accent-heading);
+  text-transform: uppercase;
+}
+
+.forgeonix-field-label-dot {
+  display: inline-block;
+  height: 0.25rem;
+  width: 0.25rem;
+  border-radius: 50%;
+  background: var(--forgeonix-accent-dim);
+}
+
+.forgeonix-accent-dot {
+  margin-top: 0.375rem;
+  display: inline-block;
+  height: 0.375rem;
+  width: 0.375rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--forgeonix-accent) 50%, transparent);
+}
+
+.forgeonix-list-marker {
+  margin-top: 0.25rem;
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--forgeonix-accent) 70%, transparent);
+}
+
+.forgeonix-panel-arrow {
+  flex-shrink: 0;
+  color: color-mix(in srgb, var(--forgeonix-accent) 60%, transparent);
+  transition: color 0.45s ease;
+}
+
+.group:hover .forgeonix-panel-arrow {
+  color: var(--forgeonix-accent-soft);
+}
+
+.forgeonix-accent-text {
+  color: var(--forgeonix-accent-soft-muted);
+}
+
+.forgeonix-accent-heading {
+  color: var(--forgeonix-accent-heading);
+}
+
+.forgeonix-flow-line {
+  height: 1.5rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    var(--forgeonix-accent-flow-start),
+    var(--forgeonix-accent-flow-end)
+  );
+}
+
+.forgeonix-flow-chevron {
+  font-size: 0.875rem;
+  color: var(--forgeonix-accent-flow-chevron);
+}
+
+.forgeonix-nav-cta {
+  margin-left: 0.5rem;
+  border-color: var(--forgeonix-accent-border) !important;
+  color: var(--forgeonix-accent-soft-muted) !important;
+}
+
+.forgeonix-nav-cta:hover {
+  border-color: var(--forgeonix-accent-hover-border) !important;
+  color: #ffffff !important;
+}
+
+.forgeonix-nav-cta-mobile {
+  margin-top: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--forgeonix-accent-soft);
+}
+
+.forgeonix-footer-email:hover {
+  color: var(--forgeonix-accent);
+}
+
+.forgeonix-theme-ops .forgeonix-metallic-text {
+  background: linear-gradient(
+    135deg,
+    #f5f5f5 0%,
+    #d4d4d4 35%,
+    #ef4444 55%,
+    #f5f5f5 75%,
+    #9ca3af 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: none;
+  text-shadow: 0 0 28px rgba(153, 27, 27, 0.14);
+}
+
+.forgeonix-theme-diagnostics .forgeonix-metallic-text {
+  background: linear-gradient(
+    135deg,
+    #f5f5f5 0%,
+    #d4d4d4 35%,
+    #fbbf24 55%,
+    #f5f5f5 75%,
+    #9ca3af 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: none;
+  text-shadow: 0 0 28px rgba(217, 119, 6, 0.14);
+}
+
+.forgeonix-theme-executive .forgeonix-metallic-text {
+  background: linear-gradient(
+    135deg,
+    #6b7280 0%,
+    #9ca3af 30%,
+    #f5f5f5 55%,
+    #d4d4d4 75%,
+    #9ca3af 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: none;
+  text-shadow: 0 0 14px rgba(156, 163, 175, 0.07);
+}
+
+.forgeonix-theme-executive .forgeonix-scanlines {
+  opacity: 0.18;
+}
+
+.forgeonix-theme-executive .forgeonix-radial-glow {
+  opacity: 0.38;
+}
+
+.forgeonix-theme-executive .forgeonix-hero-glow {
+  opacity: 0.5;
+}
+
+.forgeonix-theme-executive .forgeonix-card:hover {
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.35),
+    0 0 12px var(--forgeonix-accent-hover-glow),
+    inset 0 1px 0 var(--forgeonix-accent-inner);
+}
+
+.forgeonix-theme-executive .forgeonix-btn-primary:hover,
+.forgeonix-theme-executive .forgeonix-btn-ghost:hover {
+  box-shadow: 0 0 10px var(--forgeonix-accent-hover-glow);
+}
+
+html:has(.forgeonix-home),
+html:has(.forgeonix-site),
+html:has(.forgeonix-app) {
+  scroll-behavior: smooth;
+}
+
+html:has(.forgeonix-home)::-webkit-scrollbar,
+html:has(.forgeonix-site)::-webkit-scrollbar,
+html:has(.forgeonix-app)::-webkit-scrollbar {
+  width: 6px;
+}
+
+html:has(.forgeonix-home)::-webkit-scrollbar-track,
+html:has(.forgeonix-site)::-webkit-scrollbar-track,
+html:has(.forgeonix-app)::-webkit-scrollbar-track {
+  background: #121212;
+}
+
+html:has(.forgeonix-home)::-webkit-scrollbar-thumb,
+html:has(.forgeonix-site)::-webkit-scrollbar-thumb,
+html:has(.forgeonix-app)::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 3px;
+}
+
+html:has(.forgeonix-home)::-webkit-scrollbar-thumb:hover,
+html:has(.forgeonix-site)::-webkit-scrollbar-thumb:hover,
+html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
+  background: #e8e8e8;
+}
+
+.forgeonix-panel-interactive {
+  transition:
+    transform 0.45s ease,
+    border-color 0.45s ease,
+    box-shadow 0.45s ease;
+}
+
+.forgeonix-panel-interactive:hover {
+  transform: translateY(-4px);
+}
+
+.forgeonix-app {
+  position: relative;
+  min-height: 100vh;
+  background-color: #1a1a1a;
+  color: #e0e0e0;
+}
+
+.forgeonix-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background-image:
+    linear-gradient(rgba(103, 232, 249, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(103, 232, 249, 0.03) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, black 10%, transparent 80%);
+}
+
+.forgeonix-app-shell-panel {
+  position: relative;
+  z-index: 1;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(28, 28, 28, 0.92);
+  backdrop-filter: blur(4px);
+}
+
+.forgeonix-app-shell-panel:hover {
+  border-color: rgba(103, 232, 249, 0.35);
+  box-shadow: 0 8px 28px rgba(103, 232, 249, 0.08);
+}
+
+.forgeonix-metallic-text {
+  background: linear-gradient(
+    90deg,
+    #888888 0%,
+    #e8e8e8 35%,
+    #b8f0ff 50%,
+    #ffffff 65%,
+    #888888 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: none;
+  text-shadow: 0 0 20px var(--forgeonix-accent-glow);
+}
+
+.forgeonix-logo-glow {
+  animation: forgeonix-logo-glow-pulse 3s ease-in-out infinite;
+}
+
+.forgeonix-card {
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  transition:
+    border-color 0.45s ease,
+    box-shadow 0.45s ease,
+    transform 0.45s ease;
+}
+
+.forgeonix-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    var(--forgeonix-accent-inner) 0%,
+    transparent 60%
+  );
+  transition: opacity 0.45s ease;
+}
+
+.forgeonix-card:hover {
+  border-color: var(--forgeonix-accent-hover-border);
+  box-shadow:
+    0 10px 36px rgba(0, 0, 0, 0.35),
+    0 0 24px var(--forgeonix-accent-hover-glow),
+    inset 0 1px 0 var(--forgeonix-accent-inner);
+}
+
+.forgeonix-card:hover::after {
+  opacity: 1;
+}
+
+/* System panel corner brackets */
+.forgeonix-panel {
+  position: relative;
+}
+
+.forgeonix-panel-corner {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  border-color: var(--forgeonix-accent-corner);
+  border-style: solid;
+  transition: border-color 0.45s ease;
+}
+
+.forgeonix-panel:hover .forgeonix-panel-corner {
+  border-color: var(--forgeonix-accent-corner-hover);
+}
+
+.forgeonix-panel-corner--tl {
+  top: 5px;
+  left: 5px;
+  border-width: 1px 0 0 1px;
+}
+
+.forgeonix-panel-corner--tr {
+  top: 5px;
+  right: 5px;
+  border-width: 1px 1px 0 0;
+}
+
+.forgeonix-panel-corner--bl {
+  bottom: 5px;
+  left: 5px;
+  border-width: 0 0 1px 1px;
+}
+
+.forgeonix-panel-corner--br {
+  bottom: 5px;
+  right: 5px;
+  border-width: 0 1px 1px 0;
+}
+
+.forgeonix-panel-link {
+  color: rgba(192, 192, 192, 0.75);
+  transition: color 0.45s ease;
+}
+
+.forgeonix-card:hover .forgeonix-panel-link {
+  color: var(--forgeonix-accent);
+}
+
+/* Project status indicators */
+.forgeonix-status-light {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.forgeonix-status-light--live {
+  background: var(--forgeonix-accent);
+  box-shadow: 0 0 8px var(--forgeonix-accent-hover-border);
+  animation: forgeonix-status-pulse 2.5s ease-in-out infinite;
+}
+
+.forgeonix-status-light--active {
+  background: var(--forgeonix-accent-soft);
+  box-shadow: 0 0 6px var(--forgeonix-accent-dim);
+}
+
+.forgeonix-status-light--dev {
+  background: #a0a0a0;
+  box-shadow: 0 0 4px rgba(192, 192, 192, 0.3);
+  animation: forgeonix-status-pulse 3.5s ease-in-out infinite;
+}
+
+.forgeonix-status-light--complete {
+  background: #c0c0c0;
+  box-shadow: none;
+}
+
+.forgeonix-btn-primary:hover {
+  background: linear-gradient(135deg, #888888, #e8e8e8);
+  color: #1a1a1a;
+  border-color: var(--forgeonix-accent);
+  box-shadow: 0 0 20px var(--forgeonix-accent-dim);
+}
+
+.forgeonix-btn-ghost:hover {
+  border-color: var(--forgeonix-accent-dim);
+  color: #ffffff;
+  box-shadow: 0 0 16px var(--forgeonix-accent-hover-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forgeonix-logo-glow {
+    animation: none !important;
+  }
+
+  .forgeonix-radial-glow,
+  .forgeonix-scanlines {
+    animation: none !important;
+  }
+
+  .forgeonix-status-light--live,
+  .forgeonix-status-light--dev {
+    animation: none !important;
+  }
+
+  html:has(.forgeonix-home),
+  html:has(.forgeonix-site),
+  html:has(.forgeonix-app) {
+    scroll-behavior: auto;
   }
 }

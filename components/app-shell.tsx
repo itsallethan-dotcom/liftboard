@@ -35,15 +35,15 @@ export function AppShell({
   const navItems = user ? loggedInNavItems : publicNavItems;
 
   return (
-    <main className="min-h-screen bg-gray-950 px-4 py-6 text-slate-100 sm:px-6">
-      <div className="mx-auto w-full max-w-6xl space-y-4">
-        <header className="rounded-2xl border border-slate-800 bg-slate-900 p-4 sm:p-6">
+    <main className="forgeonix-app px-4 py-6 sm:px-6">
+      <div className="relative z-10 mx-auto w-full max-w-6xl space-y-4">
+        <header className="forgeonix-app-shell-panel forgeonix-panel rounded-sm p-4 sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <h1 className="text-2xl font-bold">{title}</h1>
+              <h1 className="forgeonix-metallic-text text-2xl font-bold">{title}</h1>
               <Link
                 href="/"
-                className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-1.5 text-sm font-semibold text-slate-200 transition hover:border-cyan-400/40 hover:text-cyan-300"
+                className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
               >
                 Back to Forgeonix
               </Link>
@@ -52,14 +52,14 @@ export function AppShell({
               <div className="flex items-center gap-3">
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 rounded-lg border border-slate-700 bg-slate-950 px-2.5 py-1.5"
+                  className="flex items-center gap-2 rounded-sm border border-white/10 bg-[#141414]/80 px-2.5 py-1.5 transition-colors hover:border-[#67e8f9]/35"
                 >
                   <Avatar
                     name={profileDisplayName?.trim() || "Profile"}
                     avatarUrl={avatarUrl ?? null}
                     size="sm"
                   />
-                  <span className="text-sm font-medium text-slate-200">
+                  <span className="text-sm font-medium text-[#e0e0e0]">
                     {profileDisplayName?.trim() || "Profile"}
                   </span>
                 </Link>
@@ -69,13 +69,13 @@ export function AppShell({
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="rounded-lg border border-cyan-400/40 bg-slate-950 px-3 py-1.5 text-sm font-semibold text-cyan-300"
+                  className="rounded-sm border border-[#67e8f9]/30 px-3 py-1.5 text-sm font-semibold text-[#a5f3fc] transition-colors hover:border-[#67e8f9]/60"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
-                  className="rounded-lg border border-slate-700 bg-slate-950 px-3 py-1.5 text-sm font-semibold text-slate-200"
+                  className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
                 >
                   Sign Up
                 </Link>
@@ -89,10 +89,10 @@ export function AppShell({
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`rounded-lg border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ease-out ${
+                  className={`rounded-sm border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ease-out ${
                     isActive
-                      ? "border-cyan-400/50 bg-cyan-500/10 text-cyan-300"
-                      : "border-slate-700 bg-slate-950 text-slate-200 hover:-translate-y-1 hover:border-cyan-400/40 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)]"
+                      ? "border-[#67e8f9]/50 bg-[#67e8f9]/10 text-[#a5f3fc]"
+                      : "forgeonix-app-shell-panel border-white/10 bg-[#141414]/80 text-[#e0e0e0] hover:-translate-y-0.5 hover:border-[#67e8f9]/35"
                   }`}
                 >
                   {item.label}

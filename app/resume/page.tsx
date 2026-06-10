@@ -1,5 +1,10 @@
-import { ForgeonixNavMark } from "@/components/forgeonix-mark";
-import { LandingBackgroundLayer } from "@/components/landing-background-layer";
+import { NavBar } from "@/components/NavBar";
+import { SiteButton } from "@/components/SiteButton";
+import { SiteLayout } from "@/components/SiteLayout";
+import { SitePageHero } from "@/components/SitePageHero";
+import { SitePanel } from "@/components/SitePanel";
+import { SiteSection } from "@/components/SiteSection";
+import { SiteSectionLabel } from "@/components/SiteSectionLabel";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -7,9 +12,6 @@ export const metadata: Metadata = {
   description:
     "Systems-focused IT professional — troubleshooting, infrastructure, deployment, and support.",
 };
-
-const badgeHover =
-  "transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_0_20px_rgba(0,255,255,0.15)] hover:border-cyan-400/40";
 
 const SKILLS = [
   "Windows troubleshooting",
@@ -65,241 +67,127 @@ const FOCUS = [
 
 export default function ResumePage() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-zinc-950 text-zinc-100">
-      <LandingBackgroundLayer />
+    <SiteLayout themeClassName="forgeonix-theme-executive">
+      <NavBar activeHref="/resume" />
+      <SitePageHero
+        eyebrow="Portfolio · Resume"
+        title="Resume"
+        description="Systems-focused IT professional with hands-on experience in troubleshooting, infrastructure, application deployment, and user support."
+        actions={
+          <>
+            <SiteButton href="/">Back Home</SiteButton>
+            <SiteButton href="/infrastructure">View Infrastructure</SiteButton>
+            <SiteButton href="/troubleshooting">View Troubleshooting</SiteButton>
+            <SiteButton href="/leaderboard" variant="primary">
+              Open Leaderboard
+            </SiteButton>
+            <SiteButton href="/resume.pdf" download="resume.pdf">
+              Download PDF
+            </SiteButton>
+          </>
+        }
+      />
 
-      <div className="relative z-10">
-        <header className="sticky top-0 z-50 border-b border-white/[0.06] bg-zinc-950/80 backdrop-blur-md">
-          <nav className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-3 px-6 py-5">
-            <a
-              href="/"
-              className="flex items-center gap-2.5 text-base font-semibold tracking-wide text-zinc-100"
+      <SiteSection>
+        <SiteSectionLabel>// SUMMARY</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Professional summary</h2>
+        <SitePanel className="mt-6 p-6 sm:p-8" hover={false}>
+          <p className="text-base leading-relaxed text-[#e0e0e0] sm:text-lg">
+            Systems-focused IT professional specializing in troubleshooting, infrastructure,
+            and production-ready deployments. Experienced in end-user support, account
+            provisioning, hardware/software diagnostics, Windows environments, DNS/email
+            authentication, Docker-based services, and full-stack application deployment.
+          </p>
+        </SitePanel>
+      </SiteSection>
+
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SiteSectionLabel>// SKILLS</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Core skills</h2>
+        <p className="mt-3 max-w-3xl text-[#a0a0a0]">
+          Tools and domains I operate in regularly.
+        </p>
+        <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
+          {SKILLS.map((skill) => (
+            <SitePanel
+              key={skill}
+              className="px-3 py-2 text-xs font-medium text-[#e0e0e0] sm:text-sm"
             >
-              <ForgeonixNavMark />
-              <span>Forgeonix</span>
-            </a>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-2 text-sm sm:gap-3">
-              <a className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300" href="/">
-                Home
-              </a>
-              <a
-                className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300"
-                href="/#projects"
-              >
-                Projects
-              </a>
-              <a
-                className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300"
-                href="/infrastructure"
-              >
-                Infrastructure
-              </a>
-              <a
-                className="rounded-md px-3 py-1.5 text-zinc-300 hover:text-cyan-300"
-                href="/troubleshooting"
-              >
-                Troubleshooting
-              </a>
-              <span className="rounded-md px-3 py-1.5 font-medium text-cyan-300">Resume</span>
-              <a
-                href="/dashboard"
-                className="rounded-md border border-cyan-400/40 bg-zinc-900/80 px-3 py-1.5 font-semibold text-cyan-300 transition hover:border-cyan-300 hover:text-cyan-200"
-              >
-                Open Leaderboard
-              </a>
-            </div>
-          </nav>
-        </header>
+              {skill}
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
 
-        <section className="fn-cine-hero fn-cine-hero--compact">
-          <div className="fn-cine-hero__bg" aria-hidden>
-            <div className="fn-cine-hero__bg-base" />
-            <div className="fn-cine-hero__bg-bloom" />
-            <div className="fn-cine-hero__grid" />
-            <div className="fn-cine-hero__dots" />
-            <div className="fn-cine-hero__scan" />
-            <div className="fn-cine-hero__light" />
-            <div className="fn-cine-hero__vignette" />
-          </div>
+      <SiteSection>
+        <SiteSectionLabel>// EXPERIENCE</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Experience highlights</h2>
+        <p className="mt-3 max-w-3xl text-[#a0a0a0]">
+          Concrete contributions — practical scope, honest framing.
+        </p>
+        <div className="mt-8 grid gap-4 sm:grid-cols-2">
+          {EXPERIENCE.map((line) => (
+            <SitePanel key={line} className="flex gap-3 px-4 py-4 text-sm text-[#e0e0e0]">
+              <span className="forgeonix-list-marker" aria-hidden>
+                ◆
+              </span>
+              <span>{line}</span>
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
 
-          <div className="relative z-[1] mx-auto max-w-6xl px-6 pt-24 pb-16 text-left md:pt-28 md:pb-20">
-            <p className="mb-4 inline-flex max-w-full flex-wrap gap-x-2 rounded-full border border-cyan-400/25 bg-black/20 px-4 py-2 text-xs font-medium uppercase tracking-[0.16em] text-cyan-300/90 backdrop-blur-sm sm:text-sm">
-              Portfolio · Resume
-            </p>
-            <h1 className="fn-cine-title max-w-4xl text-4xl font-bold leading-[1.08] tracking-tight sm:text-6xl md:text-7xl">
-              Resume
-            </h1>
-            <p className="mt-6 max-w-3xl text-lg leading-relaxed text-zinc-300 sm:text-xl">
-              Systems-focused IT professional with hands-on experience in troubleshooting,
-              infrastructure, application deployment, and user support.
-            </p>
-            <div className="mt-10 flex flex-wrap gap-4">
-              <a
-                href="/"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-              >
-                Back Home
-              </a>
-              <a
-                href="/infrastructure"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-              >
-                View Infrastructure
-              </a>
-              <a
-                href="/troubleshooting"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-              >
-                View Troubleshooting
-              </a>
-              <a
-                href="/dashboard"
-                className="fn-cine-btn fn-cine-btn--primary rounded-2xl bg-gradient-to-b from-cyan-300 to-cyan-500 px-6 py-3 font-semibold text-zinc-950"
-              >
-                Open Leaderboard
-              </a>
-              <a
-                href="/resume.pdf"
-                download="resume.pdf"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700/90 bg-zinc-950/35 px-6 py-3 font-semibold text-zinc-100 backdrop-blur-sm"
-              >
-                Download PDF
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Professional summary</h2>
-            <div className="mt-6 rounded-3xl border border-zinc-800 bg-zinc-900 p-6 sm:p-8">
-              <p className="text-base leading-relaxed text-zinc-300 sm:text-lg">
-                Systems-focused IT professional specializing in troubleshooting, infrastructure,
-                and production-ready deployments. Experienced in end-user support, account provisioning,
-                hardware/software diagnostics, Windows environments, DNS/email authentication, Docker-based
-                services, and full-stack application deployment.
-              </p>
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Core skills</h2>
-            <p className="mt-3 max-w-3xl text-zinc-400">Tools and domains I operate in regularly.</p>
-            <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
-              {SKILLS.map((skill) => (
-                <span
-                  key={skill}
-                  className={`rounded-2xl border border-zinc-800 bg-zinc-900 px-3 py-2 text-xs font-medium text-zinc-200 sm:text-sm ${badgeHover}`}
-                >
-                  {skill}
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SiteSectionLabel>// PROJECTS</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Projects</h2>
+        <p className="mt-3 max-w-3xl text-[#a0a0a0]">
+          Shipped work tied to living routes on this domain.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {PROJECTS.map((p) => (
+            <SitePanel key={p.href} href={p.href} className="group p-6">
+              <div className="flex items-start justify-between gap-3">
+                <h3 className="text-xl font-semibold text-[#e8e8e8] group-hover:text-white">
+                  {p.title}
+                </h3>
+                <span className="forgeonix-panel-arrow">
+                  →
                 </span>
-              ))}
-            </div>
-          </div>
-        </section>
+              </div>
+              <p className="mt-2 text-sm text-[#a0a0a0]">{p.hint}</p>
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
 
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Experience highlights</h2>
-            <p className="mt-3 max-w-3xl text-zinc-400">
-              Concrete contributions — practical scope, honest framing.
-            </p>
-            <div className="mt-8 grid gap-4 sm:grid-cols-2">
-              {EXPERIENCE.map((line) => (
-                <div
-                  key={line}
-                  className="flex gap-3 rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-4 text-sm text-zinc-200 transition hover:border-cyan-400/35"
-                >
-                  <span className="mt-1 shrink-0 text-cyan-400/70" aria-hidden>
-                    ◆
-                  </span>
-                  <span>{line}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </section>
+      <SiteSection>
+        <SiteSectionLabel>// FOCUS</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Current focus</h2>
+        <p className="mt-3 max-w-3xl text-[#a0a0a0]">Areas I&apos;m actively leveling up.</p>
+        <div className="mt-6 grid gap-3 md:grid-cols-2">
+          {FOCUS.map((item) => (
+            <SitePanel key={item} className="px-4 py-3 text-[#e0e0e0]" hover={false}>
+              {item}
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
 
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Projects</h2>
-            <p className="mt-3 max-w-3xl text-zinc-400">Shipped work tied to living routes on this domain.</p>
-            <div className="mt-8 grid gap-6 md:grid-cols-2">
-              {PROJECTS.map((p) => (
-                <a
-                  key={p.href}
-                  href={p.href}
-                  className="group rounded-3xl border border-zinc-800 bg-zinc-900 p-6 transition hover:border-cyan-400/35"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <h3 className="text-xl font-semibold text-zinc-100 group-hover:text-cyan-200">
-                      {p.title}
-                    </h3>
-                    <span className="shrink-0 text-cyan-400/60 transition group-hover:text-cyan-300">
-                      →
-                    </span>
-                  </div>
-                  <p className="mt-2 text-sm text-zinc-400">{p.hint}</p>
-                </a>
-              ))}
-            </div>
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SitePanel className="p-8" hover={false}>
+          <SiteSectionLabel>// DEEP DIVE</SiteSectionLabel>
+          <h2 className="text-2xl font-bold text-white sm:text-3xl">
+            Want the deeper technical breakdown?
+          </h2>
+          <div className="mt-8 flex flex-wrap gap-4">
+            <SiteButton href="/infrastructure">View Infrastructure</SiteButton>
+            <SiteButton href="/troubleshooting">View Troubleshooting</SiteButton>
+            <SiteButton href="mailto:ethan@forgeonix.dev" variant="primary">
+              Contact Me
+            </SiteButton>
           </div>
-        </section>
-
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl">
-            <h2 className="text-3xl font-bold">Current focus</h2>
-            <p className="mt-3 max-w-3xl text-zinc-400">Areas I&apos;m actively leveling up.</p>
-            <div className="mt-6 grid gap-3 md:grid-cols-2">
-              {FOCUS.map((item) => (
-                <p
-                  key={item}
-                  className="rounded-2xl border border-zinc-800 bg-zinc-900 px-4 py-3 text-zinc-300"
-                >
-                  {item}
-                </p>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className="border-t border-zinc-800 px-6 py-20">
-          <div className="mx-auto max-w-6xl rounded-3xl border border-cyan-400/20 bg-zinc-900 p-8">
-            <h2 className="text-2xl font-bold sm:text-3xl">Want the deeper technical breakdown?</h2>
-            <div className="mt-8 flex flex-wrap gap-4">
-              <a
-                href="/infrastructure"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700 px-6 py-3 font-semibold text-zinc-100 transition hover:border-cyan-400"
-              >
-                View Infrastructure
-              </a>
-              <a
-                href="/troubleshooting"
-                className="fn-cine-btn fn-cine-btn--ghost rounded-2xl border border-zinc-700 px-6 py-3 font-semibold text-zinc-100 transition hover:border-cyan-400"
-              >
-                View Troubleshooting
-              </a>
-              <a
-                href="mailto:ethan@forgeonix.dev"
-                className="rounded-2xl bg-cyan-400 px-6 py-3 font-semibold text-zinc-950 transition hover:bg-cyan-300"
-              >
-                Contact Me
-              </a>
-            </div>
-          </div>
-        </section>
-
-        <footer className="border-t border-zinc-800 px-6 py-8">
-          <div className="mx-auto flex max-w-6xl flex-col justify-between gap-2 text-sm text-zinc-400 sm:flex-row">
-            <p>Forgeonix © 2026</p>
-            <a href="mailto:ethan@forgeonix.dev" className="hover:text-cyan-300">
-              ethan@forgeonix.dev
-            </a>
-          </div>
-        </footer>
-      </div>
-    </main>
+        </SitePanel>
+      </SiteSection>
+    </SiteLayout>
   );
 }
