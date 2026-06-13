@@ -35,7 +35,7 @@ export default function InfrastructurePage() {
         actions={
           <>
             <SiteButton href="/">Back Home</SiteButton>
-            <SiteButton href="/leaderboard">Open Leaderboard</SiteButton>
+            <SiteButton href="https://liftboard.forgeonix.dev">Open Leaderboard</SiteButton>
             <SiteButton href="mailto:ethan@forgeonix.dev" variant="primary">
               Contact Me
             </SiteButton>

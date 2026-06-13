@@ -864,6 +864,57 @@ body {
   box-shadow: 0 0 10px var(--forgeonix-accent-hover-glow);
 }
 
+.forgeonix-featured-callout {
+  border-color: var(--forgeonix-accent-border);
+  background: linear-gradient(
+    135deg,
+    rgba(28, 28, 28, 0.96) 0%,
+    rgba(38, 38, 38, 0.92) 50%,
+    rgba(28, 28, 28, 0.96) 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.05),
+    0 12px 40px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.07);
+}
+
+.forgeonix-case-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 0.125rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  padding: 0.2rem 0.5rem;
+  font-family: var(--font-mono, ui-monospace, monospace);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.forgeonix-case-badge--live {
+  color: var(--forgeonix-accent-soft);
+  border-color: var(--forgeonix-accent-border);
+  background: color-mix(in srgb, var(--forgeonix-accent) 12%, transparent);
+}
+
+.forgeonix-case-badge--progress {
+  color: #fbbf24;
+  border-color: rgba(251, 191, 36, 0.35);
+  background: rgba(251, 191, 36, 0.08);
+}
+
+.forgeonix-case-badge--completed {
+  color: #c0c0c0;
+  border-color: rgba(192, 192, 192, 0.3);
+  background: rgba(192, 192, 192, 0.06);
+}
+
+.forgeonix-case-badge--ongoing {
+  color: #ef4444;
+  border-color: rgba(239, 68, 68, 0.32);
+  background: rgba(220, 38, 38, 0.08);
+}
+
 html:has(.forgeonix-home),
 html:has(.forgeonix-site),
 html:has(.forgeonix-app) {

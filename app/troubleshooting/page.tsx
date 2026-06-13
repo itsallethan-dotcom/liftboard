@@ -35,7 +35,7 @@ export default function TroubleshootingPage() {
           <>
             <SiteButton href="/">Back Home</SiteButton>
             <SiteButton href="/infrastructure">View Infrastructure</SiteButton>
-            <SiteButton href="/leaderboard" variant="primary">
+            <SiteButton href="https://liftboard.forgeonix.dev" variant="primary">
               Open Leaderboard
             </SiteButton>
           </>

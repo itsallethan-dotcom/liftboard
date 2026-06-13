@@ -13,23 +13,113 @@ export const metadata: Metadata = {
     "Systems-focused IT professional — troubleshooting, infrastructure, deployment, and support.",
 };
 
-const SKILLS = [
-  "Windows troubleshooting",
-  "Active Directory / Azure AD support",
-  "Account provisioning",
-  "Hardware diagnostics",
-  "Software diagnostics",
-  "DNS fundamentals",
-  "Email authentication: SPF, DKIM, DMARC",
-  "Docker / Docker Compose",
-  "Proxmox homelab",
-  "Monitoring tools",
-  "Next.js",
+const AREAS_OF_EXPERTISE = [
+  {
+    title: "Troubleshooting",
+    description:
+      "Rapid diagnosis and resolution of complex hardware, software, networking, and user-impacting issues across enterprise environments.",
+  },
+  {
+    title: "Infrastructure",
+    description:
+      "Designing, deploying, and maintaining virtualized systems, cloud resources, networking services, and self-hosted environments.",
+  },
+  {
+    title: "Automation",
+    description:
+      "Improving efficiency through PowerShell scripting, workflow automation, monitoring solutions, and process optimization.",
+  },
+  {
+    title: "Development",
+    description:
+      "Building modern web applications, dashboards, and business solutions using contemporary development platforms and tools.",
+  },
+  {
+    title: "Security & Access",
+    description:
+      "Managing identities, permissions, endpoint security, authentication systems, and access control across enterprise environments.",
+  },
+  {
+    title: "Documentation",
+    description:
+      "Creating clear technical documentation, operational procedures, user guides, and repeatable support processes.",
+  },
+] as const;
+
+const CORE_TECHNICAL_SKILLS = [
+  {
+    category: "Enterprise IT Support",
+    items: [
+      "Executive Support",
+      "End User Support",
+      "Incident Management",
+      "Endpoint Administration",
+      "Hardware Troubleshooting",
+      "Software Troubleshooting",
+    ],
+  },
+  {
+    category: "Microsoft Ecosystem",
+    items: [
+      "Microsoft 365",
+      "Entra ID",
+      "Intune",
+      "Group Policy",
+      "Exchange Online",
+      "User Lifecycle Management",
+    ],
+  },
+  {
+    category: "Infrastructure & Systems",
+    items: [
+      "Active Directory",
+      "Windows Server",
+      "DNS",
+      "DHCP",
+      "Virtualization",
+      "Proxmox",
+      "VMware",
+      "Network Troubleshooting",
+    ],
+  },
+  {
+    category: "Cloud & Platforms",
+    items: ["Azure", "AWS", "Cloudflare", "Vercel", "SaaS Administration"],
+  },
+  {
+    category: "Automation & Scripting",
+    items: ["PowerShell", "n8n", "Monitoring Solutions", "Process Automation"],
+  },
+  {
+    category: "Development",
+    items: ["Next.js", "React", "TypeScript", "Supabase", "GitHub", "Docker"],
+  },
+] as const;
+
+const TOOLS = [
+  "Microsoft 365",
+  "Entra ID",
+  "NinjaOne",
+  "Jira",
+  "ArcGIS",
+  "Acumatica",
+  "Rackspace",
+  "Adobe Creative Cloud",
+  "Samsara",
+  "Bitdefender",
+  "SAP Concur",
+  "Snipe-IT",
+  "FedEx Ship Manager",
+  "AI & LLM Platform",
+  "AWS",
+  "Docker",
+  "Proxmox",
+  "Cloudflare",
+  "GitHub",
   "Supabase",
   "Vercel",
-  "Technical documentation",
-  "Customer support",
-];
+  "PowerShell",
+] as const;
 
 const EXPERIENCE = [
   "Delivered white-glove technical support for end users",
@@ -82,11 +172,64 @@ export default function ResumePage() {
               Open Leaderboard
             </SiteButton>
             <SiteButton href="/resume.pdf" download="resume.pdf">
-              Download PDF
+              Download Resume (PDF)
             </SiteButton>
           </>
         }
       />
+
+      <SiteSection>
+        <SiteSectionLabel>// EXPERTISE</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Areas of Expertise</h2>
+        <p className="mt-3 max-w-3xl text-[#a0a0a0]">
+          Technical strengths developed through enterprise IT support, infrastructure
+          management, automation, and hands-on project work.
+        </p>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {AREAS_OF_EXPERTISE.map(({ title, description }) => (
+            <ExpertiseCard key={title} title={title} description={description} />
+          ))}
+        </div>
+      </SiteSection>
+
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SitePanel className="forgeonix-featured-callout p-6 sm:p-8" hover={false}>
+          <SiteSectionLabel>// BUILDER</SiteSectionLabel>
+          <h2 className="text-2xl font-bold text-white sm:text-3xl">Builder Mindset</h2>
+          <p className="mt-4 max-w-4xl text-base leading-relaxed text-[#e0e0e0] sm:text-lg">
+            Beyond enterprise IT support, I actively build and maintain websites, cloud-hosted
+            applications, automation workflows, and self-hosted infrastructure. This hands-on
+            approach allows me to understand technology from both the operational and
+            implementation sides, bridging the gap between supporting systems and creating them.
+          </p>
+        </SitePanel>
+      </SiteSection>
+
+      <SiteSection>
+        <SiteSectionLabel>// TECHNICAL</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Core Technical Skills</h2>
+        <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {CORE_TECHNICAL_SKILLS.map(({ category, items }) => (
+            <SkillCategory key={category} title={category} items={items} />
+          ))}
+        </div>
+      </SiteSection>
+
+      <SiteSection className="bg-[#1e1e1e]/75">
+        <SiteSectionLabel>// TOOLS</SiteSectionLabel>
+        <h2 className="text-3xl font-bold text-white">Tools I Work With</h2>
+        <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
+          {TOOLS.map((tool) => (
+            <SitePanel
+              key={tool}
+              className="px-3 py-2 text-xs font-medium text-[#e0e0e0] sm:text-sm"
+              hover={false}
+            >
+              {tool}
+            </SitePanel>
+          ))}
+        </div>
+      </SiteSection>
 
       <SiteSection>
         <SiteSectionLabel>// SUMMARY</SiteSectionLabel>
@@ -102,24 +245,6 @@ export default function ResumePage() {
       </SiteSection>
 
       <SiteSection className="bg-[#1e1e1e]/75">
-        <SiteSectionLabel>// SKILLS</SiteSectionLabel>
-        <h2 className="text-3xl font-bold text-white">Core skills</h2>
-        <p className="mt-3 max-w-3xl text-[#a0a0a0]">
-          Tools and domains I operate in regularly.
-        </p>
-        <div className="mt-8 flex flex-wrap gap-2 sm:gap-3">
-          {SKILLS.map((skill) => (
-            <SitePanel
-              key={skill}
-              className="px-3 py-2 text-xs font-medium text-[#e0e0e0] sm:text-sm"
-            >
-              {skill}
-            </SitePanel>
-          ))}
-        </div>
-      </SiteSection>
-
-      <SiteSection>
         <SiteSectionLabel>// EXPERIENCE</SiteSectionLabel>
         <h2 className="text-3xl font-bold text-white">Experience highlights</h2>
         <p className="mt-3 max-w-3xl text-[#a0a0a0]">
@@ -137,7 +262,7 @@ export default function ResumePage() {
         </div>
       </SiteSection>
 
-      <SiteSection className="bg-[#1e1e1e]/75">
+      <SiteSection>
         <SiteSectionLabel>// PROJECTS</SiteSectionLabel>
         <h2 className="text-3xl font-bold text-white">Projects</h2>
         <p className="mt-3 max-w-3xl text-[#a0a0a0]">
@@ -150,9 +275,7 @@ export default function ResumePage() {
                 <h3 className="text-xl font-semibold text-[#e8e8e8] group-hover:text-white">
                   {p.title}
                 </h3>
-                <span className="forgeonix-panel-arrow">
-                  →
-                </span>
+                <span className="forgeonix-panel-arrow">→</span>
               </div>
               <p className="mt-2 text-sm text-[#a0a0a0]">{p.hint}</p>
             </SitePanel>
@@ -160,7 +283,7 @@ export default function ResumePage() {
         </div>
       </SiteSection>
 
-      <SiteSection>
+      <SiteSection className="bg-[#1e1e1e]/75">
         <SiteSectionLabel>// FOCUS</SiteSectionLabel>
         <h2 className="text-3xl font-bold text-white">Current focus</h2>
         <p className="mt-3 max-w-3xl text-[#a0a0a0]">Areas I&apos;m actively leveling up.</p>
@@ -173,7 +296,7 @@ export default function ResumePage() {
         </div>
       </SiteSection>
 
-      <SiteSection className="bg-[#1e1e1e]/75">
+      <SiteSection>
         <SitePanel className="p-8" hover={false}>
           <SiteSectionLabel>// DEEP DIVE</SiteSectionLabel>
           <h2 className="text-2xl font-bold text-white sm:text-3xl">
@@ -189,5 +312,34 @@ export default function ResumePage() {
         </SitePanel>
       </SiteSection>
     </SiteLayout>
+  );
+}
+
+function ExpertiseCard({ title, description }: { title: string; description: string }) {
+  return (
+    <SitePanel className="p-6">
+      <h3 className="text-lg font-semibold text-[#e8e8e8]">{title}</h3>
+      <p className="mt-3 text-sm leading-relaxed text-[#a0a0a0]">{description}</p>
+    </SitePanel>
+  );
+}
+
+function SkillCategory({ title, items }: { title: string; items: readonly string[] }) {
+  return (
+    <SitePanel className="p-5 sm:p-6" hover={false}>
+      <h3 className="forgeonix-accent-heading font-mono text-sm font-semibold tracking-wider uppercase">
+        {title}
+      </h3>
+      <ul className="mt-4 space-y-2">
+        {items.map((item) => (
+          <li key={item} className="flex gap-2 text-sm text-[#e0e0e0]">
+            <span className="forgeonix-list-marker" aria-hidden>
+              •
+            </span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+    </SitePanel>
   );
 }

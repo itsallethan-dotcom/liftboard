@@ -21,7 +21,14 @@ export function SiteButton({
 
   if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("#")) {
     return (
-      <a href={href} className={className} download={download}>
+      <a
+        href={href}
+        className={className}
+        download={download}
+        {...(href.startsWith("http")
+          ? { target: "_blank", rel: "noopener noreferrer" }
+          : {})}
+      >
         {children}
       </a>
     );

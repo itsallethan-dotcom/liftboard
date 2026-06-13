@@ -58,7 +58,7 @@ export default function LeaderboardLandingPage() {
         description="Track workouts, rank members, and run challenges that keep people coming back."
         actions={
           <>
-            <SiteButton href="/dashboard" variant="primary">
+            <SiteButton href="https://liftboard.forgeonix.dev" variant="primary">
               Try Demo
             </SiteButton>
             <SiteButton href="/login">Log In</SiteButton>
@@ -138,7 +138,7 @@ export default function LeaderboardLandingPage() {
           <SiteSectionLabel>// GET STARTED</SiteSectionLabel>
           <h2 className="text-3xl font-bold text-white">Ready to start a challenge?</h2>
           <div className="mt-6 flex flex-wrap gap-3">
-            <SiteButton href="/dashboard" variant="primary">
+            <SiteButton href="https://liftboard.forgeonix.dev" variant="primary">
               Try Demo
             </SiteButton>
             <SiteButton href="/signup">Create Account</SiteButton>

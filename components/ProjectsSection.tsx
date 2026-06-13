@@ -40,8 +40,8 @@ const PROJECTS: Project[] = [
       "Full-stack workout leaderboard with auth, profiles, teams, and gym leaderboards.",
     stack: ["Next.js", "Supabase"],
     status: "IN DEVELOPMENT",
-    // TODO: Replace with deployed Liftboard production URL when available.
-    href: "#liftboard",
+    href: "https://liftboard.forgeonix.dev",
+    external: true,
   },
   {
     title: "Blackgate Studios",

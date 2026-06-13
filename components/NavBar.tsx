@@ -8,9 +8,12 @@ import { AnimatePresence, motion } from "framer-motion";
 import { playSound } from "@/lib/sounds";
 import { easeOut } from "@/lib/home-motion";
 
+const LIFTBOARD_URL = "https://liftboard.forgeonix.dev";
+
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Projects", href: "/#projects" },
+  { label: "Case Studies", href: "/case-studies" },
   { label: "Infrastructure", href: "/infrastructure" },
   { label: "Troubleshooting", href: "/troubleshooting" },
   { label: "Resume", href: "/resume" },
@@ -121,14 +124,16 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
             />
           ))}
           {showCta ? (
-            <Link
-              href="/leaderboard"
+            <a
+              href={LIFTBOARD_URL}
+              target="_blank"
+              rel="noopener noreferrer"
               className="forgeonix-nav-cta forgeonix-btn-ghost rounded-sm border px-3 py-2 text-sm font-semibold tracking-wide transition-all duration-500"
               onMouseEnter={() => playSound("hover")}
               onClick={() => playSound("click")}
             >
               Open Leaderboard
-            </Link>
+            </a>
           ) : null}
         </div>
 
@@ -174,8 +179,10 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
                 />
               ))}
               {showCta ? (
-                <Link
-                  href="/leaderboard"
+                <a
+                  href={LIFTBOARD_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="forgeonix-nav-cta-mobile"
                   onClick={() => {
                     playSound("click");
@@ -183,7 +190,7 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
                   }}
                 >
                   Open Leaderboard
-                </Link>
+                </a>
               ) : null}
             </div>
           </motion.div>
