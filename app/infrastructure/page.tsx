@@ -1,3 +1,4 @@
+import { HomelabTopology } from "@/components/HomelabTopology";
 import { NavBar } from "@/components/NavBar";
 import { SiteButton } from "@/components/SiteButton";
 import { SiteLayout } from "@/components/SiteLayout";
@@ -12,17 +13,6 @@ export const metadata: Metadata = {
   description:
     "Homelab and infrastructure: Proxmox, Docker, monitoring, DNS, email authentication, and practical systems work.",
 };
-
-function FlowArrow() {
-  return (
-    <div className="flex flex-col items-center py-1">
-      <div className="forgeonix-flow-line" aria-hidden />
-      <span className="forgeonix-flow-chevron" aria-hidden>
-        ↓
-      </span>
-    </div>
-  );
-}
 
 export default function InfrastructurePage() {
   return (
@@ -45,106 +35,49 @@ export default function InfrastructurePage() {
 
       <SiteSection>
         <SiteSectionLabel>// ARCHITECTURE</SiteSectionLabel>
-        <h2 className="text-3xl font-bold text-white">Visual architecture</h2>
+        <h2 className="text-3xl font-bold text-white">Visual Architecture</h2>
         <p className="mt-3 max-w-3xl text-[#a0a0a0]">
-          End-to-end flow from the network edge to services I run and maintain in
-          a controlled lab environment.
+          Animated data paths from the network edge through secure access to the Proxmox host and
+          downstream services in a controlled lab environment.
         </p>
+        <HomelabTopology className="mt-8" />
 
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1fr_minmax(0,15rem)] lg:items-start">
-          <div className="flex min-w-0 flex-col">
-            <SitePanel className="group p-5 text-center sm:p-6">
-              <p className="forgeonix-accent-text font-mono text-sm font-semibold tracking-wider uppercase">
-                Edge
-              </p>
-              <p className="mt-2 text-lg font-semibold text-[#e8e8e8]">
-                Internet / Local Network
-              </p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-12 group-hover:opacity-100">
-                Ingress path for lab traffic and routing context.
-              </p>
-            </SitePanel>
-            <FlowArrow />
-            <SitePanel className="group p-5 text-center sm:p-6">
-              <p className="text-lg font-semibold text-[#e8e8e8]">Proxmox Host</p>
-              <p className="mt-2 text-sm text-[#a0a0a0]">Virtualization layer</p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-12 group-hover:opacity-100">
-                Where VMs and LXC are provisioned and isolated.
-              </p>
-            </SitePanel>
-            <FlowArrow />
-            <SitePanel className="group p-5 text-center sm:p-6">
-              <p className="text-lg font-semibold text-[#e8e8e8]">Docker VM</p>
-              <p className="mt-2 text-sm text-[#a0a0a0]">Compose-backed services</p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-12 group-hover:opacity-100">
-                Primary runtime for internal tools and automation.
-              </p>
-            </SitePanel>
-            <FlowArrow />
-            <SitePanel className="p-6">
-              <p className="text-center text-lg font-semibold text-[#e8e8e8]">
-                Core services
-              </p>
-              <ul className="mt-5 grid gap-3 sm:grid-cols-2">
-                {[
-                  { item: "Portainer", hint: "Container management UI and endpoint control." },
-                  { item: "Uptime Kuma", hint: "Synthetic checks and alert history." },
-                  { item: "Home Assistant", hint: "Automation hub and device mesh." },
-                  { item: "Homepage Dashboard", hint: "Single pane for internal links." },
-                  { item: "AdGuard / DNS tooling", hint: "Recursive DNS and filtering policy." },
-                  { item: "n8n automation", hint: "Workflow glue between APIs and hooks." },
-                  { item: "Netdata monitoring", hint: "Live metrics and resource signals." },
-                ].map(({ item, hint }) => (
-                  <li key={item}>
-                    <SitePanel className="group p-4 text-center text-sm text-[#e0e0e0]">
-                      {item}
-                      <span className="mt-1 block max-h-0 overflow-hidden text-[11px] leading-snug text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-16 group-hover:opacity-100">
-                        {hint}
-                      </span>
-                    </SitePanel>
-                  </li>
-                ))}
-              </ul>
-            </SitePanel>
-          </div>
-
-          <aside className="flex flex-col gap-4">
-            <SitePanel className="group p-5">
-              <h3 className="forgeonix-accent-heading font-mono text-sm font-semibold tracking-wider uppercase">
-                Domain & DNS
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
-                Custom domain with DNS records managed for mail and service routing.
-              </p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
-                Records validated against provider expectations.
-              </p>
-            </SitePanel>
-            <SitePanel className="group p-5">
-              <h3 className="forgeonix-accent-heading font-mono text-sm font-semibold tracking-wider uppercase">
-                Email authentication
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
-                SPF, DKIM, and DMARC aligned with provider guidance; monitored before
-                tightening policy.
-              </p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
-                Policy tightened only after clean reporting windows.
-              </p>
-            </SitePanel>
-            <SitePanel className="group border-dashed p-5" hover={false}>
-              <h3 className="font-mono text-sm font-semibold tracking-wider text-[#c0c0c0] uppercase">
-                Next direction
-              </h3>
-              <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
-                Remote access hardening and Tailscale-style mesh for admin paths—planned,
-                not overstated.
-              </p>
-              <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
-                Zero-trust admin paths under evaluation.
-              </p>
-            </SitePanel>
-          </aside>
+        <div className="mt-10 grid gap-4 lg:grid-cols-3">
+          <SitePanel className="group p-5">
+            <h3 className="forgeonix-accent-heading font-mono text-sm font-semibold tracking-wider uppercase">
+              Domain & DNS
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
+              Custom domain with DNS records managed for mail and service routing.
+            </p>
+            <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
+              Records validated against provider expectations.
+            </p>
+          </SitePanel>
+          <SitePanel className="group p-5">
+            <h3 className="forgeonix-accent-heading font-mono text-sm font-semibold tracking-wider uppercase">
+              Email authentication
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
+              SPF, DKIM, and DMARC aligned with provider guidance; monitored before tightening
+              policy.
+            </p>
+            <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
+              Policy tightened only after clean reporting windows.
+            </p>
+          </SitePanel>
+          <SitePanel className="group border-dashed p-5" hover={false}>
+            <h3 className="font-mono text-sm font-semibold tracking-wider text-[#c0c0c0] uppercase">
+              Next direction
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-[#a0a0a0]">
+              Remote access hardening and Tailscale-style mesh for admin paths—planned, not
+              overstated.
+            </p>
+            <p className="mt-2 max-h-0 overflow-hidden text-xs text-[#a0a0a0] opacity-0 transition-all duration-300 ease-out group-hover:max-h-10 group-hover:opacity-100">
+              Zero-trust admin paths under evaluation.
+            </p>
+          </SitePanel>
         </div>
       </SiteSection>
 
