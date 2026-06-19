@@ -3,15 +3,17 @@
 import "@/components/command/command-interactive.css";
 import Image from "next/image";
 import Link from "next/link";
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
+import { AiChatPanel } from "@/components/command/AiChatPanel";
 import { BootOverlay } from "@/components/command/BootOverlay";
+import { getModulePanel, DB_BACKED_MODULE_IDS } from "@/components/command/modulePanelRegistry";
 import { CommandStage } from "@/components/command/CommandStage";
 import { ModuleBusPanel } from "@/components/command/ModuleBusPanel";
 import { NetworkMapPanel } from "@/components/command/NetworkMapPanel";
 import { StageHudPanels } from "@/components/command/StageHudPanels";
 import { SystemDock } from "@/components/command/SystemDock";
 import { TerminalFeed } from "@/components/command/TerminalFeed";
-import type { CommandModule, CommandShellData, TerminalEntry } from "@/types/command";
+import type { CommandModule, CommandShellData, ModuleDetailField, TerminalEntry } from "@/types/command";
 
 function formatTimestamp(): string {
   const now = new Date();
@@ -29,9 +31,36 @@ export function CommandShell({ data }: CommandShellProps) {
   const [bootComplete, setBootComplete] = useState(false);
   const [selectedModuleId, setSelectedModuleId] = useState<string | null>(null);
   const [terminalEntries, setTerminalEntries] = useState<TerminalEntry[]>(data.terminal);
+  const [moduleDetails, setModuleDetails] = useState<Record<string, ModuleDetailField[]>>({});
+
+  useEffect(() => {
+    if (!bootComplete) return;
+    void fetch("/api/os/summary")
+      .then((res) => res.json())
+      .then((json) => {
+        if (json.modules) setModuleDetails(json.modules as Record<string, ModuleDetailField[]>);
+      })
+      .catch(() => {
+        /* keep layout-only fallbacks */
+      });
+  }, [bootComplete]);
+
+  const modules = useMemo(
+    () =>
+      data.modules.map((module) => ({
+        ...module,
+        detail:
+          moduleDetails[module.id] ??
+          module.detail ??
+          [{ label: "Memory", value: "Syncing…", tone: "neutral" as const }],
+      })),
+    [data.modules, moduleDetails],
+  );
 
   const selectedModule =
-    data.modules.find((module) => module.id === selectedModuleId) ?? null;
+    modules.find((module) => module.id === selectedModuleId) ?? null;
+
+  const ActivePanel = getModulePanel(selectedModuleId);
 
   const handleModuleSelect = useCallback((module: CommandModule) => {
     setSelectedModuleId(module.id);
@@ -110,24 +139,30 @@ export function CommandShell({ data }: CommandShellProps) {
       >
         <div className="command-workspace">
           <ModuleBusPanel
-            modules={data.modules}
+            modules={modules}
             selectedModuleId={selectedModuleId}
             selectedModule={selectedModule}
+            dbBackedModuleIds={DB_BACKED_MODULE_IDS}
             onSelect={handleModuleSelect}
           />
 
           <div className="command-rail command-workspace__rail">
             <TerminalFeed entries={terminalEntries} />
+            <AiChatPanel />
             <NetworkMapPanel />
           </div>
 
           <CommandStage
-            modules={data.modules}
+            modules={modules}
             core={data.core}
             selectedModuleId={selectedModuleId}
             selectedModule={selectedModule}
             onModuleSelect={handleModuleSelect}
           />
+
+          {ActivePanel ? (
+            <ActivePanel onClose={() => setSelectedModuleId(null)} />
+          ) : null}
         </div>
 
         <StageHudPanels metrics={data.metrics} />

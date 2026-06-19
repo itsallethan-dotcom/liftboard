@@ -27,7 +27,7 @@ export function ModuleDetailPanel({ module, onClose }: ModuleDetailPanelProps) {
         </div>
         <p className="command-module-detail__subtitle">{module.subtitle}</p>
         <dl className="command-module-detail__fields">
-          {module.detail.map((field) => (
+          {(module.detail ?? []).map((field) => (
             <div key={field.label}>
               <dt>{field.label}</dt>
               <dd

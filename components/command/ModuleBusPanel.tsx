@@ -15,6 +15,7 @@ type ModuleBusPanelProps = {
   modules: CommandModule[];
   selectedModuleId: string | null;
   selectedModule: CommandModule | null;
+  dbBackedModuleIds?: string[];
   onSelect: (module: CommandModule) => void;
 };
 
@@ -22,8 +23,10 @@ export function ModuleBusPanel({
   modules,
   selectedModuleId,
   selectedModule,
+  dbBackedModuleIds = [],
   onSelect,
 }: ModuleBusPanelProps) {
+  const isDbBacked = selectedModule && dbBackedModuleIds.includes(selectedModule.id);
   return (
     <aside className="command-module-bus command-boot-item" style={{ animationDelay: "0.3s" }}>
       <HudPanel label="// MODULE BUS" title="Active Nodes" className="command-module-bus__panel">
@@ -63,11 +66,11 @@ export function ModuleBusPanel({
           })}
         </ul>
 
-        {selectedModule ? (
+        {selectedModule && !isDbBacked ? (
           <div className="command-module-bus__detail">
             <p className="command-module-bus__detail-title">{selectedModule.label}</p>
             <dl className="command-module-bus__detail-fields">
-              {selectedModule.detail.map((field) => (
+              {(selectedModule.detail ?? []).map((field) => (
                 <div key={field.label}>
                   <dt>{field.label}</dt>
                   <dd
@@ -80,6 +83,27 @@ export function ModuleBusPanel({
                 </div>
               ))}
             </dl>
+          </div>
+        ) : selectedModule && isDbBacked ? (
+          <div className="command-module-bus__detail">
+            <p className="command-module-bus__detail-title">{selectedModule.label}</p>
+            <dl className="command-module-bus__detail-fields">
+              {selectedModule.detail?.slice(0, 4).map((field) => (
+                <div key={field.label}>
+                  <dt>{field.label}</dt>
+                  <dd
+                    className={
+                      field.tone ? `command-module-detail__value--${field.tone}` : undefined
+                    }
+                  >
+                    {field.value}
+                  </dd>
+                </div>
+              ))}
+            </dl>
+            <p className="command-module-bus__career-hint">
+              Live hub open — data from Supabase memory.
+            </p>
           </div>
         ) : null}
       </HudPanel>

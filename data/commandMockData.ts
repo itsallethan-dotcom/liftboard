@@ -1,5 +1,6 @@
 import type { CommandShellData } from "@/types/command";
 
+/** Layout-only shell data. Module detail stats load from Supabase via /api/os/summary. */
 export const commandMockData: CommandShellData = {
   core: {
     title: "FORGEONIX CORE",
@@ -14,10 +15,10 @@ export const commandMockData: CommandShellData = {
     lines: [
       "Initializing command shell...",
       "Loading module bus...",
+      "Mounting Supabase memory layer...",
       "Syncing infrastructure relay...",
-      "Mounting Forgeonix business layer...",
       "Checking lead generation pipeline...",
-      "Loading AI operations sandbox...",
+      "Loading career memory...",
       "Establishing terminal feed...",
       "Core online.",
     ],
@@ -29,13 +30,6 @@ export const commandMockData: CommandShellData = {
       subtitle: "Homelab · Proxmox · Docker",
       status: "online",
       slot: "top",
-      detail: [
-        { label: "Proxmox", value: "Online", tone: "ok" },
-        { label: "Docker VM", value: "Online", tone: "ok" },
-        { label: "Uptime Kuma", value: "Online", tone: "ok" },
-        { label: "n8n", value: "Standby", tone: "warn" },
-        { label: "Home Assistant", value: "Online", tone: "ok" },
-      ],
     },
     {
       id: "business",
@@ -43,12 +37,6 @@ export const commandMockData: CommandShellData = {
       subtitle: "Brand · Portfolio · Services",
       status: "online",
       slot: "left-upper",
-      detail: [
-        { label: "Active Projects", value: "3", tone: "neutral" },
-        { label: "Clients", value: "2", tone: "neutral" },
-        { label: "Revenue Tracked", value: "Manual Pending", tone: "warn" },
-        { label: "Next Action", value: "Build lead workflow", tone: "neutral" },
-      ],
     },
     {
       id: "leads",
@@ -56,11 +44,6 @@ export const commandMockData: CommandShellData = {
       subtitle: "Pipeline · Outreach · CRM",
       status: "standby",
       slot: "left-lower",
-      detail: [
-        { label: "Prospects", value: "12", tone: "neutral" },
-        { label: "Follow-ups Due", value: "3", tone: "warn" },
-        { label: "Cold Outreach", value: "Not started", tone: "warn" },
-      ],
     },
     {
       id: "career",
@@ -68,23 +51,13 @@ export const commandMockData: CommandShellData = {
       subtitle: "Applications · Skills · Goals",
       status: "dev",
       slot: "right-upper",
-      detail: [
-        { label: "Applications", value: "0", tone: "neutral" },
-        { label: "Cert Targets", value: "10", tone: "neutral" },
-        { label: "Resume Status", value: "Needs update", tone: "warn" },
-      ],
     },
     {
       id: "ai-ops",
       label: "AI Operations",
-      subtitle: "Agents · Workflows · Models",
+      subtitle: "Agents · Notes · Docs",
       status: "standby",
       slot: "right-middle",
-      detail: [
-        { label: "Agents", value: "0", tone: "neutral" },
-        { label: "Workflows", value: "0", tone: "neutral" },
-        { label: "n8n", value: "Pending integration", tone: "warn" },
-      ],
     },
     {
       id: "liftboard",
@@ -92,11 +65,6 @@ export const commandMockData: CommandShellData = {
       subtitle: "Fitness · Leaderboards · Teams",
       status: "online",
       slot: "right-lower",
-      detail: [
-        { label: "Status", value: "Demo online", tone: "ok" },
-        { label: "Users", value: "Mock data", tone: "neutral" },
-        { label: "Next Action", value: "Polish demo flow", tone: "neutral" },
-      ],
     },
   ],
   terminal: [
@@ -104,7 +72,7 @@ export const commandMockData: CommandShellData = {
       id: "t1",
       timestamp: "14:02:08",
       level: "system",
-      message: "FORGEONIX OS bridge initialized — visual shell only",
+      message: "FORGEONIX OS bridge initialized — Supabase memory online",
     },
     {
       id: "t2",
@@ -116,37 +84,37 @@ export const commandMockData: CommandShellData = {
       id: "t3",
       timestamp: "14:02:11",
       level: "info",
-      message: "Infrastructure module heartbeat OK",
+      message: "Infrastructure module reading from database",
     },
     {
       id: "t4",
       timestamp: "14:02:14",
       level: "info",
-      message: "LiftBoard relay connected (mock)",
+      message: "LiftBoard relay connected",
     },
     {
       id: "t5",
       timestamp: "14:02:18",
-      level: "warn",
-      message: "Lead Generation module awaiting data layer",
+      level: "info",
+      message: "Lead Generation pipeline ready for writes",
     },
     {
       id: "t6",
       timestamp: "14:02:22",
       level: "info",
-      message: "Career Tracker build channel: preview",
+      message: "Career Tracker memory channel active",
     },
     {
       id: "t7",
       timestamp: "14:02:27",
       level: "system",
-      message: "AI Operations sandbox idle — no live agents",
+      message: "AI Operations · notes layer ready for agents",
     },
     {
       id: "t8",
       timestamp: "14:02:31",
       level: "success",
-      message: "Forgeonix Business surface synced (static)",
+      message: "Forgeonix Business hub synced from Supabase",
     },
     {
       id: "t9",

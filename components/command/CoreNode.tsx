@@ -45,7 +45,7 @@ export const CoreNode = forwardRef<HTMLDivElement, CoreNodeProps>(function CoreN
         </p>
         <dl className="command-core__stats">
           {selectedModule
-            ? selectedModule.detail.slice(0, 4).map((field) => (
+            ? (selectedModule.detail ?? []).slice(0, 4).map((field) => (
                 <div key={field.label}>
                   <dt>{field.label}</dt>
                   <dd>{field.value}</dd>

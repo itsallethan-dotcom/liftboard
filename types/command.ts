@@ -21,7 +21,8 @@ export type CommandModule = {
   subtitle: string;
   status: CommandModuleStatus;
   slot: CommandModuleSlot;
-  detail: ModuleDetailField[];
+  /** Populated at runtime from /api/os/summary — not hardcoded in mock data. */
+  detail?: ModuleDetailField[];
 };
 
 export type TerminalLevel = "info" | "warn" | "success" | "system";
