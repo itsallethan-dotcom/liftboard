@@ -10,7 +10,7 @@ type SitePanelProps = {
 };
 
 const PANEL_CLASS =
-  "forgeonix-card forgeonix-panel relative overflow-hidden rounded-sm bg-[#1c1c1c]/90 backdrop-blur-sm";
+  "forgeonix-card forgeonix-panel relative overflow-hidden rounded-md bg-gradient-to-b from-[#191d28]/85 to-[#12151d]/92 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] backdrop-blur-md";
 
 export function SitePanel({
   children,

@@ -86,7 +86,7 @@ export default function LeaderboardLandingPage() {
         <div className="mt-8 grid gap-3 sm:grid-cols-2">
           {steps.map((step, index) => (
             <SitePanel key={step} className="p-4">
-              <p className="font-mono text-xs font-semibold tracking-wider text-[#a5f3fc]/90 uppercase">
+              <p className="font-mono text-xs font-semibold tracking-wider text-[#fdba74]/90 uppercase">
                 Step {index + 1}
               </p>
               <p className="mt-2 text-[#e0e0e0]">{step}</p>
@@ -144,7 +144,7 @@ export default function LeaderboardLandingPage() {
             <SiteButton href="/signup">Create Account</SiteButton>
             <Link
               href="/"
-              className="forgeonix-btn-ghost rounded-sm border border-white/20 px-5 py-2.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
+              className="forgeonix-btn-ghost rounded-sm border border-white/20 px-5 py-2.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#ff7a36]/40 hover:text-white"
             >
               Back to Forgeonix
             </Link>

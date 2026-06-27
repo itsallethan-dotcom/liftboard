@@ -105,7 +105,7 @@ function ProjectCardContent({ project }: { project: Project }) {
   return (
     <>
       <PanelCorners />
-      <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-[#67e8f9]/50 to-transparent" />
+      <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-[#ff7a36]/50 to-transparent" />
       <div className="flex items-start justify-between gap-3">
         <h3 className="min-w-0 text-xl font-semibold text-[#e8e8e8]">
           {project.title}

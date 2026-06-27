@@ -46,7 +46,7 @@ function ParticleCanvas() {
         },
         links: {
           enable: true,
-          color: isDesktop ? "#67e8f9" : "#ffffff",
+          color: isDesktop ? "#ff7a36" : "#ffffff",
           opacity: isDesktop ? 0.12 : 0.05,
           distance: 130,
           width: 1,

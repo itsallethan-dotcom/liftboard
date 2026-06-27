@@ -1,3 +1,4 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { addOsRecord, fetchRecordsDashboard } from "@/lib/os/records";
 import type { AddOsRecordInput, RecordType } from "@/types/forgeonix-os";
 import { RECORD_TYPES } from "@/types/forgeonix-os";
@@ -20,6 +21,8 @@ function parseRecord(body: unknown): AddOsRecordInput {
 }
 
 export async function GET() {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     return NextResponse.json(await fetchRecordsDashboard());
   } catch (error) {
@@ -29,6 +32,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const record = await addOsRecord(parseRecord(await request.json()));
     return NextResponse.json(record, { status: 201 });

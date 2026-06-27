@@ -72,14 +72,14 @@ export function HeroSection() {
         >
           <a
             href="#projects"
-            className="forgeonix-btn-primary rounded border border-[#c0c0c0] px-6 py-3 text-sm font-semibold tracking-wide text-[#e8e8e8] transition-all duration-500"
+            className="forgeonix-btn-primary rounded border border-transparent px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-500"
             onClick={() => playSound("click")}
           >
             View Projects
           </a>
           <Link
             href="/resume"
-            className="forgeonix-btn-ghost rounded border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#c0c0c0] hover:text-white"
+            className="forgeonix-btn-ghost rounded border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#9aa0aa] transition-all duration-500"
             onClick={() => playSound("click")}
           >
             Download Resume

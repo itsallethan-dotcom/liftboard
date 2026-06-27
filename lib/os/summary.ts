@@ -1,5 +1,6 @@
 import { fetchCareerDashboard } from "@/lib/career/queries";
 import { fetchBusinessDashboard } from "@/lib/os/business";
+import { fetchMemoryDashboard } from "@/lib/os/memory";
 import { fetchInfrastructureDashboard } from "@/lib/os/infrastructure";
 import { fetchLeadsDashboard } from "@/lib/os/leads";
 import { fetchNotesDashboard } from "@/lib/os/notes";
@@ -28,7 +29,7 @@ function capitalizeStatus(value: string) {
 }
 
 export async function fetchOsModuleSummary(): Promise<OsModuleSummary> {
-  const [infra, business, leads, career, notes, records, projects, liftboard] =
+  const [infra, business, leads, career, notes, records, projects, liftboard, memory] =
     await Promise.all([
     fetchInfrastructureDashboard(),
     fetchBusinessDashboard(),
@@ -38,16 +39,24 @@ export async function fetchOsModuleSummary(): Promise<OsModuleSummary> {
     fetchRecordsDashboard(),
     fetchOsProjects(),
     fetchLiftboardSummary().catch(() => null),
+    fetchMemoryDashboard().catch(() => null),
   ]);
 
   const openIncidents = infra.incidents.filter((i) => i.status === "open" || i.status === "investigating").length;
 
-  const activeProjects = projects.filter((p) => !["completed", "archived"].includes(p.status)).length;
   const activeClients = business.clients.filter((c) => c.status === "active" || c.status === "prospect").length;
   const openTasks = business.tasks.filter((t) => t.status === "open" || t.status === "in_progress").length;
   const pendingRevenue = business.revenue.filter((r) => r.status === "pending").length;
 
   const nextTask = business.tasks.find((t) => t.status === "open" || t.status === "in_progress");
+
+  const revenueEntries = business.revenue.length;
+  const thisMonth = new Date().toISOString().slice(0, 7);
+  const revenueThisMonth = business.monthlyRevenue.find((m) => m.month === thisMonth)?.total ?? 0;
+  const outstandingInvoices = business.invoices.filter(
+    (i) => i.status === "sent" || i.status === "overdue",
+  ).length;
+  const fmtMoney = (n: number) => (n > 0 ? `$${Math.round(n).toLocaleString()}` : "$0");
 
   return {
     infrastructure: [
@@ -64,32 +73,36 @@ export async function fetchOsModuleSummary(): Promise<OsModuleSummary> {
         : []),
     ],
     business: [
-      { label: "Active Projects", value: String(activeProjects), tone: "neutral" },
       { label: "Clients", value: String(activeClients), tone: "neutral" },
-      {
-        label: "Revenue Tracked",
-        value: pendingRevenue > 0 ? `${pendingRevenue} pending` : "Manual Pending",
-        tone: pendingRevenue > 0 ? "ok" : "warn",
-      },
-      {
-        label: "Next Action",
-        value: nextTask?.title ?? "Build lead workflow",
-        tone: "neutral",
-      },
-      { label: "Open Tasks", value: String(openTasks), tone: openTasks > 0 ? "warn" : "neutral" },
-    ],
-    leads: [
-      { label: "Prospects", value: String(leads.stats.total), tone: "neutral" },
+      { label: "Leads", value: String(leads.stats.total), tone: "neutral" },
       {
         label: "Follow-ups Due",
         value: String(leads.stats.followUpsDue),
         tone: leads.stats.followUpsDue > 0 ? "warn" : "neutral",
       },
+      { label: "Open Tasks", value: String(openTasks), tone: openTasks > 0 ? "warn" : "neutral" },
+      { label: "Revenue (mo)", value: fmtMoney(revenueThisMonth), tone: revenueThisMonth > 0 ? "ok" : "neutral" },
       {
-        label: "Qualified",
-        value: String(leads.stats.qualified),
-        tone: leads.stats.qualified > 0 ? "ok" : "neutral",
+        label: "Next Action",
+        value: nextTask?.title ?? "Build lead workflow",
+        tone: "neutral",
       },
+    ],
+    finance: [
+      { label: "Revenue (mo)", value: fmtMoney(revenueThisMonth), tone: revenueThisMonth > 0 ? "ok" : "neutral" },
+      { label: "Outstanding Invoices", value: String(outstandingInvoices), tone: outstandingInvoices > 0 ? "warn" : "neutral" },
+      { label: "Pending Revenue", value: String(pendingRevenue), tone: pendingRevenue > 0 ? "warn" : "neutral" },
+      { label: "Revenue Entries", value: String(revenueEntries), tone: revenueEntries > 0 ? "ok" : "neutral" },
+    ],
+    automations: [
+      { label: "Engine", value: "Phase 9", tone: "dev" },
+      { label: "Workflows", value: "0", tone: "neutral" },
+      { label: "Webhooks", value: "Planned", tone: "warn" },
+    ],
+    health: [
+      { label: "Source", value: "Liftboard", tone: "neutral" },
+      { label: "Bodyweight", value: "Planned", tone: "dev" },
+      { label: "Bloodwork", value: "—", tone: "neutral" },
     ],
     career: [
       {
@@ -108,15 +121,19 @@ export async function fetchOsModuleSummary(): Promise<OsModuleSummary> {
         tone: career.stats.followUpsDue > 0 ? "warn" : "ok",
       },
     ],
-    "ai-ops": [
-      { label: "Notes", value: String(notes.notes.length), tone: "neutral" },
-      {
-        label: "Documentation",
-        value: String(notes.notes.filter((n) => n.note_type === "documentation").length),
-        tone: "neutral",
-      },
-      { label: "Records", value: String(records.records.length), tone: "neutral" },
-    ],
+    // AI Memory is the primary system; notes/records are legacy internal sources.
+    "ai-memory": memory
+      ? [
+          { label: "Memories", value: String(memory.stats.total), tone: "ok" },
+          { label: "High Importance", value: String(memory.stats.highImportance), tone: "neutral" },
+          { label: "Categories", value: String(memory.stats.categories), tone: "neutral" },
+          { label: "Notes", value: String(notes.notes.length), tone: "neutral" },
+          { label: "Records", value: String(records.records.length), tone: "neutral" },
+        ]
+      : [
+          { label: "Notes", value: String(notes.notes.length), tone: "neutral" },
+          { label: "Records", value: String(records.records.length), tone: "neutral" },
+        ],
     liftboard: liftboard
       ? [
           { label: "Users", value: String(liftboard.totalUsers), tone: "neutral" },
@@ -156,27 +173,9 @@ export async function fetchOsModuleSummary(): Promise<OsModuleSummary> {
         tone: "dev",
       },
     ],
-    notes: [
-      { label: "Notes", value: String(notes.notes.filter((n) => n.note_type === "note").length), tone: "neutral" },
-      {
-        label: "Docs",
-        value: String(notes.notes.filter((n) => n.note_type === "documentation").length),
-        tone: "neutral",
-      },
-    ],
-    records: [
-      { label: "Total", value: String(records.records.length), tone: "neutral" },
-      {
-        label: "Milestones",
-        value: String(records.records.filter((r) => r.record_type === "milestone").length),
-        tone: "neutral",
-      },
-      {
-        label: "Wins",
-        value: String(records.records.filter((r) => r.record_type === "win").length),
-        tone: "ok",
-      },
-    ],
+    // NOTE: notes & records are internal data sources surfaced *inside* the
+    // ai-memory module above — they are intentionally not top-level modules,
+    // matching the 9-card OS structure.
   };
 }
 

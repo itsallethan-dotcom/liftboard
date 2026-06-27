@@ -22,8 +22,8 @@ export function ConnectionLines({
     >
       <defs>
         <linearGradient id="command-line-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="rgba(103, 232, 249, 0.55)" />
-          <stop offset="100%" stopColor="rgba(168, 85, 247, 0.35)" />
+          <stop offset="0%" stopColor="rgba(255, 122, 54, 0.55)" />
+          <stop offset="100%" stopColor="rgba(45, 125, 255, 0.35)" />
         </linearGradient>
         <filter id="command-line-glow">
           <feGaussianBlur stdDeviation="0.35" result="blur" />

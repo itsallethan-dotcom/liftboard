@@ -26,10 +26,13 @@ export const CoreNode = forwardRef<HTMLDivElement, CoreNodeProps>(function CoreN
       className={`command-core command-boot-item ${focused ? "command-core--focused" : ""}`}
       style={{ animationDelay: "0.35s" }}
     >
+      <div className="command-core__halo" aria-hidden />
+      <div className="command-core__sphere" aria-hidden />
       <div className="command-core__depth" aria-hidden />
       <div className="command-core__depth command-core__depth--mid" aria-hidden />
       <div className="command-core__ring command-core__ring--outer" aria-hidden />
       <div className="command-core__ring command-core__ring--inner" aria-hidden />
+      <div className="command-core__ring command-core__ring--accent" aria-hidden />
       <span className="command-core__link-node" data-connection-node aria-hidden />
       <HudPanel className="command-core__panel" glow>
         <p className="command-core__eyebrow">{focused ? "// MODULE LINK" : "// CORE SYSTEM"}</p>
@@ -58,16 +61,16 @@ export const CoreNode = forwardRef<HTMLDivElement, CoreNodeProps>(function CoreN
                   <dd>{data.version}</dd>
                 </div>
                 <div>
-                  <dt>Uptime</dt>
+                  <dt>Uptime (sim)</dt>
                   <dd>{data.uptime}</dd>
                 </div>
                 <div>
-                  <dt>Load</dt>
+                  <dt>Load (sim)</dt>
                   <dd>{data.load}</dd>
                 </div>
                 <div>
                   <dt>Nodes</dt>
-                  <dd>6/6</dd>
+                  <dd>{data.nodes ?? "—"}</dd>
                 </div>
               </>
             )}
@@ -75,7 +78,7 @@ export const CoreNode = forwardRef<HTMLDivElement, CoreNodeProps>(function CoreN
         <p className="command-core__bridge">
           {focused
             ? `ROUTED TO CORE · ${selectedModule!.label.toUpperCase()} · ACTIVE`
-            : "BRIDGE SYNC · NOMINAL · UTC 14:02"}
+            : "BRIDGE SYNC · NOMINAL"}
         </p>
       </HudPanel>
     </div>

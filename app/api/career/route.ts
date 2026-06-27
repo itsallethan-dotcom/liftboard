@@ -1,7 +1,10 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { fetchCareerDashboard } from "@/lib/career/queries";
 import { NextResponse } from "next/server";
 
 export async function GET() {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const data = await fetchCareerDashboard();
     return NextResponse.json(data);

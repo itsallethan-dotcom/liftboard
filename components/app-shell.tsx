@@ -43,7 +43,7 @@ export function AppShell({
               <h1 className="forgeonix-metallic-text text-2xl font-bold">{title}</h1>
               <Link
                 href="/"
-                className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
+                className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#ff7a36]/40 hover:text-white"
               >
                 Back to Forgeonix
               </Link>
@@ -52,7 +52,7 @@ export function AppShell({
               <div className="flex items-center gap-3">
                 <Link
                   href="/profile"
-                  className="flex items-center gap-2 rounded-sm border border-white/10 bg-[#141414]/80 px-2.5 py-1.5 transition-colors hover:border-[#67e8f9]/35"
+                  className="flex items-center gap-2 rounded-sm border border-white/10 bg-[#141414]/80 px-2.5 py-1.5 transition-colors hover:border-[#ff7a36]/35"
                 >
                   <Avatar
                     name={profileDisplayName?.trim() || "Profile"}
@@ -69,13 +69,13 @@ export function AppShell({
               <div className="flex items-center gap-2">
                 <Link
                   href="/login"
-                  className="rounded-sm border border-[#67e8f9]/30 px-3 py-1.5 text-sm font-semibold text-[#a5f3fc] transition-colors hover:border-[#67e8f9]/60"
+                  className="rounded-sm border border-[#ff7a36]/30 px-3 py-1.5 text-sm font-semibold text-[#fdba74] transition-colors hover:border-[#ff7a36]/60"
                 >
                   Log In
                 </Link>
                 <Link
                   href="/signup"
-                  className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#67e8f9]/40 hover:text-white"
+                  className="forgeonix-btn-ghost rounded-sm border border-white/20 px-3 py-1.5 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#ff7a36]/40 hover:text-white"
                 >
                   Sign Up
                 </Link>
@@ -91,8 +91,8 @@ export function AppShell({
                   href={item.href}
                   className={`rounded-sm border px-3 py-1.5 text-sm font-semibold transition-all duration-300 ease-out ${
                     isActive
-                      ? "border-[#67e8f9]/50 bg-[#67e8f9]/10 text-[#a5f3fc]"
-                      : "forgeonix-app-shell-panel border-white/10 bg-[#141414]/80 text-[#e0e0e0] hover:-translate-y-0.5 hover:border-[#67e8f9]/35"
+                      ? "border-[#ff7a36]/50 bg-[#ff7a36]/10 text-[#fdba74]"
+                      : "forgeonix-app-shell-panel border-white/10 bg-[#141414]/80 text-[#e0e0e0] hover:-translate-y-0.5 hover:border-[#ff7a36]/35"
                   }`}
                 >
                   {item.label}

@@ -7,12 +7,21 @@ import { easeOut, fadeUp, viewportOnce } from "@/lib/home-motion";
 
 export function ContactSection() {
   return (
-    <section id="contact" className="bg-[#1e1e1e] px-6 py-24">
-      <div className="mx-auto max-w-3xl text-center">
+    <section id="contact" className="relative overflow-hidden bg-[#14161e] px-6 py-28">
+      {/* CTA atmosphere — dual ember+blue glow */}
+      <div
+        className="pointer-events-none absolute inset-0"
+        aria-hidden
+        style={{
+          background:
+            "radial-gradient(ellipse 40% 55% at 32% 50%, rgba(255,122,54,0.10), transparent 62%), radial-gradient(ellipse 40% 55% at 70% 50%, rgba(45,125,255,0.08), transparent 64%)",
+        }}
+      />
+      <div className="relative mx-auto max-w-3xl text-center">
         <SectionLabel>// CONTACT</SectionLabel>
 
         <motion.div
-          className="mx-auto mb-10 h-px w-32 bg-gradient-to-r from-transparent via-[#c0c0c0] to-transparent"
+          className="mx-auto mb-10 h-px w-32 bg-gradient-to-r from-[#ff7a36]/0 via-[#ff7a36]/80 to-[#2d7dff]/0"
           initial={{ scaleX: 0 }}
           whileInView={{ scaleX: 1 }}
           viewport={viewportOnce}
@@ -48,7 +57,7 @@ export function ContactSection() {
         >
           <a
             href="mailto:ethan@forgeonix.dev"
-            className="forgeonix-btn-primary rounded border border-[#c0c0c0] px-6 py-3 text-sm font-semibold tracking-wide text-[#e8e8e8] transition-all duration-500"
+            className="forgeonix-btn-primary rounded border border-transparent px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-500"
             onClick={() => playSound("click")}
           >
             ethan@forgeonix.dev
@@ -57,7 +66,7 @@ export function ContactSection() {
             href="https://www.linkedin.com/in/ethan-edwards-948934187/"
             target="_blank"
             rel="noopener noreferrer"
-            className="forgeonix-btn-ghost rounded border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500 hover:border-[#c0c0c0] hover:text-white"
+            className="forgeonix-btn-ghost rounded border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#9aa0aa] transition-all duration-500"
             onClick={() => playSound("click")}
           >
             LinkedIn

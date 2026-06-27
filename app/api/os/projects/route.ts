@@ -1,3 +1,4 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { addOsProject, fetchOsProjects } from "@/lib/os/projects";
 import type { AddOsProjectInput, ProjectStatus } from "@/types/forgeonix-os";
 import { PROJECT_STATUSES } from "@/types/forgeonix-os";
@@ -22,6 +23,8 @@ function parseProject(body: unknown): AddOsProjectInput {
 }
 
 export async function GET() {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const projects = await fetchOsProjects();
     return NextResponse.json({ projects });
@@ -32,6 +35,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const project = await addOsProject(parseProject(await request.json()));
     return NextResponse.json(project, { status: 201 });

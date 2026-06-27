@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { gsap, useGSAP, prefersReducedMotion } from "@/lib/motion";
 import type { BootSequenceData } from "@/types/command";
 
 type BootOverlayProps = {
@@ -13,6 +14,15 @@ export function BootOverlay({ boot, onComplete }: BootOverlayProps) {
   const [progress, setProgress] = useState(0);
   const [exiting, setExiting] = useState(false);
   const finishedRef = useRef(false);
+  const rootRef = useRef<HTMLDivElement>(null);
+  const ignitionRef = useRef<HTMLDivElement>(null);
+
+  // Hold the latest onComplete in a ref so the boot timer never restarts when the
+  // parent re-renders (e.g. the live clock). The sequence must run once on mount.
+  const onCompleteRef = useRef(onComplete);
+  useEffect(() => {
+    onCompleteRef.current = onComplete;
+  }, [onComplete]);
 
   const finish = useCallback(() => {
     if (finishedRef.current) {
@@ -20,9 +30,11 @@ export function BootOverlay({ boot, onComplete }: BootOverlayProps) {
     }
     finishedRef.current = true;
     setExiting(true);
-    window.setTimeout(onComplete, 480);
-  }, [onComplete]);
+    window.setTimeout(() => onCompleteRef.current(), 480);
+  }, []);
 
+  // Run the boot sequence exactly once on mount. Empty deps are intentional:
+  // boot timing is fixed for the session and the timer must not be restarted.
   useEffect(() => {
     const lineInterval = window.setInterval(() => {
       setVisibleCount((count) => {
@@ -56,10 +68,44 @@ export function BootOverlay({ boot, onComplete }: BootOverlayProps) {
       window.clearInterval(lineInterval);
       window.cancelAnimationFrame(frame);
     };
-  }, [boot.durationMs, boot.lines.length, finish]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // Phase 6 — cinematic boot: the console assembles on mount. Visual only; this
+  // does not touch the timer/onComplete above. Skipped under reduced motion.
+  useGSAP(
+    () => {
+      const mm = gsap.matchMedia();
+      mm.add("(prefers-reduced-motion: no-preference)", () => {
+        const tl = gsap.timeline({ defaults: { ease: "forge-smooth" } });
+        tl.from(".command-boot-overlay__panel", { autoAlpha: 0, y: 14, scale: 1.03, duration: 0.55 })
+          .from(".command-boot-overlay__version", { autoAlpha: 0, y: 6, duration: 0.3 }, "-=0.2")
+          .from(".command-boot-overlay__progress-wrap", { autoAlpha: 0, duration: 0.3 }, "-=0.15");
+      });
+      return () => mm.revert();
+    },
+    { scope: rootRef },
+  );
+
+  // Phase 6 — ignition: as the boot hands off, a light bloom "powers on" the room
+  // while the overlay dissolves (its fade is the existing CSS exit). Reduced-motion
+  // users skip the bloom. Fire-and-forget; the overlay unmounts shortly after.
+  useEffect(() => {
+    if (!exiting || !ignitionRef.current || prefersReducedMotion()) return;
+    const tl = gsap.timeline();
+    tl.fromTo(
+      ignitionRef.current,
+      { autoAlpha: 0, scale: 0.6 },
+      { autoAlpha: 0.9, scale: 1.25, duration: 0.22, ease: "power2.out" },
+    ).to(ignitionRef.current, { autoAlpha: 0, duration: 0.32, ease: "power2.in" });
+    return () => {
+      tl.kill();
+    };
+  }, [exiting]);
 
   return (
     <div
+      ref={rootRef}
       className={`command-boot-overlay ${exiting ? "command-boot-overlay--exit" : ""}`}
       role="dialog"
       aria-label="Forgeonix OS boot sequence"
@@ -67,6 +113,7 @@ export function BootOverlay({ boot, onComplete }: BootOverlayProps) {
     >
       <div className="command-boot-overlay__scanlines" aria-hidden />
       <div className="command-boot-overlay__vignette" aria-hidden />
+      <div ref={ignitionRef} className="command-boot-overlay__ignition" aria-hidden />
 
       <button type="button" className="command-boot-overlay__skip" onClick={finish}>
         Skip Boot

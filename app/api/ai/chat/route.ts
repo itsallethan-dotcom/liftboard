@@ -1,3 +1,4 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { fetchAiHistory, runAiChat } from "@/lib/ai/chat-service";
 import type { AiAgentKey, AiChatRequest } from "@/types/ai";
 import { NextResponse } from "next/server";
@@ -17,6 +18,8 @@ function parseAgentKey(value: unknown): AiAgentKey | undefined {
 }
 
 export async function GET(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const { searchParams } = new URL(request.url);
     const conversationId = searchParams.get("conversationId");
@@ -35,6 +38,8 @@ export async function GET(request: Request) {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const body = (await request.json()) as AiChatRequest;
     const message = typeof body.message === "string" ? body.message : "";

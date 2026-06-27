@@ -1,14 +1,33 @@
 import type { CommandModuleSlot } from "@/types/command";
 
-/** Radial angle per slot (degrees, 0 = east, −90 = north). */
+/**
+ * Radial angle per slot (degrees, 0 = east, −90 = north).
+ * Nine slots evenly spaced 40° apart, starting at the top and going clockwise.
+ */
 export const SLOT_ANGLES: Record<CommandModuleSlot, number> = {
-  top: -90,
-  "left-upper": -148,
-  "left-lower": 148,
-  "right-upper": -52,
-  "right-middle": 0,
-  "right-lower": 52,
+  s1: -90,
+  s2: -50,
+  s3: -10,
+  s4: 30,
+  s5: 70,
+  s6: 110,
+  s7: 150,
+  s8: -170,
+  s9: -130,
 };
+
+/** Slots in render order — index a module list against this to place 9 cards. */
+export const RADIAL_SLOTS: CommandModuleSlot[] = [
+  "s1",
+  "s2",
+  "s3",
+  "s4",
+  "s5",
+  "s6",
+  "s7",
+  "s8",
+  "s9",
+];
 
 export type ConnectorSide = "left" | "right" | "top" | "bottom";
 
@@ -49,17 +68,14 @@ export const ORBIT_HOVER_OFFSET = 56;
 export const ORBIT_SELECTED_OFFSET = 64;
 
 export function getConnectorSide(slot: CommandModuleSlot): ConnectorSide {
-  switch (slot) {
-    case "left-upper":
-    case "left-lower":
-      return "right";
-    case "right-upper":
-    case "right-middle":
-    case "right-lower":
-      return "left";
-    case "top":
-      return "bottom";
+  // Pick the card edge that faces the core, derived from the slot's ring angle.
+  const rad = (SLOT_ANGLES[slot] * Math.PI) / 180;
+  const cx = Math.cos(rad);
+  const cy = Math.sin(rad);
+  if (Math.abs(cx) >= Math.abs(cy)) {
+    return cx >= 0 ? "left" : "right";
   }
+  return cy >= 0 ? "top" : "bottom";
 }
 
 export function getSlotUnitVector(slot: CommandModuleSlot): { x: number; y: number } {

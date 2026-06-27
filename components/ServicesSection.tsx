@@ -64,8 +64,8 @@ function ServiceCard({
       onMouseEnter={() => playSound("hover")}
     >
       <PanelCorners />
-      <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-[#67e8f9]/40 to-transparent" />
-      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-[#67e8f9]/20 bg-[#141414]/80 shadow-[inset_0_0_12px_rgba(103,232,249,0.06)]">
+      <div className="pointer-events-none absolute top-0 right-0 left-0 h-px bg-gradient-to-r from-transparent via-[#ff7a36]/40 to-transparent" />
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-sm border border-[#ff7a36]/20 bg-[#141414]/80 shadow-[inset_0_0_12px_rgba(255,122,54,0.07)]">
         <Icon />
       </div>
       <h3 className="mt-5 text-xl font-semibold text-[#e8e8e8]">{title}</h3>

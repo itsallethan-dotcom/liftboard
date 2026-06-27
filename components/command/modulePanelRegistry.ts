@@ -1,21 +1,27 @@
 import type { ComponentType } from "react";
 import { CareerTrackerPanel } from "@/components/command/CareerTrackerPanel";
+import { AiMemoryPanel } from "@/components/command/panels/AiMemoryPanel";
+import { AutomationsPanel } from "@/components/command/panels/AutomationsPanel";
 import { BusinessPanel } from "@/components/command/panels/BusinessPanel";
+import { FinancePanel } from "@/components/command/panels/FinancePanel";
+import { HealthPanel } from "@/components/command/panels/HealthPanel";
 import { InfrastructurePanel } from "@/components/command/panels/InfrastructurePanel";
-import { LeadsPanel } from "@/components/command/panels/LeadsPanel";
 import { LiftboardPanel } from "@/components/command/panels/LiftboardPanel";
-import { NotesPanel } from "@/components/command/panels/NotesPanel";
+import { ProjectsPanel } from "@/components/command/panels/ProjectsPanel";
 
 type ModulePanelProps = { onClose?: () => void };
 
-/** Maps hero module ids to database-backed hub panels. */
+/** Maps the 9 OS module ids to their database-backed hub panels. */
 export const MODULE_PANELS: Record<string, ComponentType<ModulePanelProps>> = {
   infrastructure: InfrastructurePanel,
-  business: BusinessPanel,
-  leads: LeadsPanel,
-  career: CareerTrackerPanel,
-  "ai-ops": NotesPanel,
+  business: BusinessPanel, // CRM + Leads folded in
   liftboard: LiftboardPanel,
+  career: CareerTrackerPanel,
+  projects: ProjectsPanel,
+  "ai-memory": AiMemoryPanel,
+  automations: AutomationsPanel,
+  finance: FinancePanel,
+  health: HealthPanel,
 };
 
 export const DB_BACKED_MODULE_IDS = Object.keys(MODULE_PANELS);

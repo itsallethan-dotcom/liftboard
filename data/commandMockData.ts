@@ -6,6 +6,8 @@ export const commandMockData: CommandShellData = {
     title: "FORGEONIX CORE",
     subtitle: "Command Center · Systems Bridge",
     version: "OS 0.9.1-preview",
+    // uptime/load are simulated (shown as "(sim)" in the core readout). The
+    // Nodes value is replaced at runtime with the real online/total count.
     uptime: "14d 06h 22m",
     load: "12%",
   },
@@ -23,50 +25,76 @@ export const commandMockData: CommandShellData = {
       "Core online.",
     ],
   },
+  // Layout-only fallback. The live 9-card structure is read from the
+  // module_status table in app/command/page.tsx; this is used only if that
+  // query returns nothing (e.g. migration not yet applied).
   modules: [
     {
       id: "infrastructure",
       label: "Infrastructure",
       subtitle: "Homelab · Proxmox · Docker",
       status: "online",
-      slot: "top",
+      slot: "s1",
     },
     {
       id: "business",
       label: "Forgeonix Business",
-      subtitle: "Brand · Portfolio · Services",
+      subtitle: "Brand · CRM · Leads · Services",
       status: "online",
-      slot: "left-upper",
-    },
-    {
-      id: "leads",
-      label: "Lead Generation",
-      subtitle: "Pipeline · Outreach · CRM",
-      status: "standby",
-      slot: "left-lower",
-    },
-    {
-      id: "career",
-      label: "Career Tracker",
-      subtitle: "Applications · Skills · Goals",
-      status: "dev",
-      slot: "right-upper",
-    },
-    {
-      id: "ai-ops",
-      label: "AI Operations",
-      subtitle: "Agents · Notes · Docs",
-      status: "standby",
-      slot: "right-middle",
+      slot: "s2",
     },
     {
       id: "liftboard",
-      label: "LiftBoard",
+      label: "Liftboard",
       subtitle: "Fitness · Leaderboards · Teams",
       status: "online",
-      slot: "right-lower",
+      slot: "s3",
+    },
+    {
+      id: "career",
+      label: "Career",
+      subtitle: "Applications · Skills · Certs",
+      status: "dev",
+      slot: "s4",
+    },
+    {
+      id: "projects",
+      label: "Projects",
+      subtitle: "Builds · Status · Stack",
+      status: "online",
+      slot: "s5",
+    },
+    {
+      id: "ai-memory",
+      label: "AI Memory",
+      subtitle: "Notes · Docs · Second Brain",
+      status: "standby",
+      slot: "s6",
+    },
+    {
+      id: "automations",
+      label: "Automations",
+      subtitle: "n8n · Workflows (Phase 9)",
+      status: "dev",
+      slot: "s7",
+    },
+    {
+      id: "finance",
+      label: "Finance",
+      subtitle: "Revenue · Offers · Cashflow",
+      status: "standby",
+      slot: "s8",
+    },
+    {
+      id: "health",
+      label: "Health & Fitness",
+      subtitle: "Weight · Calories · Bloodwork",
+      status: "dev",
+      slot: "s9",
     },
   ],
+  // Cosmetic boot-time fallback feed. Replaced by real command_logs after boot
+  // (see CommandShell's /api/os/logs effect).
   terminal: [
     {
       id: "t1",
@@ -144,10 +172,13 @@ export const commandMockData: CommandShellData = {
     { id: "logs", label: "Logs" },
     { id: "site", label: "Forgeonix.dev", href: "/" },
   ],
+  // CPU/MEM/NET are simulated (a serverless app can't read host metrics) and are
+  // labelled "(sim)". NODES is overwritten at runtime with the real online/total
+  // module count in CommandShell.
   metrics: [
-    { id: "cpu", label: "CPU", value: "12%" },
-    { id: "mem", label: "MEM", value: "4.2 GB" },
-    { id: "net", label: "NET", value: "↑ 24k ↓ 18k" },
-    { id: "nodes", label: "NODES", value: "6/6" },
+    { id: "cpu", label: "CPU", value: "12% (sim)" },
+    { id: "mem", label: "MEM", value: "4.2 GB (sim)" },
+    { id: "net", label: "NET", value: "↑ 24k ↓ 18k (sim)" },
+    { id: "nodes", label: "NODES", value: "—" },
   ],
 };

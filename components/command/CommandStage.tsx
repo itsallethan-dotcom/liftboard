@@ -1,6 +1,8 @@
 "use client";
 
 import { useCallback, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { CommandHudOverlay } from "@/components/command/CommandHudOverlay";
+import { CommandParticles } from "@/components/command/CommandParticles";
 import { ConnectionLines } from "@/components/command/ConnectionLines";
 import { CoreNode } from "@/components/command/CoreNode";
 import { ModuleNode } from "@/components/command/ModuleNode";
@@ -199,6 +201,9 @@ export function CommandStage({
       data-selected-module={selectedModuleId ?? undefined}
       data-hovered-module={hoveredModuleId ?? undefined}
     >
+      <CommandParticles />
+      <CommandHudOverlay />
+
       <ConnectionLines
         connections={connections}
         selectedModuleId={selectedModuleId}

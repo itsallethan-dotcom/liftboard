@@ -1,4 +1,4 @@
-import { createClient } from "@supabase/supabase-js";
+import { createBrowserClient } from "@supabase/ssr";
 
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
@@ -9,7 +9,12 @@ if (!supabaseUrl || !supabaseAnonKey) {
   );
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+/**
+ * Cookie-based browser client (via @supabase/ssr). Storing the session in
+ * cookies (instead of localStorage) is what lets the server, route handlers,
+ * and proxy.ts read the auth state and enforce the owner-only gate.
+ */
+export const supabase = createBrowserClient(supabaseUrl, supabaseAnonKey);
 
 export async function ensureProfileRow(userId: string, userEmail?: string | null) {
   const { data: authData, error: authError } = await supabase.auth.getUser();

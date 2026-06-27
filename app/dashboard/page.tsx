@@ -24,7 +24,7 @@ export default function DashboardPage() {
   if (loading) return <main className="forgeonix-app min-h-screen" />;
 
   const panel = "forgeonix-app-shell-panel rounded-sm";
-  const tabActive = "border-[#67e8f9]/50 bg-[#67e8f9]/10 text-[#a5f3fc]";
+  const tabActive = "border-[#ff7a36]/50 bg-[#ff7a36]/10 text-[#fdba74]";
   const tabIdle = "border-white/10 bg-[#141414]/80 text-[#e0e0e0]";
   const rowCard = "rounded-sm border border-white/[0.06] bg-[#141414]/80 p-3";
 
@@ -36,7 +36,7 @@ export default function DashboardPage() {
       avatarUrl={profile?.avatar_url ?? null}
     >
       {!user ? (
-        <section className={`${panel} border-[#67e8f9]/30 p-5`}>
+        <section className={`${panel} border-[#ff7a36]/30 p-5`}>
           <h2 className="text-xl font-semibold text-[#e8e8e8]">Live Gym Leaderboard</h2>
           <p className="mt-2 text-sm text-[#a0a0a0]">
             Track rankings live. Log in to record workouts, join teams, and compete in challenges.
@@ -44,7 +44,7 @@ export default function DashboardPage() {
           <div className="mt-4 flex flex-wrap gap-2">
             <Link
               href="/login"
-              className="rounded-sm border border-[#67e8f9]/40 bg-[#141414]/80 px-3 py-1.5 text-sm font-semibold text-[#a5f3fc]"
+              className="rounded-sm border border-[#ff7a36]/40 bg-[#141414]/80 px-3 py-1.5 text-sm font-semibold text-[#fdba74]"
             >
               Log In
             </Link>
@@ -56,7 +56,7 @@ export default function DashboardPage() {
             </Link>
             <Link
               href="/signup"
-              className="rounded-sm border border-[#67e8f9]/35 bg-[#67e8f9]/10 px-3 py-1.5 text-sm font-semibold text-[#a5f3fc]"
+              className="rounded-sm border border-[#ff7a36]/35 bg-[#ff7a36]/10 px-3 py-1.5 text-sm font-semibold text-[#fdba74]"
             >
               Join the Challenge
             </Link>

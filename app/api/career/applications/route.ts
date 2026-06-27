@@ -1,3 +1,4 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { addJobApplication } from "@/lib/career/queries";
 import type { AddJobApplicationInput, JobApplicationStatus } from "@/types/career";
 import { JOB_APPLICATION_STATUSES } from "@/types/career";
@@ -24,6 +25,8 @@ function parseBody(body: unknown): AddJobApplicationInput {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const body = parseBody(await request.json());
     const application = await addJobApplication(body);

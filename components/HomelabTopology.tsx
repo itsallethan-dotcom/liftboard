@@ -185,9 +185,9 @@ export function HomelabTopology({ className = "" }: HomelabTopologyProps) {
                 </feMerge>
               </filter>
               <linearGradient id="homelab-link-gradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                <stop offset="0%" stopColor="rgba(220,38,38,0.15)" />
-                <stop offset="50%" stopColor="rgba(239,68,68,0.55)" />
-                <stop offset="100%" stopColor="rgba(220,38,38,0.15)" />
+                <stop offset="0%" stopColor="rgba(45,125,255,0.15)" />
+                <stop offset="50%" stopColor="rgba(106,168,255,0.55)" />
+                <stop offset="100%" stopColor="rgba(45,125,255,0.15)" />
               </linearGradient>
             </defs>
 
@@ -207,10 +207,10 @@ export function HomelabTopology({ className = "" }: HomelabTopologyProps) {
                     className="homelab-link-pulse"
                     opacity={0.85}
                   />
-                  <circle r={3.5} className="homelab-packet" fill="#ef4444">
+                  <circle r={3.5} className="homelab-packet" fill="#6aa8ff">
                     <animateMotion dur="2.8s" repeatCount="indefinite" path={d} />
                   </circle>
-                  <circle r={2.5} className="homelab-packet homelab-packet--delayed" fill="#fbbf24">
+                  <circle r={2.5} className="homelab-packet homelab-packet--delayed" fill="#ff8a4c">
                     <animateMotion
                       dur="3.6s"
                       repeatCount="indefinite"
@@ -274,14 +274,14 @@ export function HomelabTopology({ className = "" }: HomelabTopologyProps) {
 
           {hoveredNode && !selectedNode ? (
             <div
-              className="homelab-tooltip pointer-events-none absolute z-20 max-w-[220px] rounded-sm border border-[#ef4444]/30 bg-[#141414]/95 px-3 py-2 shadow-lg backdrop-blur-sm"
+              className="homelab-tooltip pointer-events-none absolute z-20 max-w-[220px] rounded-sm border border-[#6aa8ff]/30 bg-[#0f1626]/95 px-3 py-2 shadow-lg backdrop-blur-sm"
               style={{
                 left: `${(hoveredNode.x / 1000) * 100}%`,
                 top: `${(hoveredNode.y / 620) * 100}%`,
                 transform: "translate(-50%, calc(-100% - 12px))",
               }}
             >
-              <p className="font-mono text-[10px] tracking-widest text-[#ef4444]/90 uppercase">
+              <p className="font-mono text-[10px] tracking-widest text-[#6aa8ff]/90 uppercase">
                 {hoveredNode.purpose}
               </p>
               <p className="mt-1 text-sm font-semibold text-white">{hoveredNode.label}</p>
@@ -321,7 +321,7 @@ export function HomelabTopology({ className = "" }: HomelabTopologyProps) {
             </div>
             <button
               type="button"
-              className="mt-4 text-xs font-semibold tracking-wide text-[#ef4444]/80 transition hover:text-[#ef4444]"
+              className="mt-4 text-xs font-semibold tracking-wide text-[#6aa8ff]/80 transition hover:text-[#6aa8ff]"
               onClick={() => setSelectedId(null)}
             >
               Close panel

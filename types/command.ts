@@ -1,13 +1,19 @@
 export type CommandModuleStatus = "online" | "standby" | "dev" | "offline";
 
-/** Stage positions around the core — left column, right column, top anchor. */
+/**
+ * Radial stage positions around the core. The OS runs a 9-card structure, so
+ * slots are evenly distributed points on the ring (s1 = top, clockwise).
+ */
 export type CommandModuleSlot =
-  | "top"
-  | "left-upper"
-  | "left-lower"
-  | "right-upper"
-  | "right-middle"
-  | "right-lower";
+  | "s1"
+  | "s2"
+  | "s3"
+  | "s4"
+  | "s5"
+  | "s6"
+  | "s7"
+  | "s8"
+  | "s9";
 
 export type ModuleDetailField = {
   label: string;
@@ -55,6 +61,8 @@ export type CoreNodeData = {
   version: string;
   uptime: string;
   load: string;
+  /** Real "online/total" node count, injected at runtime from module_status. */
+  nodes?: string;
 };
 
 export type SystemMetric = {

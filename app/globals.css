@@ -228,7 +228,7 @@ body {
 }
 
 .fn-cine-title {
-  background: linear-gradient(115deg, #fafafa 0%, #e4e4e7 18%, #a5f3fc 45%, #22d3ee 58%, #67e8f9 75%, #f4f4f5 100%);
+  background: linear-gradient(115deg, #fafafa 0%, #e4e4e7 18%, #ffd9b8 45%, #ff8f4f 58%, #ff7a36 75%, #f4f4f5 100%);
   background-size: 150% 100%;
   -webkit-background-clip: text;
   background-clip: text;
@@ -250,7 +250,7 @@ body {
 
 .fn-cine-btn--primary:hover {
   box-shadow:
-    0 0 0 1px rgba(103, 232, 249, 0.4),
+    0 0 0 1px rgba(255, 122, 54, 0.4),
     0 0 22px rgba(34, 211, 238, 0.28),
     0 0 48px rgba(34, 211, 238, 0.1);
 }
@@ -439,111 +439,216 @@ body {
   }
 }
 
-/* ——— Forgeonix command center: accent tokens (cyan default) ——— */
+/* ——— Forgeonix brand spine: ember-orange primary + electric-blue secondary ———
+   The whole site themes off --forgeonix-accent-* (primary) plus the --fx-blue-*
+   secondary set below. Page themes (ops/diagnostics/executive) shift the emphasis
+   between the two, but every surface shares this dual-glow ember+blue identity. */
 :root {
-  --forgeonix-accent: #67e8f9;
-  --forgeonix-accent-dark: #0e7490;
-  --forgeonix-accent-soft: #a5f3fc;
-  --forgeonix-accent-dim: rgba(103, 232, 249, 0.35);
-  --forgeonix-accent-glow: rgba(103, 232, 249, 0.15);
-  --forgeonix-accent-border: rgba(103, 232, 249, 0.25);
-  --forgeonix-accent-line: rgba(103, 232, 249, 0.4);
-  --forgeonix-accent-grid: rgba(103, 232, 249, 0.04);
-  --forgeonix-accent-radial-strong: rgba(103, 232, 249, 0.09);
-  --forgeonix-accent-radial-weak: rgba(103, 232, 249, 0.03);
-  --forgeonix-accent-hero: rgba(103, 232, 249, 0.14);
-  --forgeonix-accent-inner: rgba(103, 232, 249, 0.08);
-  --forgeonix-accent-hover-border: rgba(103, 232, 249, 0.45);
-  --forgeonix-accent-hover-glow: rgba(103, 232, 249, 0.12);
-  --forgeonix-accent-corner: rgba(103, 232, 249, 0.55);
-  --forgeonix-accent-corner-hover: rgba(165, 243, 252, 0.85);
-  --forgeonix-accent-soft-muted: rgba(165, 243, 252, 0.9);
-  --forgeonix-accent-heading: rgba(165, 243, 252, 0.85);
-  --forgeonix-accent-flow-start: rgba(103, 232, 249, 0.35);
-  --forgeonix-accent-flow-end: rgba(103, 232, 249, 0.05);
-  --forgeonix-accent-flow-chevron: rgba(103, 232, 249, 0.5);
-  --forgeonix-accent-label: #a0a0a0;
+  --forgeonix-accent: #ff7a36;
+  --forgeonix-accent-dark: #c2410c;
+  --forgeonix-accent-soft: #fdba74;
+  --forgeonix-accent-dim: rgba(255, 122, 54, 0.35);
+  --forgeonix-accent-glow: rgba(255, 122, 54, 0.15);
+  --forgeonix-accent-border: rgba(255, 122, 54, 0.26);
+  --forgeonix-accent-line: rgba(255, 122, 54, 0.4);
+  --forgeonix-accent-grid: rgba(255, 122, 54, 0.045);
+  --forgeonix-accent-radial-strong: rgba(255, 122, 54, 0.1);
+  --forgeonix-accent-radial-weak: rgba(255, 122, 54, 0.032);
+  --forgeonix-accent-hero: rgba(255, 122, 54, 0.15);
+  --forgeonix-accent-inner: rgba(255, 122, 54, 0.085);
+  --forgeonix-accent-hover-border: rgba(255, 138, 76, 0.48);
+  --forgeonix-accent-hover-glow: rgba(255, 122, 54, 0.14);
+  --forgeonix-accent-corner: rgba(255, 122, 54, 0.55);
+  --forgeonix-accent-corner-hover: rgba(253, 186, 116, 0.9);
+  --forgeonix-accent-soft-muted: rgba(253, 186, 116, 0.92);
+  --forgeonix-accent-heading: rgba(253, 186, 116, 0.88);
+  --forgeonix-accent-flow-start: rgba(255, 122, 54, 0.35);
+  --forgeonix-accent-flow-end: rgba(255, 122, 54, 0.05);
+  --forgeonix-accent-flow-chevron: rgba(255, 122, 54, 0.5);
+  --forgeonix-accent-label: #9aa0aa;
+
+  /* Secondary — electric blue. Dual-glow depth, secondary highlights, focus rings,
+     and "cool" surfaces played against the warm ember primary. */
+  --fx-blue: #2d7dff;
+  --fx-blue-soft: #6aa8ff;
+  --fx-blue-dim: rgba(45, 125, 255, 0.35);
+  --fx-blue-glow: rgba(45, 125, 255, 0.16);
+  --fx-blue-border: rgba(45, 125, 255, 0.28);
+  --fx-blue-hero: rgba(45, 125, 255, 0.12);
+
+  /* Fixed ember — NOT overridden by page themes, so the primary CTA stays one
+     constant ember across the whole site (themes only shift panels/glow/headings). */
+  --fx-ember: #ff7a36;
+  --fx-ember-soft: #ffa566;
+  --fx-ember-glow: rgba(255, 122, 54, 0.18);
+  --fx-ember-dim: rgba(255, 122, 54, 0.4);
+
+  /* Legacy aliases kept so anything still referencing --forgeonix-cyan keeps working. */
   --forgeonix-cyan: var(--forgeonix-accent);
   --forgeonix-cyan-dim: var(--forgeonix-accent-dim);
   --forgeonix-cyan-glow: var(--forgeonix-accent-glow);
 }
 
-/* Infrastructure: mission-control red (page-scoped via SiteLayout) */
+/* ===================================================================
+   Forgeonix OS — Visual Overhaul design tokens (Phase 0 foundation)
+   Additive only. Nothing references these yet; the cinematic phases
+   (typography, depth, reactor, bays, navigation, boot) consume them.
+   Namespaced --fx-* to avoid any collision with existing tokens.
+   =================================================================== */
+:root {
+  /* ——— Type scale (fluid, clamp-based). A deliberate display→data ladder. ——— */
+  --fx-text-display: clamp(1.75rem, 1.2rem + 2.4vw, 3rem);
+  --fx-text-title: clamp(1.15rem, 0.95rem + 0.9vw, 1.6rem);
+  --fx-text-label: 0.95rem;
+  --fx-text-body: 0.9rem;
+  --fx-text-data: 0.8rem;
+  --fx-text-caption: 0.68rem;
+  --fx-text-micro: 0.58rem;
+
+  /* Tracking: tight display, wide system micro-labels. */
+  --fx-track-display: -0.02em;
+  --fx-track-title: -0.01em;
+  --fx-track-label: 0.08em;
+  --fx-track-micro: 0.18em;
+
+  /* Weights + line heights. */
+  --fx-weight-display: 600;
+  --fx-weight-title: 550;
+  --fx-weight-body: 400;
+  --fx-weight-data: 500;
+  --fx-leading-tight: 1.1;
+  --fx-leading-snug: 1.3;
+  --fx-leading-body: 1.55;
+
+  /* Voices (V3): Sora display + IBM Plex Mono — the prototype's cinematic type
+     voice; Geist kept as a graceful fallback while the webfonts load. */
+  --fx-font-display: var(--font-sora), var(--font-geist-sans), "Inter", system-ui, sans-serif;
+  --fx-font-mono: var(--font-plex-mono), var(--font-geist-mono), "JetBrains Mono", ui-monospace, monospace;
+
+  /* ——— Spatial system (single 4px unit + rhythm steps). ——— */
+  --fx-unit: 0.25rem;
+  --fx-space-1: calc(var(--fx-unit) * 1); /* 4 */
+  --fx-space-2: calc(var(--fx-unit) * 2); /* 8 */
+  --fx-space-3: calc(var(--fx-unit) * 3); /* 12 */
+  --fx-space-4: calc(var(--fx-unit) * 4); /* 16 */
+  --fx-space-6: calc(var(--fx-unit) * 6); /* 24 */
+  --fx-space-8: calc(var(--fx-unit) * 8); /* 32 */
+  --fx-space-12: calc(var(--fx-unit) * 12); /* 48 */
+  --fx-radius-sm: 4px;
+  --fx-radius: 8px;
+  --fx-radius-lg: 14px;
+
+  /* ——— Depth planes (mirror lib/motion/tokens.ts DEPTH). ——— */
+  --fx-z-bg: 0;
+  --fx-z-mid: 10;
+  --fx-z-fg: 40;
+  /* Parallax response strength per plane (multiplier on cursor offset). */
+  --fx-parallax-bg: 0.15;
+  --fx-parallax-mid: 0.5;
+  --fx-parallax-fg: 1;
+  /* Elevation shadows for floating glass layers. */
+  --fx-elev-mid: 0 8px 30px rgba(0, 0, 0, 0.45);
+  --fx-elev-fg: 0 18px 60px rgba(0, 0, 0, 0.6);
+
+  /* ——— Light / energy (drives the "living machine" lighting later). ——— */
+  --fx-energy: var(--forgeonix-accent);
+  --fx-glow-soft: rgba(255, 122, 54, 0.12);
+  --fx-glow-strong: rgba(255, 122, 54, 0.28);
+  --fx-light-sweep-duration: 9s;
+  --fx-pulse-duration: 4s;
+  --fx-pulse-min: 0.55;
+  --fx-pulse-max: 1;
+  /* Master reactor heartbeat (0..1). Default mid value so the chamber is lit
+     correctly before JS runs / under reduced motion; the GSAP driver animates it. */
+  --fx-reactor-pulse: 0.78;
+
+  /* ——— Motion durations (mirror lib/motion/tokens.ts DURATION). ——— */
+  --fx-dur-instant: 0.12s;
+  --fx-dur-fast: 0.24s;
+  --fx-dur-base: 0.4s;
+  --fx-dur-slow: 0.7s;
+  --fx-dur-cinematic: 1.1s;
+}
+
+/* Infrastructure: electric-blue command channel (page-scoped via SiteLayout).
+   Blue-forward to read as "network / command center"; ember stays the shared spine. */
 .forgeonix-theme-ops {
-  --forgeonix-accent-label: rgba(239, 68, 68, 0.72);
-  --forgeonix-accent: #dc2626;
-  --forgeonix-accent-dark: #991b1b;
-  --forgeonix-accent-soft: #ef4444;
-  --forgeonix-accent-dim: rgba(220, 38, 38, 0.32);
-  --forgeonix-accent-glow: rgba(153, 27, 27, 0.14);
-  --forgeonix-accent-border: rgba(220, 38, 38, 0.28);
-  --forgeonix-accent-line: rgba(239, 68, 68, 0.42);
-  --forgeonix-accent-grid: rgba(220, 38, 38, 0.032);
-  --forgeonix-accent-radial-strong: rgba(153, 27, 27, 0.09);
-  --forgeonix-accent-radial-weak: rgba(220, 38, 38, 0.022);
-  --forgeonix-accent-hero: rgba(153, 27, 27, 0.11);
-  --forgeonix-accent-inner: rgba(220, 38, 38, 0.055);
-  --forgeonix-accent-hover-border: rgba(239, 68, 68, 0.42);
-  --forgeonix-accent-hover-glow: rgba(153, 27, 27, 0.14);
-  --forgeonix-accent-corner: rgba(220, 38, 38, 0.52);
-  --forgeonix-accent-corner-hover: rgba(239, 68, 68, 0.78);
-  --forgeonix-accent-soft-muted: rgba(239, 68, 68, 0.88);
-  --forgeonix-accent-heading: rgba(239, 68, 68, 0.82);
-  --forgeonix-accent-flow-start: rgba(220, 38, 38, 0.34);
-  --forgeonix-accent-flow-end: rgba(153, 27, 27, 0.06);
-  --forgeonix-accent-flow-chevron: rgba(220, 38, 38, 0.48);
+  --forgeonix-accent-label: rgba(106, 168, 255, 0.78);
+  --forgeonix-accent: #2d7dff;
+  --forgeonix-accent-dark: #1d4ed8;
+  --forgeonix-accent-soft: #6aa8ff;
+  --forgeonix-accent-dim: rgba(45, 125, 255, 0.32);
+  --forgeonix-accent-glow: rgba(45, 125, 255, 0.16);
+  --forgeonix-accent-border: rgba(45, 125, 255, 0.28);
+  --forgeonix-accent-line: rgba(106, 168, 255, 0.42);
+  --forgeonix-accent-grid: rgba(45, 125, 255, 0.038);
+  --forgeonix-accent-radial-strong: rgba(45, 125, 255, 0.1);
+  --forgeonix-accent-radial-weak: rgba(45, 125, 255, 0.026);
+  --forgeonix-accent-hero: rgba(45, 125, 255, 0.13);
+  --forgeonix-accent-inner: rgba(45, 125, 255, 0.06);
+  --forgeonix-accent-hover-border: rgba(106, 168, 255, 0.46);
+  --forgeonix-accent-hover-glow: rgba(45, 125, 255, 0.16);
+  --forgeonix-accent-corner: rgba(45, 125, 255, 0.55);
+  --forgeonix-accent-corner-hover: rgba(106, 168, 255, 0.85);
+  --forgeonix-accent-soft-muted: rgba(106, 168, 255, 0.9);
+  --forgeonix-accent-heading: rgba(106, 168, 255, 0.85);
+  --forgeonix-accent-flow-start: rgba(45, 125, 255, 0.34);
+  --forgeonix-accent-flow-end: rgba(45, 125, 255, 0.06);
+  --forgeonix-accent-flow-chevron: rgba(45, 125, 255, 0.5);
 }
 
-/* Troubleshooting: amber diagnostics (page-scoped via SiteLayout) */
+/* Troubleshooting: hot ember diagnostics (page-scoped via SiteLayout).
+   A hotter, more saturated ember than home — reads as live "heat / signal". */
 .forgeonix-theme-diagnostics {
-  --forgeonix-accent: #f59e0b;
-  --forgeonix-accent-dark: #d97706;
-  --forgeonix-accent-soft: #fbbf24;
-  --forgeonix-accent-dim: rgba(245, 158, 11, 0.32);
-  --forgeonix-accent-glow: rgba(217, 119, 6, 0.14);
-  --forgeonix-accent-border: rgba(245, 158, 11, 0.28);
-  --forgeonix-accent-line: rgba(251, 191, 36, 0.42);
-  --forgeonix-accent-grid: rgba(245, 158, 11, 0.032);
-  --forgeonix-accent-radial-strong: rgba(217, 119, 6, 0.09);
-  --forgeonix-accent-radial-weak: rgba(245, 158, 11, 0.022);
-  --forgeonix-accent-hero: rgba(217, 119, 6, 0.11);
-  --forgeonix-accent-inner: rgba(245, 158, 11, 0.055);
-  --forgeonix-accent-hover-border: rgba(251, 191, 36, 0.42);
-  --forgeonix-accent-hover-glow: rgba(217, 119, 6, 0.14);
-  --forgeonix-accent-corner: rgba(245, 158, 11, 0.52);
-  --forgeonix-accent-corner-hover: rgba(251, 191, 36, 0.78);
-  --forgeonix-accent-soft-muted: rgba(251, 191, 36, 0.88);
-  --forgeonix-accent-heading: rgba(251, 191, 36, 0.82);
-  --forgeonix-accent-flow-start: rgba(245, 158, 11, 0.34);
-  --forgeonix-accent-flow-end: rgba(217, 119, 6, 0.06);
-  --forgeonix-accent-flow-chevron: rgba(245, 158, 11, 0.48);
-  --forgeonix-accent-label: rgba(251, 191, 36, 0.72);
+  --forgeonix-accent: #fb8b1e;
+  --forgeonix-accent-dark: #ea6a0a;
+  --forgeonix-accent-soft: #ffb454;
+  --forgeonix-accent-dim: rgba(251, 139, 30, 0.32);
+  --forgeonix-accent-glow: rgba(234, 106, 10, 0.15);
+  --forgeonix-accent-border: rgba(251, 139, 30, 0.28);
+  --forgeonix-accent-line: rgba(255, 180, 84, 0.42);
+  --forgeonix-accent-grid: rgba(251, 139, 30, 0.034);
+  --forgeonix-accent-radial-strong: rgba(234, 106, 10, 0.1);
+  --forgeonix-accent-radial-weak: rgba(251, 139, 30, 0.024);
+  --forgeonix-accent-hero: rgba(234, 106, 10, 0.12);
+  --forgeonix-accent-inner: rgba(251, 139, 30, 0.06);
+  --forgeonix-accent-hover-border: rgba(255, 180, 84, 0.46);
+  --forgeonix-accent-hover-glow: rgba(234, 106, 10, 0.16);
+  --forgeonix-accent-corner: rgba(251, 139, 30, 0.55);
+  --forgeonix-accent-corner-hover: rgba(255, 180, 84, 0.82);
+  --forgeonix-accent-soft-muted: rgba(255, 180, 84, 0.9);
+  --forgeonix-accent-heading: rgba(255, 180, 84, 0.85);
+  --forgeonix-accent-flow-start: rgba(251, 139, 30, 0.34);
+  --forgeonix-accent-flow-end: rgba(234, 106, 10, 0.06);
+  --forgeonix-accent-flow-chevron: rgba(251, 139, 30, 0.5);
+  --forgeonix-accent-label: rgba(255, 180, 84, 0.75);
 }
 
-/* Resume: executive silver/chrome (page-scoped via SiteLayout) */
+/* Resume: cool steel-blue executive (page-scoped via SiteLayout).
+   Restrained, chrome-and-steel — the most understated channel of the blue family. */
 .forgeonix-theme-executive {
-  --forgeonix-accent: #d4d4d4;
-  --forgeonix-accent-dark: #6b7280;
-  --forgeonix-accent-soft: #f5f5f5;
-  --forgeonix-accent-dim: rgba(212, 212, 212, 0.18);
-  --forgeonix-accent-glow: rgba(156, 163, 175, 0.075);
-  --forgeonix-accent-border: rgba(212, 212, 212, 0.14);
-  --forgeonix-accent-line: rgba(245, 245, 245, 0.22);
-  --forgeonix-accent-grid: rgba(156, 163, 175, 0.02);
-  --forgeonix-accent-radial-strong: rgba(156, 163, 175, 0.045);
-  --forgeonix-accent-radial-weak: rgba(156, 163, 175, 0.015);
-  --forgeonix-accent-hero: rgba(212, 212, 212, 0.07);
-  --forgeonix-accent-inner: rgba(245, 245, 245, 0.04);
-  --forgeonix-accent-hover-border: rgba(245, 245, 245, 0.24);
-  --forgeonix-accent-hover-glow: rgba(156, 163, 175, 0.06);
-  --forgeonix-accent-corner: rgba(212, 212, 212, 0.35);
-  --forgeonix-accent-corner-hover: rgba(245, 245, 245, 0.55);
-  --forgeonix-accent-soft-muted: rgba(212, 212, 212, 0.85);
-  --forgeonix-accent-heading: rgba(156, 163, 175, 0.9);
-  --forgeonix-accent-flow-start: rgba(212, 212, 212, 0.2);
-  --forgeonix-accent-flow-end: rgba(107, 114, 128, 0.04);
-  --forgeonix-accent-flow-chevron: rgba(156, 163, 175, 0.45);
-  --forgeonix-accent-label: rgba(156, 163, 175, 0.75);
+  --forgeonix-accent: #8fb4e6;
+  --forgeonix-accent-dark: #4f6f99;
+  --forgeonix-accent-soft: #cfe0f5;
+  --forgeonix-accent-dim: rgba(143, 180, 230, 0.2);
+  --forgeonix-accent-glow: rgba(108, 142, 190, 0.09);
+  --forgeonix-accent-border: rgba(143, 180, 230, 0.16);
+  --forgeonix-accent-line: rgba(207, 224, 245, 0.24);
+  --forgeonix-accent-grid: rgba(108, 142, 190, 0.022);
+  --forgeonix-accent-radial-strong: rgba(108, 142, 190, 0.05);
+  --forgeonix-accent-radial-weak: rgba(108, 142, 190, 0.016);
+  --forgeonix-accent-hero: rgba(143, 180, 230, 0.08);
+  --forgeonix-accent-inner: rgba(207, 224, 245, 0.045);
+  --forgeonix-accent-hover-border: rgba(207, 224, 245, 0.26);
+  --forgeonix-accent-hover-glow: rgba(108, 142, 190, 0.08);
+  --forgeonix-accent-corner: rgba(143, 180, 230, 0.38);
+  --forgeonix-accent-corner-hover: rgba(207, 224, 245, 0.6);
+  --forgeonix-accent-soft-muted: rgba(207, 224, 245, 0.88);
+  --forgeonix-accent-heading: rgba(176, 198, 226, 0.92);
+  --forgeonix-accent-flow-start: rgba(143, 180, 230, 0.22);
+  --forgeonix-accent-flow-end: rgba(79, 111, 153, 0.05);
+  --forgeonix-accent-flow-chevron: rgba(143, 180, 230, 0.46);
+  --forgeonix-accent-label: rgba(176, 198, 226, 0.78);
 }
 
 @keyframes forgeonix-logo-glow-pulse {
@@ -641,12 +746,23 @@ body {
 }
 
 .forgeonix-hero-glow {
-  background: radial-gradient(
-    ellipse 55% 50% at 50% 45%,
-    var(--forgeonix-accent-hero) 0%,
-    rgba(192, 192, 192, 0.04) 40%,
-    transparent 70%
-  );
+  background:
+    radial-gradient(
+      ellipse 46% 42% at 36% 36%,
+      var(--fx-ember-glow) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 44% 40% at 66% 58%,
+      var(--fx-blue-hero) 0%,
+      transparent 64%
+    ),
+    radial-gradient(
+      ellipse 60% 52% at 50% 45%,
+      var(--forgeonix-accent-hero) 0%,
+      rgba(192, 192, 192, 0.03) 42%,
+      transparent 72%
+    );
 }
 
 .forgeonix-hero-eyebrow {
@@ -793,52 +909,52 @@ body {
 .forgeonix-theme-ops .forgeonix-metallic-text {
   background: linear-gradient(
     135deg,
-    #f5f5f5 0%,
-    #d4d4d4 35%,
-    #ef4444 55%,
-    #f5f5f5 75%,
-    #9ca3af 100%
+    #f2f4f7 0%,
+    #d4dbe6 35%,
+    #2d7dff 55%,
+    #eef3fb 75%,
+    #9aa4b4 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: none;
-  text-shadow: 0 0 28px rgba(153, 27, 27, 0.14);
+  text-shadow: 0 0 28px rgba(45, 125, 255, 0.16);
 }
 
 .forgeonix-theme-diagnostics .forgeonix-metallic-text {
   background: linear-gradient(
     135deg,
-    #f5f5f5 0%,
-    #d4d4d4 35%,
-    #fbbf24 55%,
-    #f5f5f5 75%,
-    #9ca3af 100%
+    #f5f3f0 0%,
+    #e3d9cf 35%,
+    #fb8b1e 55%,
+    #fff2e4 75%,
+    #a89a8c 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: none;
-  text-shadow: 0 0 28px rgba(217, 119, 6, 0.14);
+  text-shadow: 0 0 28px rgba(234, 106, 10, 0.15);
 }
 
 .forgeonix-theme-executive .forgeonix-metallic-text {
   background: linear-gradient(
     135deg,
-    #6b7280 0%,
-    #9ca3af 30%,
-    #f5f5f5 55%,
-    #d4d4d4 75%,
-    #9ca3af 100%
+    #6f7f96 0%,
+    #aab8cc 30%,
+    #f2f6fb 55%,
+    #cfdcec 75%,
+    #8fb4e6 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: none;
-  text-shadow: 0 0 14px rgba(156, 163, 175, 0.07);
+  text-shadow: 0 0 16px rgba(108, 142, 190, 0.1);
 }
 
 .forgeonix-theme-executive .forgeonix-scanlines {
@@ -860,9 +976,10 @@ body {
     inset 0 1px 0 var(--forgeonix-accent-inner);
 }
 
-.forgeonix-theme-executive .forgeonix-btn-primary:hover,
 .forgeonix-theme-executive .forgeonix-btn-ghost:hover {
-  box-shadow: 0 0 10px var(--forgeonix-accent-hover-glow);
+  box-shadow:
+    0 0 0 1px var(--forgeonix-accent-border),
+    0 0 12px var(--forgeonix-accent-hover-glow);
 }
 
 .forgeonix-featured-callout {
@@ -965,23 +1082,23 @@ body {
 }
 
 .homelab-node-halo {
-  fill: rgba(220, 38, 38, 0.12);
+  fill: color-mix(in srgb, var(--forgeonix-accent) 14%, transparent);
   animation: homelab-node-halo-pulse 3s ease-in-out infinite;
 }
 
 .homelab-node-halo--active {
-  fill: rgba(239, 68, 68, 0.22);
+  fill: color-mix(in srgb, var(--forgeonix-accent) 26%, transparent);
 }
 
 .homelab-node-core {
-  fill: rgba(28, 28, 28, 0.95);
-  stroke: rgba(220, 38, 38, 0.55);
+  fill: rgba(20, 24, 33, 0.95);
+  stroke: color-mix(in srgb, var(--forgeonix-accent) 55%, transparent);
   stroke-width: 2;
   animation: homelab-node-core-pulse 2.8s ease-in-out infinite;
 }
 
 .homelab-node-core--active {
-  stroke: rgba(239, 68, 68, 0.9);
+  stroke: var(--forgeonix-accent-soft);
   stroke-width: 2.5;
 }
 
@@ -1012,9 +1129,9 @@ body {
 }
 
 .homelab-status--online {
-  color: #ef4444;
-  border-color: rgba(239, 68, 68, 0.35);
-  background: rgba(220, 38, 38, 0.1);
+  color: var(--forgeonix-accent-soft);
+  border-color: var(--forgeonix-accent-border);
+  background: color-mix(in srgb, var(--forgeonix-accent) 12%, transparent);
 }
 
 .homelab-status--internal {
@@ -1085,8 +1202,8 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   pointer-events: none;
   z-index: 0;
   background-image:
-    linear-gradient(rgba(103, 232, 249, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(103, 232, 249, 0.03) 1px, transparent 1px);
+    linear-gradient(rgba(255, 122, 54, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 125, 255, 0.03) 1px, transparent 1px);
   background-size: 48px 48px;
   mask-image: radial-gradient(ellipse 90% 80% at 50% 20%, black 10%, transparent 80%);
 }
@@ -1100,25 +1217,26 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .forgeonix-app-shell-panel:hover {
-  border-color: rgba(103, 232, 249, 0.35);
-  box-shadow: 0 8px 28px rgba(103, 232, 249, 0.08);
+  border-color: rgba(255, 122, 54, 0.35);
+  box-shadow: 0 8px 28px rgba(255, 122, 54, 0.08);
 }
 
 .forgeonix-metallic-text {
   background: linear-gradient(
-    90deg,
-    #888888 0%,
-    #e8e8e8 35%,
-    #b8f0ff 50%,
-    #ffffff 65%,
-    #888888 100%
+    100deg,
+    #9aa0a6 0%,
+    #f2f4f7 28%,
+    #ff8a4c 48%,
+    #fff3ea 58%,
+    #7fa8ff 80%,
+    #9aa0a6 100%
   );
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
   color: transparent;
   filter: none;
-  text-shadow: 0 0 20px var(--forgeonix-accent-glow);
+  text-shadow: 0 0 26px var(--forgeonix-accent-glow);
 }
 
 .forgeonix-logo-glow {
@@ -1242,17 +1360,78 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   box-shadow: none;
 }
 
+/* Premium ember CTA — solid molten fill, inner highlight, layered glow, press feedback.
+   Stays ember on every page (uses fixed --fx-ember*), so the primary action reads the
+   same everywhere while page themes recolor the surrounding surfaces. */
+.forgeonix-btn-primary {
+  background: linear-gradient(135deg, #ff7a36 0%, #ff8f4f 55%, #ffa566 100%);
+  border-color: transparent !important;
+  color: #1b0d03 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 6px 22px var(--fx-ember-glow),
+    0 0 0 1px rgba(255, 122, 54, 0.4);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.32s ease,
+    background-color 0.32s ease;
+}
+
 .forgeonix-btn-primary:hover {
-  background: linear-gradient(135deg, #888888, #e8e8e8);
-  color: #1a1a1a;
-  border-color: var(--forgeonix-accent);
-  box-shadow: 0 0 20px var(--forgeonix-accent-dim);
+  background: linear-gradient(135deg, #ff8a4c 0%, #ffa566 100%);
+  color: #160c02 !important;
+  border-color: transparent !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.42),
+    0 0 26px var(--fx-ember-dim),
+    0 0 54px var(--fx-ember-glow),
+    0 10px 30px rgba(0, 0, 0, 0.45);
+  transform: translateY(-1px);
+}
+
+.forgeonix-btn-primary:active {
+  transform: translateY(0);
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.28),
+    0 0 16px var(--fx-ember-dim);
+}
+
+.forgeonix-btn-ghost {
+  transition:
+    transform 0.2s ease,
+    border-color 0.32s ease,
+    color 0.32s ease,
+    box-shadow 0.32s ease,
+    background-color 0.32s ease;
 }
 
 .forgeonix-btn-ghost:hover {
-  border-color: var(--forgeonix-accent-dim);
+  border-color: var(--forgeonix-accent-hover-border);
   color: #ffffff;
-  box-shadow: 0 0 16px var(--forgeonix-accent-hover-glow);
+  background: var(--forgeonix-accent-inner);
+  box-shadow:
+    0 0 0 1px var(--forgeonix-accent-border),
+    0 0 18px var(--forgeonix-accent-hover-glow);
+  transform: translateY(-1px);
+}
+
+.forgeonix-btn-ghost:active {
+  transform: translateY(0);
+  box-shadow: 0 0 12px var(--forgeonix-accent-hover-glow);
+}
+
+/* Keyboard accessibility — visible electric-blue focus ring on every interactive
+   surface, independent of the per-page accent so it always reads as "focused". */
+.forgeonix-btn-primary:focus-visible,
+.forgeonix-btn-ghost:focus-visible,
+.forgeonix-nav-cta:focus-visible,
+.forgeonix-site a:focus-visible,
+.forgeonix-site button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 2px #06060a,
+    0 0 0 4px var(--fx-blue),
+    0 0 18px var(--fx-blue-glow);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1286,13 +1465,13 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 
 /* ——— Forgeonix OS / Command Center ——— */
 .forgeonix-os {
-  --command-cyan: #67e8f9;
-  --command-magenta: #c026d3;
-  --command-purple: #a855f7;
+  --command-cyan: #ff7a36;
+  --command-magenta: #2d7dff;
+  --command-purple: #2d7dff;
   --command-bg: #06060a;
   --command-panel: rgba(12, 12, 18, 0.88);
-  --command-border: rgba(103, 232, 249, 0.22);
-  --command-glow: rgba(103, 232, 249, 0.14);
+  --command-border: rgba(255, 122, 54, 0.22);
+  --command-glow: rgba(255, 122, 54, 0.14);
   position: relative;
   display: flex;
   min-height: 100dvh;
@@ -1320,15 +1499,15 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   0%,
   100% {
     box-shadow:
-      0 0 0 1px rgba(103, 232, 249, 0.2),
-      0 0 32px rgba(103, 232, 249, 0.12),
-      inset 0 0 24px rgba(103, 232, 249, 0.04);
+      0 0 0 1px rgba(255, 122, 54, 0.2),
+      0 0 32px rgba(255, 122, 54, 0.12),
+      inset 0 0 24px rgba(255, 122, 54, 0.04);
   }
   50% {
     box-shadow:
-      0 0 0 1px rgba(168, 85, 247, 0.35),
-      0 0 48px rgba(103, 232, 249, 0.2),
-      inset 0 0 32px rgba(192, 38, 211, 0.06);
+      0 0 0 1px rgba(45, 125, 255, 0.35),
+      0 0 48px rgba(255, 122, 54, 0.2),
+      inset 0 0 32px rgba(45, 125, 255, 0.06);
   }
 }
 
@@ -1376,21 +1555,24 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(103, 232, 249, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(103, 232, 249, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(255, 122, 54, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 122, 54, 0.045) 1px, transparent 1px);
   background-size: 40px 40px;
   mask-image: radial-gradient(ellipse 90% 80% at 50% 45%, black 15%, transparent 75%);
+  animation: command-grid-drift 60s linear infinite;
 }
 
 .command-bg__radial {
   position: absolute;
   inset: 0;
+  /* Chunk 8D — pulled back so the reactor (not the backdrop) owns the center light. */
   background: radial-gradient(
-    ellipse 55% 45% at 42% 48%,
-    rgba(103, 232, 249, 0.08) 0%,
-    rgba(168, 85, 247, 0.04) 40%,
+    ellipse 56% 46% at 46% 46%,
+    rgba(255, 122, 54, 0.05) 0%,
+    rgba(45, 125, 255, 0.025) 40%,
     transparent 70%
   );
+  animation: command-bg-breathe 12s ease-in-out infinite;
 }
 
 .command-bg__scanlines {
@@ -1403,14 +1585,178 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
     rgba(0, 0, 0, 0.14) 2px,
     rgba(0, 0, 0, 0.14) 4px
   );
-  opacity: 0.4;
+  opacity: 0.25;
   animation: command-scan-drift 14s linear infinite;
 }
 
+/* Chunk 8D — deep room vignette: the bridge falls away into darkness at the edges. */
 .command-bg__vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at center, transparent 35%, rgba(0, 0, 0, 0.65) 100%);
+  background: radial-gradient(ellipse 90% 82% at 50% 46%, transparent 24%, rgba(0, 0, 0, 0.86) 100%);
+}
+
+/* Phase 3 — travelling light sweep: a soft band of light that drifts across the
+   chamber walls (GSAP-driven translate, reduced-motion users get a static scene).
+   Screen-blended + blurred so it only ever lightens. Decorative, pointer-events none. */
+/* V3-2 — world aurora: blurred cyan/violet/gold color fields, the cinematic
+   atmosphere the prototype establishes. Lower opacity than the trailer to keep the
+   operating chamber dark. Drifts slowly; parallaxes with the world (it's in command-bg). */
+.command-bg__aurora {
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  background:
+    radial-gradient(40% 40% at 22% 28%, rgba(40, 150, 220, 0.16), transparent 60%),
+    radial-gradient(45% 45% at 80% 22%, rgba(120, 90, 255, 0.12), transparent 60%),
+    radial-gradient(50% 50% at 65% 85%, rgba(255, 170, 90, 0.07), transparent 60%),
+    radial-gradient(60% 60% at 30% 80%, rgba(20, 120, 160, 0.12), transparent 60%);
+  filter: blur(40px);
+  opacity: 0.7;
+  will-change: transform, filter;
+  animation: command-aurora-drift 26s ease-in-out infinite;
+}
+
+/* V3-4 — scene temperature: each room/view grades the world's hue, so moving
+   between modules feels like moving through differently-lit chambers of one
+   facility. Applied to the atmosphere only (never the content). */
+.forgeonix-os .command-bg__aurora,
+.forgeonix-os .command-bg__radial {
+  transition: filter 0.9s ease;
+}
+.forgeonix-os[data-view="terminal"] .command-bg__aurora,
+.forgeonix-os[data-view="logs"] .command-bg__aurora {
+  filter: blur(40px) hue-rotate(18deg) saturate(1.05);
+}
+.forgeonix-os[data-view="network"] .command-bg__aurora {
+  filter: blur(40px) hue-rotate(-22deg) saturate(1.1);
+}
+.forgeonix-os[data-view="modules"] .command-bg__aurora {
+  filter: blur(40px) hue-rotate(34deg);
+}
+.forgeonix-os[data-view="config"] .command-bg__aurora {
+  filter: blur(40px) hue-rotate(-40deg) saturate(0.9);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-bg__aurora {
+    animation: none;
+  }
+}
+
+/* V2-A — carried specular light: a soft highlight that glides across the chamber
+   toward the cursor (the room acknowledges the operator; the reactor stays calm).
+   Hidden by default; revealed + driven by GSAP only when motion is allowed. */
+.command-bg__specular {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 640px;
+  height: 640px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle,
+    rgba(255, 168, 110, 0.07) 0%,
+    rgba(255, 122, 54, 0.03) 32%,
+    transparent 62%
+  );
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%);
+}
+
+.command-bg__sweep {
+  position: absolute;
+  top: -20%;
+  left: 0;
+  width: 55%;
+  height: 140%;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 122, 54, 0.05) 44%,
+    rgba(255, 190, 140, 0.08) 50%,
+    rgba(255, 122, 54, 0.05) 56%,
+    transparent 100%
+  );
+  filter: blur(22px);
+  /* Hidden by default; the GSAP driver reveals + animates it only when motion is
+     allowed, so reduced-motion users and the pre-JS frame show no stray band. */
+  opacity: 0;
+  mix-blend-mode: screen;
+  transform: translateX(-60%);
+}
+
+/* ——— Command atmosphere depth (UI Chunk 2) — layered ambient glow, CSS only ——— */
+.command-bg::before {
+  content: "";
+  position: absolute;
+  inset: -12%;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 42% 38% at 30% 32%, rgba(255, 122, 54, 0.1), transparent 60%),
+    radial-gradient(ellipse 40% 36% at 72% 64%, rgba(45, 125, 255, 0.09), transparent 62%);
+  opacity: 0.4;
+  animation: command-aurora-drift 26s ease-in-out infinite;
+}
+
+.command-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: conic-gradient(
+    from 210deg at 50% 48%,
+    transparent 0deg,
+    rgba(255, 122, 54, 0.05) 70deg,
+    transparent 140deg,
+    rgba(45, 125, 255, 0.045) 230deg,
+    transparent 320deg
+  );
+  mask-image: radial-gradient(ellipse 60% 55% at 50% 48%, black 0%, transparent 72%);
+  -webkit-mask-image: radial-gradient(ellipse 60% 55% at 50% 48%, black 0%, transparent 72%);
+  opacity: 0.32;
+  animation: command-energy-rotate 90s linear infinite;
+}
+
+@keyframes command-grid-drift {
+  from {
+    background-position: 0 0, 0 0;
+  }
+  to {
+    background-position: 40px 40px, 40px 40px;
+  }
+}
+
+@keyframes command-aurora-drift {
+  0%,
+  100% {
+    transform: translate(0, 0);
+    opacity: 0.75;
+  }
+  50% {
+    transform: translate(2.5%, 1.8%);
+    opacity: 0.95;
+  }
+}
+
+@keyframes command-energy-rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-bg__grid,
+  .command-bg::before,
+  .command-bg::after {
+    animation: none !important;
+  }
 }
 
 .command-nav {
@@ -1421,7 +1767,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  border-bottom: 1px solid rgba(103, 232, 249, 0.12);
+  border-bottom: 1px solid rgba(255, 122, 54, 0.12);
   background: rgba(6, 6, 10, 0.85);
   padding: 0.75rem 1.25rem;
   backdrop-filter: blur(12px);
@@ -1434,7 +1780,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-nav__logo {
-  filter: drop-shadow(0 0 8px rgba(103, 232, 249, 0.35));
+  filter: drop-shadow(0 0 8px rgba(255, 122, 54, 0.35));
 }
 
 .command-nav__title {
@@ -1483,9 +1829,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 
 .command-nav__link:hover,
 .command-nav__link--active {
-  border-color: rgba(103, 232, 249, 0.35);
+  border-color: rgba(255, 122, 54, 0.35);
   color: var(--command-cyan);
-  box-shadow: 0 0 16px rgba(103, 232, 249, 0.1);
+  box-shadow: 0 0 16px rgba(255, 122, 54, 0.1);
 }
 
 .command-nav__status {
@@ -1502,7 +1848,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   height: 7px;
   border-radius: 50%;
   background: var(--command-cyan);
-  box-shadow: 0 0 10px rgba(103, 232, 249, 0.7);
+  box-shadow: 0 0 10px rgba(255, 122, 54, 0.7);
   animation: forgeonix-status-pulse 2.5s ease-in-out infinite;
 }
 
@@ -1528,8 +1874,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   flex: 1;
   min-height: 0;
   flex-direction: column;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem 0.5rem;
+  /* Phase 1 — spacing wired to the 4px spatial system (values unchanged). */
+  gap: var(--fx-space-3); /* 12px */
+  padding: var(--fx-space-3) var(--fx-space-4) var(--fx-space-2); /* 12 / 16 / 8 */
 }
 
 @media (min-width: 1024px) {
@@ -1564,7 +1911,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(103, 232, 249, 0.07) 0%,
+    rgba(255, 122, 54, 0.07) 0%,
     rgba(56, 189, 248, 0.03) 45%,
     transparent 72%
   );
@@ -1578,7 +1925,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   left: 50%;
   width: min(72%, 520px);
   height: min(72%, 520px);
-  border: 1px dashed rgba(103, 232, 249, 0.12);
+  border: 1px dashed rgba(255, 122, 54, 0.12);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
@@ -1588,7 +1935,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   content: "";
   position: absolute;
   inset: 18%;
-  border: 1px solid rgba(103, 232, 249, 0.08);
+  border: 1px solid rgba(255, 122, 54, 0.08);
   border-radius: 50%;
 }
 
@@ -1639,17 +1986,17 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-network__link {
-  stroke: rgba(103, 232, 249, 0.2);
+  stroke: rgba(255, 122, 54, 0.2);
   stroke-width: 0.35;
 }
 
 .command-network__node {
-  fill: rgba(103, 232, 249, 0.75);
+  fill: rgba(255, 122, 54, 0.75);
 }
 
 .command-network__node--core {
-  fill: rgba(103, 232, 249, 1);
-  filter: drop-shadow(0 0 2px rgba(103, 232, 249, 0.8));
+  fill: rgba(255, 122, 54, 1);
+  filter: drop-shadow(0 0 2px rgba(255, 122, 54, 0.8));
 }
 
 .command-network__node--standby {
@@ -1657,7 +2004,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-network__node--dev {
-  fill: rgba(192, 38, 211, 0.85);
+  fill: rgba(45, 125, 255, 0.85);
 }
 
 /* ——— Stage HUD panels (legacy, unused in hub layout) ——— */
@@ -1668,7 +2015,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.5rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
   background: linear-gradient(
     0deg,
     rgba(6, 6, 10, 0.95) 0%,
@@ -1723,7 +2070,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-stage-hud__launch-btn {
-  border: 1px solid rgba(103, 232, 249, 0.2);
+  border: 1px solid rgba(255, 122, 54, 0.2);
   border-radius: 2px;
   background: rgba(10, 10, 16, 0.8);
   padding: 0.35rem 0.4rem;
@@ -1739,9 +2086,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-stage-hud__launch-btn:hover {
-  border-color: rgba(103, 232, 249, 0.45);
-  background: rgba(103, 232, 249, 0.08);
-  box-shadow: 0 0 14px rgba(103, 232, 249, 0.12);
+  border-color: rgba(255, 122, 54, 0.45);
+  background: rgba(255, 122, 54, 0.08);
+  box-shadow: 0 0 14px rgba(255, 122, 54, 0.12);
 }
 
 .command-stage-hud__metrics {
@@ -1789,90 +2136,10 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   }
 }
 
-@keyframes command-line-pulse {
-  0% {
-    stroke-dashoffset: 24;
-    stroke-opacity: 0;
-  }
-  30% {
-    stroke-opacity: 0.5;
-  }
-  100% {
-    stroke-dashoffset: 0;
-    stroke-opacity: 0;
-  }
-}
-
-.command-stage__connections .command-connection__line,
-.command-hub__connections .command-connection__line {
-  stroke: url(#command-line-gradient);
-  stroke-width: 0.2;
-  stroke-opacity: 0.55;
-  transition:
-    stroke-opacity 0.35s ease,
-    stroke-width 0.35s ease,
-    filter 0.35s ease;
-}
-
-.command-connection__line {
-  stroke: url(#command-line-gradient);
-  stroke-width: 0.2;
-  stroke-opacity: 0.55;
-  transition:
-    stroke-opacity 0.35s ease,
-    stroke-width 0.35s ease,
-    filter 0.35s ease;
-}
-
-.command-connection__pulse {
-  stroke: rgba(103, 232, 249, 0.8);
-  stroke-width: 0.12;
-  stroke-opacity: 0;
-  stroke-dasharray: 2 5;
-  animation: command-line-pulse 3.5s linear infinite;
-}
-
-.command-connection__node {
-  fill: rgba(103, 232, 249, 0.7);
-  transition:
-    fill 0.35s ease,
-    filter 0.35s ease;
-}
-
-.command-connection__core-node {
-  fill: rgba(168, 85, 247, 0.85);
-  filter: drop-shadow(0 0 3px rgba(103, 232, 249, 0.8));
-}
-
-.command-main:has(.command-module:hover) .command-connection__line {
-  stroke-opacity: 0.3;
-}
-
-.command-main:has([data-module-id="infrastructure"]:hover) .command-connection--infrastructure .command-connection__line,
-.command-main:has([data-module-id="business"]:hover) .command-connection--business .command-connection__line,
-.command-main:has([data-module-id="leads"]:hover) .command-connection--leads .command-connection__line,
-.command-main:has([data-module-id="career"]:hover) .command-connection--career .command-connection__line,
-.command-main:has([data-module-id="ai-ops"]:hover) .command-connection--ai-ops .command-connection__line,
-.command-main:has([data-module-id="liftboard"]:hover) .command-connection--liftboard .command-connection__line {
-  stroke-opacity: 1;
-  stroke-width: 0.28;
-  filter: url(#command-line-glow);
-}
-
-.command-main:has([data-module-id="infrastructure"]:hover) .command-connection--infrastructure .command-connection__node,
-.command-main:has([data-module-id="business"]:hover) .command-connection--business .command-connection__node,
-.command-main:has([data-module-id="leads"]:hover) .command-connection--leads .command-connection__node,
-.command-main:has([data-module-id="career"]:hover) .command-connection--career .command-connection__node,
-.command-main:has([data-module-id="ai-ops"]:hover) .command-connection--ai-ops .command-connection__node,
-.command-main:has([data-module-id="liftboard"]:hover) .command-connection--liftboard .command-connection__node {
-  fill: rgba(103, 232, 249, 1);
-  filter: drop-shadow(0 0 4px rgba(103, 232, 249, 0.95));
-}
-
-.command-main:has(.command-module:hover) .command-module__connector {
-  opacity: 1;
-  box-shadow: 0 0 8px rgba(103, 232, 249, 0.7);
-}
+/* (UI Chunk 7) Removed stale connection CSS: the __line / __pulse / __node /
+   __core-node classes, the command-line-pulse keyframe, the command-module__connector
+   hover rule, and the old per-module-id (leads/ai-ops) hover selectors are not rendered
+   by any component. Live conduits use __stream / __particle (command-interactive.css). */
 
 .command-core {
   position: absolute;
@@ -1892,7 +2159,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(103, 232, 249, 0.08) 0%,
+    rgba(255, 122, 54, 0.08) 0%,
     transparent 68%
   );
   transform: translate(-50%, -50%);
@@ -1921,7 +2188,8 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   width: 120%;
   height: 120%;
   margin: -60% 0 0 -60%;
-  border-color: rgba(103, 232, 249, 0.15);
+  border-color: rgba(255, 122, 54, 0.12);
+  border-top-color: rgba(255, 122, 54, 0.5);
   animation: command-ring-spin 48s linear infinite;
 }
 
@@ -1929,8 +2197,107 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   width: 108%;
   height: 108%;
   margin: -54% 0 0 -54%;
-  border-color: rgba(56, 189, 248, 0.14);
+  border-color: rgba(56, 189, 248, 0.12);
+  border-top-color: rgba(45, 125, 255, 0.45);
   animation: command-ring-spin 32s linear infinite reverse;
+}
+
+/* ——— Reactor core polish (UI Chunk 1) ——— */
+.command-core__halo {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 230%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(
+    circle,
+    rgba(45, 125, 255, 0.18) 0%,
+    rgba(255, 122, 54, 0.12) 38%,
+    transparent 70%
+  );
+  /* Phase 3 — core halo tied to the master heartbeat so the core and the chamber
+     light breathe as one. (Replaces the standalone command-halo-breathe loop.) */
+  transform: translate(-50%, -50%) scale(calc(0.96 + var(--fx-reactor-pulse, 0.78) * 0.08));
+  opacity: calc(0.7 + var(--fx-reactor-pulse, 0.78) * 0.3);
+}
+
+.command-core__sphere {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 132%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  background: radial-gradient(
+    circle at 50% 38%,
+    rgba(255, 122, 54, 0.1) 0%,
+    rgba(45, 125, 255, 0.06) 45%,
+    transparent 68%
+  );
+  box-shadow: inset 0 0 40px rgba(255, 122, 54, 0.08);
+  animation: command-core-energy 4.6s ease-in-out infinite;
+}
+
+@keyframes command-core-energy {
+  0%,
+  100% {
+    opacity: 0.82;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.04);
+  }
+}
+
+.command-core__ring--accent {
+  width: 144%;
+  height: 144%;
+  margin: -72% 0 0 -72%;
+  border-color: transparent;
+  border-top-color: rgba(45, 125, 255, 0.55);
+  border-right-color: rgba(255, 122, 54, 0.32);
+  border-style: dashed;
+  animation: command-ring-spin 22s linear infinite;
+}
+
+.command-particles {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Phase 7 — removed dead keyframe `command-halo-breathe` (migrated to the
+   reactor heartbeat variable in Phase 3; no longer referenced). */
+
+@keyframes command-bg-breathe {
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-core__halo,
+  .command-core__sphere,
+  .command-core__ring--outer,
+  .command-core__ring--inner,
+  .command-core__ring--accent,
+  .command-bg__radial,
+  .command-bg__scanlines {
+    animation: none !important;
+  }
 }
 
 .command-core__panel {
@@ -1941,7 +2308,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.6rem;
   letter-spacing: 0.2em;
-  color: rgba(103, 232, 249, 0.7);
+  color: rgba(255, 122, 54, 0.7);
 }
 
 .command-core__live {
@@ -1953,7 +2320,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   font-size: 0.55rem;
   font-weight: 600;
   letter-spacing: 0.12em;
-  color: #67e8f9;
+  color: #ff7a36;
 }
 
 .command-core__live-dot {
@@ -1971,7 +2338,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   font-weight: 700;
   letter-spacing: 0.14em;
   color: #f5f5f5;
-  text-shadow: 0 0 24px rgba(103, 232, 249, 0.25);
+  text-shadow: 0 0 24px rgba(255, 122, 54, 0.25);
 }
 
 @media (min-width: 640px) {
@@ -2021,8 +2388,24 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   position: relative;
   border: 1px solid var(--command-border);
   background: var(--command-panel);
+  /* Chunk 8C — faint display texture: scanline + glass sheen + corner darkening (static). */
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.022) 50%, transparent 62%),
+    radial-gradient(ellipse at 50% 38%, transparent 55%, rgba(0, 0, 0, 0.3) 100%);
   padding: 1rem;
   backdrop-filter: blur(8px);
+  /* Chunk 8A — read as a beveled physical unit (edge thickness + cast depth). */
+  box-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.45),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
   transition:
     border-color 0.35s ease,
     box-shadow 0.35s ease;
@@ -2033,15 +2416,20 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-hud-panel:hover {
-  border-color: rgba(103, 232, 249, 0.4);
-  box-shadow: 0 0 28px var(--command-glow);
+  border-color: rgba(255, 122, 54, 0.4);
+  box-shadow:
+    0 3px 14px rgba(0, 0, 0, 0.45),
+    0 0 24px var(--command-glow),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
 }
 
 .command-hud-corner {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  border-color: rgba(103, 232, 249, 0.5);
+  width: 12px;
+  height: 12px;
+  /* Chunk 8B — steel retention/clamp brackets (neutral structure; cyan stays for active). */
+  border-color: rgba(150, 170, 190, 0.45);
   border-style: solid;
   pointer-events: none;
 }
@@ -2074,7 +2462,20 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   font-family: var(--font-geist-mono), monospace;
   font-size: 0.6rem;
   letter-spacing: 0.16em;
-  color: rgba(103, 232, 249, 0.65);
+  color: rgba(255, 122, 54, 0.65);
+}
+
+/* Chunk 8B — tiny static "powered" LED on each console header (green, not cyan). */
+.command-hud-panel__label::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: rgba(74, 222, 128, 0.7);
+  box-shadow: 0 0 4px rgba(74, 222, 128, 0.5);
+  vertical-align: middle;
 }
 
 .command-hud-panel__title {
@@ -2109,7 +2510,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   top: 50%;
   width: 22px;
   height: 1px;
-  background: linear-gradient(90deg, rgba(103, 232, 249, 0.45), transparent);
+  background: linear-gradient(90deg, rgba(255, 122, 54, 0.45), transparent);
   pointer-events: none;
   opacity: 0.55;
   transition: opacity 0.3s ease, box-shadow 0.3s ease;
@@ -2127,7 +2528,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   left: 50%;
   width: 1px;
   height: 18px;
-  background: linear-gradient(180deg, rgba(103, 232, 249, 0.45), transparent);
+  background: linear-gradient(180deg, rgba(255, 122, 54, 0.45), transparent);
 }
 
 .command-module--top-right {
@@ -2159,7 +2560,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   left: 50%;
   width: 1px;
   height: 18px;
-  background: linear-gradient(0deg, rgba(103, 232, 249, 0.45), transparent);
+  background: linear-gradient(0deg, rgba(255, 122, 54, 0.45), transparent);
 }
 
 .command-module--bottom-left {
@@ -2170,7 +2571,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 .command-module--bottom-left .command-module__connector {
   right: -18px;
   left: auto;
-  background: linear-gradient(270deg, rgba(103, 232, 249, 0.45), transparent);
+  background: linear-gradient(270deg, rgba(255, 122, 54, 0.45), transparent);
 }
 
 .command-module--top-left {
@@ -2181,7 +2582,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 .command-module--top-left .command-module__connector {
   right: -18px;
   left: auto;
-  background: linear-gradient(270deg, rgba(103, 232, 249, 0.45), transparent);
+  background: linear-gradient(270deg, rgba(255, 122, 54, 0.45), transparent);
 }
 
 .command-module__head {
@@ -2197,10 +2598,10 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   justify-content: center;
   width: 1.35rem;
   height: 1.35rem;
-  border: 1px solid rgba(103, 232, 249, 0.2);
+  border: 1px solid rgba(255, 122, 54, 0.2);
   border-radius: 2px;
   color: var(--command-cyan);
-  background: rgba(103, 232, 249, 0.06);
+  background: rgba(255, 122, 54, 0.06);
 }
 
 .command-module__icon {
@@ -2209,7 +2610,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-module__body {
-  border: 1px solid rgba(103, 232, 249, 0.18);
+  border: 1px solid rgba(255, 122, 54, 0.18);
   background: rgba(10, 10, 16, 0.92);
   padding: 0.5rem 0.6rem;
   backdrop-filter: blur(6px);
@@ -2221,8 +2622,8 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 
 .command-module:hover .command-module__body,
 .command-module:focus-visible .command-module__body {
-  border-color: rgba(103, 232, 249, 0.42);
-  box-shadow: 0 0 20px rgba(103, 232, 249, 0.1);
+  border-color: rgba(255, 122, 54, 0.42);
+  box-shadow: 0 0 20px rgba(255, 122, 54, 0.1);
   transform: translateY(-2px);
 }
 
@@ -2246,7 +2647,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 .command-module__sparkline {
   width: 3.5rem;
   height: 1.1rem;
-  color: rgba(103, 232, 249, 0.75);
+  color: rgba(255, 122, 54, 0.75);
 }
 
 .command-module__status {
@@ -2261,9 +2662,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-module__status--online {
-  color: #67e8f9;
-  border-color: rgba(103, 232, 249, 0.4);
-  background: rgba(103, 232, 249, 0.08);
+  color: #ff7a36;
+  border-color: rgba(255, 122, 54, 0.4);
+  background: rgba(255, 122, 54, 0.08);
 }
 
 .command-module__status--standby {
@@ -2273,9 +2674,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 }
 
 .command-module__status--dev {
-  color: #c026d3;
-  border-color: rgba(192, 38, 211, 0.35);
-  background: rgba(192, 38, 211, 0.08);
+  color: #2d7dff;
+  border-color: rgba(45, 125, 255, 0.35);
+  background: rgba(45, 125, 255, 0.08);
 }
 
 .command-module__status--offline {
@@ -2313,7 +2714,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   .command-terminal {
     width: 360px;
     min-height: 0;
-    border-left: 1px solid rgba(103, 232, 249, 0.12);
+    border-left: 1px solid rgba(255, 122, 54, 0.12);
     padding-left: 0.75rem;
   }
 
@@ -2400,7 +2801,7 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
   background: rgba(6, 6, 10, 0.9);
   padding: 0.5rem 1rem 0.75rem;
   backdrop-filter: blur(12px);
@@ -2459,9 +2860,9 @@ html:has(.forgeonix-app)::-webkit-scrollbar-thumb:hover {
 
 .command-dock__item:hover,
 .command-dock__item--active {
-  border-color: rgba(103, 232, 249, 0.4);
-  background: rgba(103, 232, 249, 0.06);
-  box-shadow: 0 0 16px rgba(103, 232, 249, 0.12);
+  border-color: rgba(255, 122, 54, 0.4);
+  background: rgba(255, 122, 54, 0.06);
+  box-shadow: 0 0 16px rgba(255, 122, 54, 0.12);
 }
 
 .command-dock__item-short {

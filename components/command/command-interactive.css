@@ -37,15 +37,33 @@
   pointer-events: none;
 }
 
+/* Phase 6 — ignition bloom (GSAP-driven on boot hand-off; hidden by default so
+   reduced-motion / pre-JS show nothing). Screen-blended light "powering on". */
+.command-boot-overlay__ignition {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    circle at 50% 52%,
+    rgba(255, 205, 160, 0.95) 0%,
+    rgba(255, 122, 54, 0.5) 16%,
+    rgba(255, 122, 54, 0.12) 38%,
+    transparent 62%
+  );
+  mix-blend-mode: screen;
+}
+
 .command-boot-overlay__skip {
   position: absolute;
   top: 1rem;
   right: 1rem;
   z-index: 2;
-  border: 1px solid rgba(103, 232, 249, 0.35);
+  border: 1px solid rgba(255, 122, 54, 0.35);
   background: rgba(10, 10, 16, 0.85);
-  color: rgba(103, 232, 249, 0.9);
-  font-family: ui-monospace, monospace;
+  color: rgba(255, 122, 54, 0.9);
+  font-family: var(--fx-font-mono);
   font-size: 0.65rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -58,8 +76,8 @@
 }
 
 .command-boot-overlay__skip:hover {
-  border-color: rgba(103, 232, 249, 0.65);
-  box-shadow: 0 0 16px rgba(103, 232, 249, 0.15);
+  border-color: rgba(255, 122, 54, 0.65);
+  box-shadow: 0 0 16px rgba(255, 122, 54, 0.15);
 }
 
 .command-boot-overlay__panel {
@@ -67,19 +85,19 @@
   z-index: 1;
   width: min(92vw, 520px);
   padding: 2rem 2.25rem;
-  border: 1px solid rgba(103, 232, 249, 0.2);
+  border: 1px solid rgba(255, 122, 54, 0.2);
   background: rgba(8, 8, 14, 0.92);
-  box-shadow: 0 0 40px rgba(103, 232, 249, 0.08);
+  box-shadow: 0 0 40px rgba(255, 122, 54, 0.08);
 }
 
 .command-boot-overlay__version {
   margin: 0 0 1.25rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.85rem;
   font-weight: 700;
   letter-spacing: 0.14em;
-  color: rgba(103, 232, 249, 0.95);
-  text-shadow: 0 0 12px rgba(103, 232, 249, 0.35);
+  color: rgba(255, 122, 54, 0.95);
+  text-shadow: 0 0 12px rgba(255, 122, 54, 0.35);
 }
 
 .command-boot-overlay__lines {
@@ -93,14 +111,14 @@
   display: flex;
   gap: 0.5rem;
   margin-bottom: 0.45rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.72rem;
   color: rgba(200, 220, 230, 0.88);
   animation: command-boot-line-in 0.35s ease both;
 }
 
 .command-boot-overlay__prompt {
-  color: rgba(103, 232, 249, 0.75);
+  color: rgba(255, 122, 54, 0.75);
   flex-shrink: 0;
 }
 
@@ -112,7 +130,7 @@
   display: flex;
   justify-content: space-between;
   margin-bottom: 0.35rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.58rem;
   letter-spacing: 0.14em;
   color: rgba(136, 136, 160, 0.9);
@@ -120,24 +138,24 @@
 
 .command-boot-overlay__progress-track {
   height: 3px;
-  background: rgba(103, 232, 249, 0.12);
+  background: rgba(255, 122, 54, 0.12);
   border-radius: 2px;
   overflow: hidden;
 }
 
 .command-boot-overlay__progress-fill {
   height: 100%;
-  background: linear-gradient(90deg, rgba(103, 232, 249, 0.5), rgba(168, 85, 247, 0.85));
-  box-shadow: 0 0 8px rgba(103, 232, 249, 0.5);
+  background: linear-gradient(90deg, rgba(255, 122, 54, 0.5), rgba(45, 125, 255, 0.85));
+  box-shadow: 0 0 8px rgba(255, 122, 54, 0.5);
   transition: width 0.12s linear;
 }
 
 .command-boot-overlay__code {
   margin: 0.85rem 0 0;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.08em;
-  color: rgba(103, 232, 249, 0.35);
+  color: rgba(255, 122, 54, 0.35);
 }
 
 @keyframes command-boot-line-in {
@@ -188,8 +206,12 @@
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: rgba(103, 232, 249, 0.9);
-  box-shadow: 0 0 6px rgba(103, 232, 249, 0.85);
+  background: rgba(255, 122, 54, 0.9);
+  /* Chunk 8B — connector nub: dark socket + steel collar around the powered link point. */
+  box-shadow:
+    0 0 0 2px rgba(18, 22, 28, 0.95),
+    0 0 0 3px rgba(150, 170, 190, 0.4),
+    0 0 6px rgba(255, 122, 54, 0.7);
   pointer-events: none;
   transition:
     box-shadow 0.3s ease,
@@ -229,8 +251,8 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: rgba(168, 85, 247, 0.95);
-  box-shadow: 0 0 8px rgba(103, 232, 249, 0.85);
+  background: rgba(45, 125, 255, 0.95);
+  box-shadow: 0 0 8px rgba(255, 122, 54, 0.85);
   transform: translate(-50%, -50%);
   pointer-events: none;
 }
@@ -238,46 +260,47 @@
 .command-main:has(.command-module:hover) .command-module__node,
 .command-main:has(.command-module--selected) .command-module__node,
 .command-main:has(.command-module--expanded) .command-module__node {
-  background: rgba(103, 232, 249, 1);
+  background: rgba(255, 122, 54, 1);
 }
 
 /* Hover / expanded module card */
 .command-module--expanded .command-module__body {
-  border-color: rgba(103, 232, 249, 0.48);
-  box-shadow: 0 0 20px rgba(103, 232, 249, 0.14);
+  border-color: rgba(255, 122, 54, 0.48);
+  box-shadow: 0 0 20px rgba(255, 122, 54, 0.14);
 }
 
 .command-module--expanded .command-module__node {
-  box-shadow: 0 0 10px rgba(103, 232, 249, 0.85);
+  box-shadow: 0 0 10px rgba(255, 122, 54, 0.85);
 }
 
 /* Selected module card */
 .command-module--selected .command-module__body {
-  border-color: rgba(103, 232, 249, 0.65);
+  border-color: rgba(255, 122, 54, 0.65);
   box-shadow:
-    0 0 24px rgba(103, 232, 249, 0.22),
-    inset 0 0 12px rgba(103, 232, 249, 0.06);
+    0 0 24px rgba(255, 122, 54, 0.22),
+    inset 0 0 12px rgba(255, 122, 54, 0.06);
   transform: translateY(-2px);
 }
 
 .command-module--selected .command-module__node {
-  box-shadow: 0 0 12px rgba(103, 232, 249, 0.95);
-  background: rgba(103, 232, 249, 1);
+  box-shadow: 0 0 12px rgba(255, 122, 54, 0.95);
+  background: rgba(255, 122, 54, 1);
 }
 
 .command-module--selected .command-module__label {
-  color: rgba(103, 232, 249, 0.95);
+  color: rgba(255, 122, 54, 0.95);
 }
 
 /* Active connection stream */
 .command-connection--active .command-connection__stream {
-  stroke-opacity: 0.55 !important;
-  stroke-width: 0.18 !important;
+  stroke-opacity: 0.65 !important;
+  stroke-width: 0.22 !important;
   filter: url(#command-line-glow);
+  animation-duration: 0.85s;
 }
 
 .command-connection--active .command-connection__particle {
-  fill: rgba(103, 232, 249, 1);
+  fill: rgba(255, 122, 54, 1);
   opacity: 0.95;
 }
 
@@ -287,7 +310,7 @@
 }
 
 .command-connection--hovered .command-connection__particle {
-  fill: rgba(103, 232, 249, 0.95);
+  fill: rgba(255, 122, 54, 0.95);
   opacity: 0.85;
 }
 
@@ -299,37 +322,374 @@
   stroke-opacity: 0.16;
 }
 
-.command-main:has([data-module-id="infrastructure"].command-module--selected)
-  .command-connection--infrastructure
-  .command-connection__stream,
-.command-main:has([data-module-id="business"].command-module--selected)
-  .command-connection--business
-  .command-connection__stream,
-.command-main:has([data-module-id="leads"].command-module--selected)
-  .command-connection--leads
-  .command-connection__stream,
-.command-main:has([data-module-id="career"].command-module--selected)
-  .command-connection--career
-  .command-connection__stream,
-.command-main:has([data-module-id="ai-ops"].command-module--selected)
-  .command-connection--ai-ops
-  .command-connection__stream,
-.command-main:has([data-module-id="liftboard"].command-module--selected)
-  .command-connection--liftboard
-  .command-connection__stream {
-  stroke-opacity: 0.7;
-  stroke-width: 0.24;
-  filter: url(#command-line-glow);
-}
+/* Active-connection brightening is handled generically by
+   .command-connection--active above (works for all 9 modules). The previous
+   per-module-id block (which referenced removed modules) is intentionally removed. */
 
 /* Core focus when module selected */
 .command-core--focused .command-core__panel {
-  border-color: rgba(168, 85, 247, 0.45);
-  box-shadow: 0 0 28px rgba(168, 85, 247, 0.15);
+  border-color: rgba(45, 125, 255, 0.45);
+  box-shadow: 0 0 28px rgba(45, 125, 255, 0.15);
 }
 
 .command-core--focused .command-core__title {
-  color: rgba(103, 232, 249, 0.95);
+  color: rgba(255, 122, 54, 0.95);
+}
+
+/* ——— Module card "live system panel" polish (UI Chunk 4) — CSS only ——— */
+/* Static screen depth at rest (no per-card animation loops). */
+.command-module__body {
+  position: relative;
+  /* Chunk 8A — mounted chip: steel frame + bevel + neutral cast shadow (depth, not glow). */
+  border-color: rgba(150, 170, 190, 0.22);
+  box-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Inner scanline overlay — hidden at rest, fades in on hover/selected only. */
+.command-module__body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  /* Chunk 8C — faint always-on screen scanline; intensifies on hover/selected (8B). */
+  opacity: 0.1;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 2px,
+    rgba(255, 122, 54, 0.05) 2px,
+    rgba(255, 122, 54, 0.05) 3px
+  );
+  transition: opacity 0.35s ease;
+}
+
+/* Hover / focus — edge-lighting + scanline reveal (triggered, not always-on). */
+.command-module:hover .command-module__body,
+.command-module:focus-visible .command-module__body {
+  box-shadow:
+    0 0 20px rgba(255, 122, 54, 0.12),
+    inset 0 1px 0 rgba(255, 122, 54, 0.18);
+}
+
+.command-module:hover .command-module__body::before,
+.command-module:focus-visible .command-module__body::before,
+.command-module--selected .command-module__body::before {
+  opacity: 0.5;
+}
+
+.command-module:hover .command-module__icon-wrap,
+.command-module--selected .command-module__icon-wrap {
+  border-color: rgba(255, 122, 54, 0.5);
+  background: rgba(255, 122, 54, 0.12);
+}
+
+/* Selected — clearly "powered" by the core: richer static glow + a pulsing power line. */
+.command-module--selected .command-module__body {
+  box-shadow:
+    0 0 26px rgba(255, 122, 54, 0.24),
+    inset 0 0 14px rgba(255, 122, 54, 0.06),
+    inset 0 1px 0 rgba(255, 122, 54, 0.28);
+}
+
+.command-module--selected .command-module__body::after {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: 8%;
+  right: 8%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 122, 54, 0.9), transparent);
+  pointer-events: none;
+  animation: command-card-line 2.6s ease-in-out infinite;
+}
+
+@keyframes command-card-line {
+  0%,
+  100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-module__body::before {
+    transition: none !important;
+  }
+  .command-module--selected .command-module__body::after {
+    animation: none !important;
+  }
+}
+
+/* ——— Ambient command HUD chrome (UI Chunk 5) — decorative only, no data ——— */
+.command-hud-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  font-family: var(--fx-font-mono);
+  color: rgba(255, 122, 54, 0.4);
+}
+
+.command-hud-frame {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border: 0 solid rgba(255, 122, 54, 0.28);
+}
+
+.command-hud-frame--tl {
+  top: 6px;
+  left: 6px;
+  border-width: 1px 0 0 1px;
+}
+
+.command-hud-frame--tr {
+  top: 6px;
+  right: 6px;
+  border-width: 1px 1px 0 0;
+}
+
+.command-hud-frame--bl {
+  bottom: 6px;
+  left: 6px;
+  border-width: 0 0 1px 1px;
+}
+
+.command-hud-frame--br {
+  bottom: 6px;
+  right: 6px;
+  border-width: 0 1px 1px 0;
+}
+
+.command-hud-tag {
+  position: absolute;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.5rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  opacity: 0.55;
+}
+
+.command-hud-tag--tl {
+  top: 7px;
+  left: 28px;
+}
+
+.command-hud-tag--tr {
+  top: 7px;
+  right: 28px;
+}
+
+.command-hud-tag--bl {
+  bottom: 7px;
+  left: 28px;
+}
+
+.command-hud-tag--br {
+  bottom: 7px;
+  right: 28px;
+}
+
+.command-hud-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #4ade80;
+  box-shadow: 0 0 5px rgba(74, 222, 128, 0.7);
+  animation: command-hud-blink 2.6s ease-in-out infinite;
+}
+
+.command-hud-rail {
+  position: absolute;
+  top: 50%;
+  font-size: 0.46rem;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+  opacity: 0.3;
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+
+.command-hud-rail--l {
+  left: 7px;
+  transform: translateY(-50%) rotate(180deg);
+}
+
+.command-hud-rail--r {
+  right: 7px;
+  transform: translateY(-50%);
+}
+
+/* Chunk 8B — stage subsystem IDs, corner calibration ticks, one caution strip. */
+.command-hud-id {
+  position: absolute;
+  font: 8px ui-monospace, monospace;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(150, 170, 190, 0.42);
+}
+
+.command-hud-id--top {
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.command-hud-id--bottom {
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.command-hud-tick {
+  position: absolute;
+  width: 34px;
+  height: 4px;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(150, 170, 190, 0.32) 0,
+    rgba(150, 170, 190, 0.32) 1px,
+    transparent 1px,
+    transparent 6px
+  );
+}
+
+.command-hud-tick--tl {
+  top: 28px;
+  left: 10px;
+}
+
+.command-hud-tick--tr {
+  top: 28px;
+  right: 10px;
+}
+
+.command-hud-tick--bl {
+  bottom: 28px;
+  left: 10px;
+}
+
+.command-hud-tick--br {
+  bottom: 28px;
+  right: 10px;
+}
+
+.command-hud-caution {
+  position: absolute;
+  bottom: 3px;
+  left: 32%;
+  right: 32%;
+  height: 3px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(251, 191, 36, 0.22) 0,
+    rgba(251, 191, 36, 0.22) 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+@keyframes command-hud-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+@media (max-width: 767px) {
+  .command-hud-rail,
+  .command-hud-tag,
+  .command-hud-id,
+  .command-hud-tick,
+  .command-hud-caution {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-hud-dot {
+    animation: none !important;
+  }
+}
+
+/* ——— Module panel "power on" + active/inactive depth (UI Chunk 6) — CSS only ——— */
+/* The expanded console panel mounts on selection, so these play once ("comes online"). */
+.command-hub-panel__inner,
+.command-career-panel__inner {
+  /* Chunk 8A — screen reads as recessed into the housing (dark top inset) + bezel. */
+  box-shadow:
+    inset 0 2px 10px rgba(0, 0, 0, 0.55),
+    inset 0 0 18px rgba(255, 122, 54, 0.04),
+    inset 0 0 0 1px rgba(255, 122, 54, 0.12),
+    0 0 22px rgba(255, 122, 54, 0.1);
+  border-color: rgba(255, 122, 54, 0.4) !important;
+}
+
+/* Powered top edge line */
+.command-hub-panel__inner::before,
+.command-career-panel__inner::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  z-index: 2;
+  background: linear-gradient(90deg, transparent, rgba(255, 122, 54, 0.85), transparent);
+  pointer-events: none;
+}
+
+/* One-shot activation sweep on mount (clipped by the panel's overflow:hidden) */
+.command-hub-panel__inner::after,
+.command-career-panel__inner::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 42%,
+    rgba(255, 122, 54, 0.1) 50%,
+    transparent 58%
+  );
+  transform: translateX(-120%);
+  animation: command-panel-sweep 0.75s ease-out 0.08s 1 forwards;
+}
+
+@keyframes command-panel-sweep {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* Depth separation — gently dim the other cards while a console is open. */
+.command-main:has(.command-module--selected)
+  .command-module:not(.command-module--selected) {
+  opacity: 0.62;
+  transition: opacity 0.35s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-hub-panel,
+  .command-career-panel {
+    animation: none !important;
+  }
+  .command-hub-panel__inner::after,
+  .command-career-panel__inner::after {
+    animation: none !important;
+    opacity: 0;
+  }
 }
 
 /* Module detail drawer */
@@ -356,10 +716,10 @@
 }
 
 .command-module-detail__close {
-  border: 1px solid rgba(103, 232, 249, 0.25);
+  border: 1px solid rgba(255, 122, 54, 0.25);
   background: transparent;
-  color: rgba(103, 232, 249, 0.8);
-  font-family: ui-monospace, monospace;
+  color: rgba(255, 122, 54, 0.8);
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -369,7 +729,7 @@
 }
 
 .command-module-detail__close:hover {
-  border-color: rgba(103, 232, 249, 0.55);
+  border-color: rgba(255, 122, 54, 0.55);
 }
 
 .command-module-detail__subtitle {
@@ -390,7 +750,7 @@
   justify-content: space-between;
   gap: 0.75rem;
   padding-bottom: 0.35rem;
-  border-bottom: 1px solid rgba(103, 232, 249, 0.08);
+  border-bottom: 1px solid rgba(255, 122, 54, 0.08);
 }
 
 .command-module-detail__fields dt {
@@ -402,7 +762,7 @@
 
 .command-module-detail__fields dd {
   margin: 0;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.62rem;
   color: rgba(200, 220, 230, 0.9);
   text-align: right;
@@ -417,7 +777,7 @@
 }
 
 .command-module-detail__value--dev {
-  color: rgba(168, 85, 247, 0.95);
+  color: rgba(45, 125, 255, 0.95);
 }
 
 .command-module-detail__value--neutral {
@@ -428,6 +788,7 @@
   .command-boot-overlay__line,
   .forgeonix-os--ready .command-main--visible,
   .command-connection__particle,
+  .command-connection__stream,
   .command-stage__glow {
     animation: none !important;
   }
@@ -504,7 +865,7 @@
   gap: 0.15rem 0.45rem;
   align-items: center;
   width: 100%;
-  border: 1px solid rgba(103, 232, 249, 0.14);
+  border: 1px solid rgba(255, 122, 54, 0.14);
   background: rgba(8, 8, 14, 0.88);
   padding: 0.45rem 0.5rem;
   text-align: left;
@@ -517,9 +878,9 @@
 
 .command-module-bus__item:hover,
 .command-module-bus__item--selected {
-  border-color: rgba(103, 232, 249, 0.42);
-  background: rgba(103, 232, 249, 0.05);
-  box-shadow: 0 0 14px rgba(103, 232, 249, 0.08);
+  border-color: rgba(255, 122, 54, 0.42);
+  background: rgba(255, 122, 54, 0.05);
+  box-shadow: 0 0 14px rgba(255, 122, 54, 0.08);
 }
 
 .command-module-bus__icon {
@@ -529,9 +890,9 @@
   justify-content: center;
   width: 1.5rem;
   height: 1.5rem;
-  border: 1px solid rgba(103, 232, 249, 0.2);
-  color: var(--command-cyan, #67e8f9);
-  background: rgba(103, 232, 249, 0.06);
+  border: 1px solid rgba(255, 122, 54, 0.2);
+  color: var(--command-cyan, #ff7a36);
+  background: rgba(255, 122, 54, 0.06);
 }
 
 .command-module-bus__copy {
@@ -572,7 +933,7 @@
 .command-module-bus__detail {
   margin-top: 0.65rem;
   padding-top: 0.55rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
 }
 
 .command-module-bus__detail-title {
@@ -581,7 +942,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.9);
+  color: rgba(255, 122, 54, 0.9);
 }
 
 .command-module-bus__detail-fields {
@@ -605,7 +966,7 @@
 
 .command-module-bus__detail-fields dd {
   margin: 0;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   color: rgba(200, 220, 230, 0.9);
 }
 
@@ -617,6 +978,19 @@
   z-index: 1;
   min-height: 22rem;
   pointer-events: none;
+}
+
+/* Chunk 8C — single ultra-faint static grain over the stage/reactor (felt, not seen). */
+.command-stage::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+  background-size: 130px 130px;
 }
 
 @media (min-width: 1024px) {
@@ -639,14 +1013,21 @@
   stroke-width: 0.14;
   stroke-opacity: 0.32;
   stroke-dasharray: 1.5 2.5;
+  animation: command-stream-flow 1.6s linear infinite;
   transition:
     stroke-opacity 0.35s ease,
     stroke-width 0.35s ease,
     filter 0.35s ease;
 }
 
+@keyframes command-stream-flow {
+  to {
+    stroke-dashoffset: -8;
+  }
+}
+
 .command-connection__particle {
-  fill: rgba(103, 232, 249, 0.75);
+  fill: rgba(255, 122, 54, 0.75);
   opacity: 0.55;
   animation: command-particle-flow 2.8s ease-in-out infinite;
 }
@@ -655,11 +1036,11 @@
   0%,
   100% {
     opacity: 0.35;
-    fill: rgba(103, 232, 249, 0.65);
+    fill: rgba(255, 122, 54, 0.65);
   }
   50% {
     opacity: 0.95;
-    fill: rgba(168, 85, 247, 0.85);
+    fill: rgba(45, 125, 255, 0.85);
   }
 }
 
@@ -670,6 +1051,33 @@
   z-index: 8;
   transform: translate(-50%, -50%);
   pointer-events: none;
+}
+
+/* Chunk 8A — reactor mounting struts (diagonal cross-brace seating the core in its chamber). */
+.command-stage__anchor::before,
+.command-stage__anchor::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 2px;
+  height: min(440px, 62vw);
+  background: linear-gradient(
+    180deg,
+    rgba(150, 170, 190, 0.04),
+    rgba(150, 170, 190, 0.18),
+    rgba(150, 170, 190, 0.04)
+  );
+  pointer-events: none;
+}
+
+.command-stage__anchor::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.command-stage__anchor::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
 }
 
 .command-stage__core-shield {
@@ -707,7 +1115,7 @@
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(103, 232, 249, 0.08) 0%,
+    rgba(255, 122, 54, 0.08) 0%,
     rgba(56, 189, 248, 0.03) 45%,
     transparent 72%
   );
@@ -721,54 +1129,60 @@
   left: 50%;
   width: min(520px, 72vw);
   height: min(520px, 72vw);
-  border: 1px dashed rgba(103, 232, 249, 0.1);
+  /* Chunk 8A — containment ring reads as a matte steel support structure. */
+  border: 1px solid rgba(150, 170, 190, 0.16);
   border-radius: 50%;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  opacity: 0.38;
+  opacity: 0.5;
 }
 
 .command-stage__spokes::before {
   content: "";
   position: absolute;
   inset: 18%;
-  border: 1px solid rgba(103, 232, 249, 0.06);
+  border: 1px solid rgba(255, 122, 54, 0.06);
   border-radius: 50%;
+}
+
+/* Chunk 8B — containment bracket ring (segmented steel clamps around the core ring). */
+.command-stage__spokes::after {
+  content: "";
+  position: absolute;
+  inset: -10px;
+  border: 2px dashed rgba(150, 170, 190, 0.14);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .command-stage__glow {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(360px, 52vw);
+  /* Chunk 8D — the reactor is the room's light source: larger, brighter spill into the dark. */
+  width: min(660px, 82vw);
   aspect-ratio: 1;
   border-radius: 50%;
   background: radial-gradient(
     circle,
-    rgba(103, 232, 249, 0.12) 0%,
-    rgba(168, 85, 247, 0.07) 38%,
-    transparent 68%
+    rgba(255, 168, 110, 0.24) 0%,
+    rgba(255, 122, 54, 0.14) 22%,
+    rgba(45, 125, 255, 0.08) 48%,
+    transparent 72%
   );
-  transform: translate(-50%, -50%);
   pointer-events: none;
-  animation: command-stage-glow 4s ease-in-out infinite;
+  /* Phase 3 — the reactor spill breathes with the master heartbeat (--fx-reactor-pulse),
+     so the chamber light visibly rises and falls with the core. Transform/opacity only. */
+  transform: translate(-50%, -50%) scale(calc(0.94 + var(--fx-reactor-pulse, 0.78) * 0.1));
+  opacity: calc(0.5 + var(--fx-reactor-pulse, 0.78) * 0.5);
 }
 
-@keyframes command-stage-glow {
-  0%,
-  100% {
-    opacity: 0.7;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  50% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.03);
-  }
-}
+/* Phase 7 — removed dead keyframe `command-stage-glow` (migrated to the
+   reactor heartbeat variable in Phase 3; no longer referenced). */
 
 .command-stage .command-core__panel {
-  border-color: rgba(103, 232, 249, 0.28);
-  box-shadow: 0 0 32px rgba(103, 232, 249, 0.1);
+  border-color: rgba(255, 122, 54, 0.28);
+  box-shadow: 0 0 32px rgba(255, 122, 54, 0.1);
 }
 
 /* Stage HUD — five-panel bottom row */
@@ -776,7 +1190,7 @@
   display: grid;
   grid-template-columns: 1fr;
   gap: 0.45rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
   background: linear-gradient(0deg, rgba(6, 6, 10, 0.95) 0%, rgba(8, 8, 14, 0.75) 100%);
   padding: 0.55rem;
   backdrop-filter: blur(12px);
@@ -806,9 +1220,9 @@
 .command-stage-hud__bar {
   flex: 1;
   min-height: 4px;
-  background: linear-gradient(180deg, rgba(103, 232, 249, 0.85), rgba(103, 232, 249, 0.25));
+  background: linear-gradient(180deg, rgba(255, 122, 54, 0.85), rgba(255, 122, 54, 0.25));
   border-radius: 1px 1px 0 0;
-  box-shadow: 0 0 6px rgba(103, 232, 249, 0.25);
+  box-shadow: 0 0 6px rgba(255, 122, 54, 0.25);
 }
 
 .command-stage-hud__metrics--compact {
@@ -837,19 +1251,19 @@
   align-items: center;
   gap: 0.35rem;
   margin-top: 0.35rem;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  color: var(--command-cyan, #67e8f9);
+  color: var(--command-cyan, #ff7a36);
 }
 
 .command-ai-chat__status-dot {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--command-cyan, #67e8f9);
-  box-shadow: 0 0 8px rgba(103, 232, 249, 0.8);
+  background: var(--command-cyan, #ff7a36);
+  box-shadow: 0 0 8px rgba(255, 122, 54, 0.8);
   animation: forgeonix-status-pulse 2.5s ease-in-out infinite;
 }
 
@@ -867,7 +1281,7 @@
 }
 
 .command-ai-chat__empty {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.62rem;
   line-height: 1.5;
   color: #777;
@@ -882,22 +1296,22 @@
 }
 
 .command-ai-chat__message--user .command-ai-chat__meta {
-  color: var(--command-cyan, #67e8f9);
+  color: var(--command-cyan, #ff7a36);
 }
 
 .command-ai-chat__message--assistant .command-ai-chat__meta {
-  color: var(--command-purple, #c084fc);
+  color: var(--command-purple, #7fa8ff);
 }
 
 .command-ai-chat__meta {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   font-weight: 600;
   letter-spacing: 0.08em;
 }
 
 .command-ai-chat__content {
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.65rem;
   line-height: 1.5;
   color: #d4d4d8;
@@ -914,7 +1328,7 @@
   padding: 0.4rem 0.5rem;
   border: 1px solid rgba(248, 113, 113, 0.35);
   background: rgba(248, 113, 113, 0.08);
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.6rem;
   color: #fca5a5;
 }
@@ -928,10 +1342,10 @@
 .command-ai-chat__input {
   flex: 1;
   min-width: 0;
-  border: 1px solid rgba(103, 232, 249, 0.22);
+  border: 1px solid rgba(255, 122, 54, 0.22);
   background: rgba(8, 8, 14, 0.92);
   color: #e8e8e8;
-  font-family: var(--font-geist-mono), monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.65rem;
   padding: 0.45rem 0.55rem;
   outline: none;
@@ -939,8 +1353,8 @@
 }
 
 .command-ai-chat__input:focus {
-  border-color: rgba(103, 232, 249, 0.5);
-  box-shadow: 0 0 12px rgba(103, 232, 249, 0.12);
+  border-color: rgba(255, 122, 54, 0.5);
+  box-shadow: 0 0 12px rgba(255, 122, 54, 0.12);
 }
 
 .command-ai-chat__input:disabled {
@@ -949,10 +1363,10 @@
 
 .command-ai-chat__submit {
   flex-shrink: 0;
-  border: 1px solid rgba(103, 232, 249, 0.35);
-  background: rgba(103, 232, 249, 0.08);
-  color: var(--command-cyan, #67e8f9);
-  font-family: var(--font-geist-mono), monospace;
+  border: 1px solid rgba(255, 122, 54, 0.35);
+  background: rgba(255, 122, 54, 0.08);
+  color: var(--command-cyan, #ff7a36);
+  font-family: var(--fx-font-mono);
   font-size: 0.58rem;
   font-weight: 700;
   letter-spacing: 0.08em;
@@ -966,9 +1380,9 @@
 }
 
 .command-ai-chat__submit:hover:not(:disabled) {
-  border-color: rgba(103, 232, 249, 0.6);
-  background: rgba(103, 232, 249, 0.14);
-  box-shadow: 0 0 14px rgba(103, 232, 249, 0.12);
+  border-color: rgba(255, 122, 54, 0.6);
+  background: rgba(255, 122, 54, 0.14);
+  box-shadow: 0 0 14px rgba(255, 122, 54, 0.12);
 }
 
 .command-ai-chat__submit:disabled {
@@ -989,6 +1403,47 @@
   max-height: 100%;
   pointer-events: auto;
   animation: command-boot-in 0.35s cubic-bezier(0.16, 1, 0.3, 1) both;
+  /* Chunk 8A housing + Chunk 8C faint metal sheen (top-left highlight). */
+  padding: 5px;
+  background:
+    linear-gradient(115deg, rgba(255, 255, 255, 0.015) 0%, transparent 32%),
+    linear-gradient(180deg, #0b0d14 0%, #07080d 100%);
+  border: 1px solid rgba(150, 170, 190, 0.18);
+  box-shadow:
+    0 14px 36px rgba(0, 0, 0, 0.62),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* Chunk 8B — housing mounting rail (left, ticked) + static subsystem ID (top-right). */
+.command-hub-panel::before,
+.command-career-panel::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 1px;
+  width: 3px;
+  background: repeating-linear-gradient(
+    180deg,
+    rgba(150, 170, 190, 0.3) 0,
+    rgba(150, 170, 190, 0.3) 2px,
+    transparent 2px,
+    transparent 8px
+  );
+  pointer-events: none;
+}
+
+.command-hub-panel::after,
+.command-career-panel::after {
+  content: "PANEL-LINK";
+  position: absolute;
+  top: 7px;
+  right: 9px;
+  font: 8px ui-monospace, monospace;
+  letter-spacing: 0.14em;
+  color: rgba(150, 170, 190, 0.5);
+  pointer-events: none;
 }
 
 @media (min-width: 1024px) {
@@ -1006,7 +1461,18 @@
   height: 100%;
   max-height: calc(100vh - 8rem);
   padding: 0.65rem 0.7rem !important;
-  background: rgba(8, 8, 14, 0.97) !important;
+  /* Chunk 8C — same faint display texture on the recessed screen. */
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.02) 0px,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    ),
+    linear-gradient(100deg, transparent 38%, rgba(255, 255, 255, 0.022) 50%, transparent 62%),
+    radial-gradient(ellipse at 50% 38%, transparent 55%, rgba(0, 0, 0, 0.32) 100%),
+    rgba(8, 8, 14, 0.97) !important;
   overflow: hidden;
 }
 
@@ -1016,7 +1482,10 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 0.5rem;
-  margin-bottom: 0.35rem;
+  margin-bottom: 0.4rem;
+  /* Chunk 8A — header reads as a console label rail mounted above the screen body. */
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(150, 170, 190, 0.16);
 }
 
 .command-hub-panel__subtitle,
@@ -1034,7 +1503,151 @@
   overflow-y: auto;
   padding-right: 0.15rem;
   scrollbar-width: thin;
-  scrollbar-color: rgba(103, 232, 249, 0.25) transparent;
+  scrollbar-color: rgba(255, 122, 54, 0.25) transparent;
+}
+
+/* ===================================================================
+   Chunk 8D — Cinematic composition pass (visual only, static)
+   Goal: a dark reactor chamber, not a neon dashboard. Scene framing,
+   depth separation, and chrome recession so the reactor dominates.
+   =================================================================== */
+
+/* Cinematic scene frame over the stage area only (nav + dock are siblings,
+   so they stay full brightness). Edge-only: the center stays clear and
+   readable; the periphery falls into the chamber + top/bottom letterbox. */
+.command-main::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 40;
+  pointer-events: none;
+  background:
+    radial-gradient(
+      ellipse 96% 80% at 50% 44%,
+      transparent 46%,
+      rgba(2, 3, 6, 0.52) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(2, 3, 6, 0.62) 0%,
+      rgba(2, 3, 6, 0.12) 11%,
+      transparent 24%,
+      transparent 76%,
+      rgba(2, 3, 6, 0.18) 89%,
+      rgba(2, 3, 6, 0.68) 100%
+    );
+}
+
+/* Recess secondary chrome: rail consoles + stage-HUD sim panels sit back in
+   the dark and lose competing cyan at rest; they wake fully on hover/focus.
+   (Cyan stays reserved for the reactor and whatever the operator is touching.) */
+.command-workspace__rail .command-hud-panel,
+.command-stage-hud__panel {
+  filter: saturate(0.72) brightness(0.85);
+  transition:
+    filter 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.command-workspace__rail .command-hud-panel:hover,
+.command-workspace__rail .command-hud-panel:focus-within,
+.command-stage-hud__panel:hover,
+.command-stage-hud__panel:focus-within {
+  filter: saturate(1) brightness(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-workspace__rail .command-hud-panel,
+  .command-stage-hud__panel {
+    transition: none;
+  }
+}
+
+/* ——— Opened-panel readability (only inside expanded console panels) ——— */
+/* Scoped to .command-hub-panel__inner / .command-career-panel__inner so card,
+   top-nav, and quick-launch text are unaffected. ~10-20% larger + line-height. */
+.command-hub-panel__inner,
+.command-career-panel__inner {
+  font-size: 0.72rem;
+  line-height: 1.5;
+}
+
+.command-hub-panel__subtitle,
+.command-career-panel__subtitle {
+  font-size: 0.64rem;
+}
+
+.command-hub-panel__status,
+.command-hub-panel__error,
+.command-career-panel__status,
+.command-career-panel__error {
+  font-size: 0.72rem;
+}
+
+.command-hub-panel__inner .command-hub-section__label,
+.command-career-panel__inner .command-career-section__label {
+  font-size: 0.7rem;
+}
+
+.command-hub-panel__inner .command-hub-section__muted,
+.command-career-panel__inner .command-career-section__muted {
+  font-size: 0.68rem;
+  line-height: 1.5;
+}
+
+.command-hub-panel__inner .command-career-section__text {
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.command-hub-panel__inner .command-hub-stats dt,
+.command-career-panel__inner .command-career-stats dt,
+.command-hub-panel__inner .command-career-kv dt {
+  font-size: 0.64rem;
+}
+
+.command-hub-panel__inner .command-hub-stats dd,
+.command-career-panel__inner .command-career-stats dd,
+.command-hub-panel__inner .command-career-kv dd {
+  font-size: 0.72rem;
+}
+
+.command-hub-panel__inner .command-hub-row__title {
+  font-size: 0.72rem;
+}
+
+.command-hub-panel__inner .command-hub-row__meta {
+  font-size: 0.66rem;
+}
+
+.command-hub-panel__inner .command-hub-row__badge {
+  font-size: 0.58rem;
+}
+
+.command-hub-panel__inner .command-hub-note__body {
+  font-size: 0.7rem;
+  line-height: 1.55;
+}
+
+.command-hub-panel__inner .command-hub-btn,
+.command-career-panel__inner .command-career-btn {
+  font-size: 0.66rem;
+}
+
+.command-hub-panel__inner .command-hub-field,
+.command-career-panel__inner .command-career-field {
+  font-size: 0.64rem;
+}
+
+.command-hub-panel__inner .command-hub-field input,
+.command-hub-panel__inner .command-hub-field select,
+.command-hub-panel__inner .command-hub-field textarea {
+  font-size: 0.7rem;
+}
+
+.command-hub-panel__inner .command-hub-link,
+.command-career-panel__inner .command-career-link {
+  font-size: 0.62rem;
 }
 
 .command-hub-panel__status,
@@ -1043,7 +1656,7 @@
 .command-career-panel__error {
   margin: 0.5rem 0 0;
   font-size: 0.62rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
 }
 
 .command-hub-panel__error,
@@ -1063,7 +1676,7 @@
 .command-career-section {
   margin-bottom: 0.85rem;
   padding-bottom: 0.65rem;
-  border-bottom: 1px solid rgba(103, 232, 249, 0.1);
+  border-bottom: 1px solid rgba(255, 122, 54, 0.1);
 }
 
 .command-career-section:last-child {
@@ -1077,7 +1690,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.85);
+  color: rgba(255, 122, 54, 0.85);
 }
 
 .command-career-section__text {
@@ -1123,7 +1736,7 @@
 .command-career-kv dd,
 .command-career-stats dd {
   margin: 0;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.6rem;
   color: rgba(200, 220, 230, 0.92);
   text-align: right;
@@ -1137,15 +1750,15 @@
   display: inline-block;
   margin-top: 0.45rem;
   font-size: 0.58rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.9);
+  color: rgba(255, 122, 54, 0.9);
   text-decoration: none;
 }
 
 .command-career-link:hover {
-  color: rgba(103, 232, 249, 1);
+  color: rgba(255, 122, 54, 1);
 }
 
 .command-career-skill-group {
@@ -1171,10 +1784,10 @@
 
 .command-career-skill-list li {
   font-size: 0.55rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   padding: 0.15rem 0.35rem;
-  border: 1px solid rgba(103, 232, 249, 0.18);
-  background: rgba(103, 232, 249, 0.04);
+  border: 1px solid rgba(255, 122, 54, 0.18);
+  background: rgba(255, 122, 54, 0.04);
   color: rgba(200, 220, 230, 0.9);
 }
 
@@ -1190,7 +1803,7 @@
   grid-template-columns: 1fr auto;
   gap: 0.15rem 0.4rem;
   width: 100%;
-  border: 1px solid rgba(103, 232, 249, 0.12);
+  border: 1px solid rgba(255, 122, 54, 0.12);
   background: rgba(8, 8, 14, 0.6);
   padding: 0.35rem 0.45rem;
   text-align: left;
@@ -1199,8 +1812,8 @@
 }
 
 .command-career-app-row:hover {
-  border-color: rgba(103, 232, 249, 0.35);
-  background: rgba(103, 232, 249, 0.05);
+  border-color: rgba(255, 122, 54, 0.35);
+  background: rgba(255, 122, 54, 0.05);
 }
 
 .command-career-app-row__company {
@@ -1221,11 +1834,11 @@
   grid-row: 1 / span 2;
   align-self: center;
   font-size: 0.5rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 0.12rem 0.3rem;
-  border: 1px solid rgba(103, 232, 249, 0.2);
+  border: 1px solid rgba(255, 122, 54, 0.2);
 }
 
 .command-career-app-row__status--follow_up_due {
@@ -1244,23 +1857,23 @@
 }
 
 .command-career-app-row__status--offer {
-  border-color: rgba(168, 85, 247, 0.45);
-  color: rgba(168, 85, 247, 0.95);
+  border-color: rgba(45, 125, 255, 0.45);
+  color: rgba(45, 125, 255, 0.95);
 }
 
 .command-career-app-row__date {
   grid-column: 1;
   font-size: 0.5rem;
   color: #666;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
 }
 
 .command-career-btn {
   width: 100%;
-  border: 1px solid rgba(103, 232, 249, 0.25);
+  border: 1px solid rgba(255, 122, 54, 0.25);
   background: transparent;
-  color: rgba(103, 232, 249, 0.85);
-  font-family: ui-monospace, monospace;
+  color: rgba(255, 122, 54, 0.85);
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1270,13 +1883,13 @@
 }
 
 .command-career-btn:hover {
-  border-color: rgba(103, 232, 249, 0.5);
-  background: rgba(103, 232, 249, 0.06);
+  border-color: rgba(255, 122, 54, 0.5);
+  background: rgba(255, 122, 54, 0.06);
 }
 
 .command-career-btn--primary {
   margin-top: 0.35rem;
-  background: rgba(103, 232, 249, 0.08);
+  background: rgba(255, 122, 54, 0.08);
 }
 
 .command-career-form {
@@ -1285,7 +1898,7 @@
   gap: 0.35rem;
   margin-top: 0.5rem;
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
 }
 
 .command-career-form__title {
@@ -1294,7 +1907,7 @@
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.8);
+  color: rgba(255, 122, 54, 0.8);
 }
 
 .command-career-form label {
@@ -1310,10 +1923,10 @@
 .command-career-form input,
 .command-career-form select,
 .command-career-form textarea {
-  border: 1px solid rgba(103, 232, 249, 0.18);
+  border: 1px solid rgba(255, 122, 54, 0.18);
   background: rgba(8, 8, 14, 0.9);
   color: rgba(220, 230, 240, 0.95);
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.58rem;
   padding: 0.3rem 0.4rem;
 }
@@ -1322,7 +1935,7 @@
 .command-career-form select:focus,
 .command-career-form textarea:focus {
   outline: none;
-  border-color: rgba(103, 232, 249, 0.45);
+  border-color: rgba(255, 122, 54, 0.45);
 }
 
 .command-career-milestones {
@@ -1344,8 +1957,8 @@
 .command-career-milestone__meta {
   margin: 0.15rem 0 0;
   font-size: 0.52rem;
-  font-family: ui-monospace, monospace;
-  color: rgba(103, 232, 249, 0.7);
+  font-family: var(--fx-font-mono);
+  color: rgba(255, 122, 54, 0.7);
 }
 
 .command-career-milestone__desc {
@@ -1363,7 +1976,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.85);
+  color: rgba(255, 122, 54, 0.85);
 }
 
 .command-hub-section__muted,
@@ -1399,7 +2012,7 @@
 .command-hub-stats dd,
 .command-career-stats dd {
   margin: 0;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.6rem;
   color: rgba(200, 220, 230, 0.92);
   text-align: right;
@@ -1415,7 +2028,7 @@
   grid-template-columns: 1fr auto;
   gap: 0.15rem 0.4rem;
   width: 100%;
-  border: 1px solid rgba(103, 232, 249, 0.12);
+  border: 1px solid rgba(255, 122, 54, 0.12);
   background: rgba(8, 8, 14, 0.6);
   padding: 0.35rem 0.45rem;
   text-align: left;
@@ -1429,8 +2042,8 @@ button.command-hub-row {
 }
 
 button.command-hub-row:hover {
-  border-color: rgba(103, 232, 249, 0.35);
-  background: rgba(103, 232, 249, 0.05);
+  border-color: rgba(255, 122, 54, 0.35);
+  background: rgba(255, 122, 54, 0.05);
 }
 
 .command-hub-row__title {
@@ -1451,11 +2064,11 @@ button.command-hub-row:hover {
   grid-row: 1 / span 2;
   align-self: center;
   font-size: 0.5rem;
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   letter-spacing: 0.05em;
   text-transform: uppercase;
   padding: 0.12rem 0.3rem;
-  border: 1px solid rgba(103, 232, 249, 0.2);
+  border: 1px solid rgba(255, 122, 54, 0.2);
   color: rgba(200, 220, 230, 0.88);
 }
 
@@ -1467,18 +2080,18 @@ button.command-hub-row:hover {
   display: inline-block;
   margin: 0.15rem 0 0 0.45rem;
   font-size: 0.52rem;
-  font-family: ui-monospace, monospace;
-  color: rgba(103, 232, 249, 0.85);
+  font-family: var(--fx-font-mono);
+  color: rgba(255, 122, 54, 0.85);
   text-decoration: none;
 }
 
 .command-hub-btn,
 .command-career-btn {
   width: 100%;
-  border: 1px solid rgba(103, 232, 249, 0.25);
+  border: 1px solid rgba(255, 122, 54, 0.25);
   background: transparent;
-  color: rgba(103, 232, 249, 0.85);
-  font-family: ui-monospace, monospace;
+  color: rgba(255, 122, 54, 0.85);
+  font-family: var(--fx-font-mono);
   font-size: 0.55rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -1489,7 +2102,7 @@ button.command-hub-row:hover {
 
 .command-hub-btn--primary,
 .command-career-btn--primary {
-  background: rgba(103, 232, 249, 0.08);
+  background: rgba(255, 122, 54, 0.08);
 }
 
 .command-hub-form,
@@ -1499,7 +2112,7 @@ button.command-hub-row:hover {
   gap: 0.35rem;
   margin-top: 0.5rem;
   padding-top: 0.5rem;
-  border-top: 1px solid rgba(103, 232, 249, 0.12);
+  border-top: 1px solid rgba(255, 122, 54, 0.12);
 }
 
 .command-hub-form__title,
@@ -1509,7 +2122,7 @@ button.command-hub-row:hover {
   font-weight: 700;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: rgba(103, 232, 249, 0.8);
+  color: rgba(255, 122, 54, 0.8);
 }
 
 .command-hub-field,
@@ -1529,10 +2142,10 @@ button.command-hub-row:hover {
 .command-career-form input,
 .command-career-form select,
 .command-career-form textarea {
-  border: 1px solid rgba(103, 232, 249, 0.18);
+  border: 1px solid rgba(255, 122, 54, 0.18);
   background: rgba(8, 8, 14, 0.9);
   color: rgba(220, 230, 240, 0.95);
-  font-family: ui-monospace, monospace;
+  font-family: var(--fx-font-mono);
   font-size: 0.58rem;
   padding: 0.3rem 0.4rem;
 }
@@ -1552,11 +2165,347 @@ button.command-hub-row:hover {
 .command-hub-section {
   margin-bottom: 0.85rem;
   padding-bottom: 0.65rem;
-  border-bottom: 1px solid rgba(103, 232, 249, 0.1);
+  border-bottom: 1px solid rgba(255, 122, 54, 0.1);
 }
 
 .command-hub-section:last-child {
   border-bottom: none;
   margin-bottom: 0;
+}
+
+/* ===================================================================
+   Phase 1 — Typography system (visual only, scoped to .forgeonix-os)
+   Two voices: a clean display sans for the OS/heading voice, a unified
+   monospace for the machine/data voice. Aligned (tabular) numerals across
+   the whole command center. Crisp rendering. No layout/behavior change.
+   =================================================================== */
+.forgeonix-os {
+  font-family: var(--fx-font-display);
+  /* Instrument-grade: every digit the same width, so columns of telemetry line up. */
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Heading tier — mixed-case titles speak in the display voice with tight tracking. */
+.forgeonix-os .command-module-detail__header,
+.forgeonix-os .command-hub-row__title,
+.forgeonix-os .command-career-skill-group__title,
+.forgeonix-os .command-hub-form__title,
+.forgeonix-os .command-career-form__title,
+.forgeonix-os .command-career-milestone__title {
+  font-family: var(--fx-font-display);
+  font-weight: var(--fx-weight-title);
+  letter-spacing: var(--fx-track-title);
+  line-height: var(--fx-leading-snug);
+}
+
+/* System-label tier — uppercase chrome shares one consistent caps tracking
+   (replaces the previous scatter of 0.03em–0.08em). Weight/colour untouched. */
+.forgeonix-os .command-module-bus__label,
+.forgeonix-os .command-module-bus__detail-title,
+.forgeonix-os .command-hub-section__label,
+.forgeonix-os .command-career-section__label {
+  font-family: var(--fx-font-display);
+  letter-spacing: var(--fx-track-label);
+}
+
+/* ===================================================================
+   Phase 2 — Depth environment (GPU hints for the parallax planes).
+   The parallax itself is GSAP-driven (CommandParallax), desktop +
+   motion-allowed only. These hints just promote the two planes to their
+   own compositor layers so transform drift stays at 60fps.
+   =================================================================== */
+@media (min-width: 1024px) and (pointer: fine) {
+  /* V2-A — only the room layers transform now (the reactor/stage stays calm). */
+  .forgeonix-os .command-bg,
+  .forgeonix-os .command-bg__specular {
+    will-change: transform;
+  }
+}
+
+/* ===================================================================
+   Phase 4 — Instrument bays: spatial hierarchy + per-status identity.
+   Geometry-safe (no transform on the card root or body that would move
+   the connection anchors): only opacity / filter / border-colour.
+   =================================================================== */
+.command-module__body {
+  transition:
+    opacity 0.45s ease,
+    filter 0.45s ease,
+    border-color 0.35s ease;
+}
+
+/* Focus the active bay: when one is selected, the resting bays recede into the
+   chamber (unless hovered/focused). Importance becomes spatial. */
+.command-stage:has(.command-module--selected)
+  .command-module:not(.command-module--selected):not(:hover):not(:focus-within)
+  .command-module__body {
+  opacity: 0.6;
+  filter: saturate(0.78) brightness(0.8);
+}
+
+/* Per-status identity — a coloured top edge so the nine bays aren't identical
+   and their state reads at a glance (online cyan / standby steel / dev amber /
+   offline grey). Resting bays only; the selected bay keeps its full cyan frame. */
+.command-module:not(.command-module--selected):has(.command-module__status--online)
+  .command-module__body {
+  border-top-color: rgba(255, 122, 54, 0.4);
+}
+.command-module:not(.command-module--selected):has(.command-module__status--standby)
+  .command-module__body {
+  border-top-color: rgba(148, 163, 184, 0.42);
+}
+.command-module:not(.command-module--selected):has(.command-module__status--dev)
+  .command-module__body {
+  border-top-color: rgba(245, 158, 11, 0.45);
+}
+.command-module:not(.command-module--selected):has(.command-module__status--offline)
+  .command-module__body {
+  border-top-color: rgba(120, 120, 130, 0.32);
+  opacity: 0.8;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-module__body {
+    transition: none;
+  }
+}
+
+/* ===================================================================
+   Phase 5 — Navigation as camera. Opening a non-bridge view recedes the
+   bridge (camera pulls back) while the view arrives from depth (GSAP, in
+   CommandView). Uniform transform on whole bridge layers → geometry-safe
+   (the stage isn't interactive while the view overlays it). Origin centre.
+   =================================================================== */
+.command-workspace,
+.command-stage-hud {
+  transform-origin: 50% 45%;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    opacity 0.5s ease,
+    filter 0.5s ease;
+}
+
+.command-main--viewing .command-workspace,
+.command-main--viewing .command-stage-hud {
+  transform: scale(0.96);
+  opacity: 0.4;
+  filter: saturate(0.85);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .command-workspace,
+  .command-stage-hud {
+    transition: none;
+  }
+  .command-main--viewing .command-workspace,
+  .command-main--viewing .command-stage-hud {
+    transform: none;
+    opacity: 0.4;
+  }
+}
+
+/* ===================================================================
+   Phase 7 — Polish & hardening.
+   =================================================================== */
+
+/* Accessibility: a single, consistent keyboard focus ring in the energy colour
+   across all command controls (only shows for keyboard users via :focus-visible). */
+.forgeonix-os a:focus-visible,
+.forgeonix-os button:focus-visible,
+.forgeonix-os input:focus-visible,
+.forgeonix-os select:focus-visible,
+.forgeonix-os textarea:focus-visible {
+  outline: 1px solid var(--fx-energy);
+  outline-offset: 2px;
+  border-radius: var(--fx-radius-sm);
+}
+
+/* Perf: promote the travelling light band to its own layer on desktop so its
+   transform animation stays off the main thread. */
+@media (min-width: 1024px) and (pointer: fine) {
+  .forgeonix-os .command-bg__sweep {
+    will-change: transform;
+  }
+}
+
+/* ===================================================================
+   FORGEONIX V2 — CONSTRUCTED ENVIRONMENT (B–E)
+   Re-house the floating rectangles as installed console structures.
+   CSS only; every panel keeps its component, props, data, and behavior —
+   only the housing/staging changes.
+   =================================================================== */
+
+/* ---- V2-B — Side console: four floating cards become one equipment stack ---- */
+.forgeonix-os .command-workspace__rail {
+  gap: 0;
+  padding: 10px;
+  border: 1px solid rgba(150, 170, 190, 0.22);
+  border-radius: var(--fx-radius-lg);
+  background:
+    /* V2-F — installed-metal sheen catching ambient light along the top edge. */
+    linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent 16%),
+    linear-gradient(160deg, rgba(20, 24, 30, 0.92), rgba(9, 11, 15, 0.96));
+  box-shadow:
+    0 18px 50px rgba(0, 0, 0, 0.55),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+}
+
+/* Zones inside the housing — recessed screens, not separate boxes. */
+.forgeonix-os .command-workspace__rail .command-hud-panel {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.forgeonix-os .command-workspace__rail .command-hud-panel + .command-hud-panel {
+  border-top: 1px solid rgba(150, 170, 190, 0.14);
+}
+.forgeonix-os .command-workspace__rail .command-hud-panel:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+/* The housing has its own frame — drop the per-zone corner clamps. */
+.forgeonix-os .command-workspace__rail .command-hud-corner {
+  display: none;
+}
+
+/* ---- V2-C — Lower instrument desk: the HUD row becomes one installed desk ---- */
+.forgeonix-os .command-stage-hud {
+  border: 1px solid rgba(150, 170, 190, 0.2);
+  border-radius: var(--fx-radius-lg);
+  box-shadow:
+    0 16px 44px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.38);
+}
+.forgeonix-os .command-stage-hud .command-hud-panel {
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  background-image: none;
+  box-shadow: none;
+  backdrop-filter: none;
+}
+.forgeonix-os .command-stage-hud .command-hud-panel + .command-hud-panel {
+  border-top: 1px solid rgba(150, 170, 190, 0.12);
+}
+.forgeonix-os .command-stage-hud .command-hud-panel:hover {
+  border-color: transparent;
+  box-shadow: none;
+}
+.forgeonix-os .command-stage-hud .command-hud-corner {
+  display: none;
+}
+
+/* ---- V2-D — Subtle rake: the side console is installed at a slight angle and
+   straightens (presents itself) when you operate it. Desktop + motion-allowed
+   only; the rail is not a boot-item, so its transform holds reliably. ---- */
+@media (min-width: 1024px) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .forgeonix-os .command-workspace__rail {
+    transform: perspective(1500px) rotateY(-5deg);
+    transform-origin: right center;
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .forgeonix-os .command-workspace__rail:hover,
+  .forgeonix-os .command-workspace__rail:focus-within {
+    transform: perspective(1500px) rotateY(0deg);
+  }
+}
+
+/* ---- V2-E — Navigation as architecture: dissolve the browser-style header bar
+   into an etched seam in the chamber frame (controls unchanged, just re-housed). ---- */
+.forgeonix-os .command-nav {
+  border-bottom: none;
+  background: linear-gradient(
+    180deg,
+    rgba(6, 7, 12, 0.72) 0%,
+    rgba(6, 7, 12, 0.18) 68%,
+    transparent 100%
+  );
+  backdrop-filter: none;
+}
+.forgeonix-os .command-nav::after {
+  content: "";
+  position: absolute;
+  left: 1.25rem;
+  right: 1.25rem;
+  bottom: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(150, 170, 190, 0.28),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* ===================================================================
+   V3-5 — Magnetic reticle cursor (added by CommandCursor when active).
+   Native cursor hidden only while the reticle is on; caret returns over
+   text inputs so data entry is never harmed.
+   =================================================================== */
+.forgeonix-cursor-on,
+.forgeonix-cursor-on * {
+  cursor: none !important;
+}
+.forgeonix-cursor-on input,
+.forgeonix-cursor-on textarea,
+.forgeonix-cursor-on select,
+.forgeonix-cursor-on [contenteditable="true"] {
+  cursor: auto !important;
+}
+
+.forgeonix-cursor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9000;
+  width: 64px;
+  height: 64px;
+  margin: -32px 0 0 -32px;
+  pointer-events: none;
+  will-change: transform;
+}
+.forgeonix-cursor svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.forgeonix-cursor .fc-ring {
+  stroke: rgba(150, 210, 255, 0.8);
+  fill: none;
+  stroke-width: 1;
+}
+.forgeonix-cursor .fc-core {
+  fill: rgba(150, 210, 255, 0.6);
+}
+.forgeonix-cursor .fc-brk {
+  stroke: var(--fx-energy);
+  fill: none;
+  opacity: 0;
+  stroke-width: 1.2;
+}
+.forgeonix-cursor-dot {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 9001;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #fff;
+  pointer-events: none;
+  box-shadow: 0 0 10px var(--fx-energy);
+  will-change: transform;
 }
 

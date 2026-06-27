@@ -1,5 +1,6 @@
-import { addLead, fetchLeadsDashboard } from "@/lib/os/leads";
-import type { AddLeadInput, LeadStatus } from "@/types/forgeonix-os";
+import { requireOwnerApi } from "@/lib/auth/owner";
+import { addLead, fetchLeadsDashboard, updateLead } from "@/lib/os/leads";
+import type { AddLeadInput, LeadStatus, UpdateLeadInput } from "@/types/forgeonix-os";
 import { LEAD_STATUSES } from "@/types/forgeonix-os";
 import { NextResponse } from "next/server";
 
@@ -23,6 +24,8 @@ function parseLead(body: unknown): AddLeadInput {
 }
 
 export async function GET() {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     return NextResponse.json(await fetchLeadsDashboard());
   } catch (error) {
@@ -32,11 +35,27 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const lead = await addLead(parseLead(await request.json()));
     return NextResponse.json(lead, { status: 201 });
   } catch (error) {
     const message = error instanceof Error ? error.message : "Failed to add lead.";
+    return NextResponse.json({ error: message }, { status: 400 });
+  }
+}
+
+export async function PATCH(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
+  try {
+    const { id, ...patch } = (await request.json()) as { id?: string } & UpdateLeadInput;
+    if (!id) throw new Error("id is required.");
+    const lead = await updateLead(id, patch);
+    return NextResponse.json(lead);
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Failed to update lead.";
     return NextResponse.json({ error: message }, { status: 400 });
   }
 }

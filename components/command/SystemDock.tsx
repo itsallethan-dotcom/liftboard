@@ -4,9 +4,10 @@ import type { DockItem, SystemMetric } from "@/types/command";
 type SystemDockProps = {
   items: DockItem[];
   metrics: SystemMetric[];
+  onSelect?: (id: string) => void;
 };
 
-export function SystemDock({ items, metrics }: SystemDockProps) {
+export function SystemDock({ items, metrics, onSelect }: SystemDockProps) {
   return (
     <footer
       className="command-dock command-boot-item"
@@ -36,7 +37,12 @@ export function SystemDock({ items, metrics }: SystemDockProps) {
           }
 
           return (
-            <button key={item.id} type="button" className={className}>
+            <button
+              key={item.id}
+              type="button"
+              className={className}
+              onClick={() => onSelect?.(item.id)}
+            >
               <span className="command-dock__item-short">{item.shortLabel}</span>
               <span className="command-dock__item-label">{item.label}</span>
             </button>

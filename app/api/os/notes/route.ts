@@ -1,3 +1,4 @@
+import { requireOwnerApi } from "@/lib/auth/owner";
 import { addOsNote, fetchNotesDashboard } from "@/lib/os/notes";
 import type { AddOsNoteInput, NoteType } from "@/types/forgeonix-os";
 import { NOTE_TYPES } from "@/types/forgeonix-os";
@@ -19,6 +20,8 @@ function parseNote(body: unknown): AddOsNoteInput {
 }
 
 export async function GET() {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     return NextResponse.json(await fetchNotesDashboard());
   } catch (error) {
@@ -28,6 +31,8 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const denied = await requireOwnerApi();
+  if (denied) return denied;
   try {
     const note = await addOsNote(parseNote(await request.json()));
     return NextResponse.json(note, { status: 201 });

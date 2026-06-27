@@ -45,7 +45,7 @@ function NavLink({
         {label}
       </span>
       <motion.span
-        className="absolute bottom-0 left-0 h-px w-full origin-left bg-gradient-to-r from-[#c0c0c0] to-[#e8e8e8]"
+        className="absolute bottom-0 left-0 h-px w-full origin-left bg-gradient-to-r from-[#ff7a36] to-[#2d7dff]"
         initial={{ scaleX: isActive ? 1 : 0 }}
         animate={{ scaleX: isActive ? 1 : 0 }}
         whileHover={{ scaleX: 1 }}
@@ -54,8 +54,8 @@ function NavLink({
     </>
   );
 
-  const className = `group relative px-3 py-2 text-sm tracking-wide transition-colors ${
-    isActive ? "text-white" : "text-[#c0c0c0]"
+  const className = `group relative rounded-sm px-3 py-2 text-sm tracking-wide transition-colors ${
+    isActive ? "text-white" : "text-[#9aa0aa]"
   }`;
 
   const handlers = {
@@ -94,11 +94,16 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
   );
 
   return (
-    <header className="fixed top-0 right-0 left-0 z-50 border-b border-white/[0.08] bg-[rgba(18,18,18,0.85)] backdrop-blur-md">
+    <header className="fixed top-0 right-0 left-0 z-50 border-b border-white/[0.08] bg-[rgba(12,14,20,0.78)] backdrop-blur-xl">
+      {/* Premium top hairline — ember→blue brand spine */}
+      <div
+        className="pointer-events-none absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-[#ff7a36]/40 to-transparent"
+        aria-hidden
+      />
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-6 py-4">
         <Link
           href="/"
-          className="flex items-center gap-3"
+          className="group flex items-center gap-3"
           onClick={() => playSound("click")}
         >
           <Image
@@ -106,10 +111,10 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
             alt="Forgeonix"
             width={36}
             height={36}
-            className="h-9 w-9 object-contain"
+            className="h-9 w-9 object-contain drop-shadow-[0_0_10px_rgba(255,122,54,0.25)] transition-transform duration-500 group-hover:scale-105"
             priority
           />
-          <span className="text-sm font-semibold tracking-[0.25em] text-[#c0c0c0] uppercase">
+          <span className="text-sm font-semibold tracking-[0.25em] text-[#d8dde6] uppercase transition-colors duration-300 group-hover:text-white">
             Forgeonix
           </span>
         </Link>
@@ -148,13 +153,13 @@ export function NavBar({ activeHref, showCta = true }: NavBarProps) {
           }}
         >
           <span
-            className={`block h-0.5 w-5 bg-[#c0c0c0] transition-transform duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+            className={`block h-0.5 w-5 bg-[#d8dde6] transition-transform duration-300 ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
           />
           <span
-            className={`block h-0.5 w-5 bg-[#c0c0c0] transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`}
+            className={`block h-0.5 w-5 bg-[#d8dde6] transition-opacity duration-300 ${menuOpen ? "opacity-0" : ""}`}
           />
           <span
-            className={`block h-0.5 w-5 bg-[#c0c0c0] transition-transform duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+            className={`block h-0.5 w-5 bg-[#d8dde6] transition-transform duration-300 ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
           />
         </button>
       </nav>

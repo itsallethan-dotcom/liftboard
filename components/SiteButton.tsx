@@ -16,8 +16,8 @@ export function SiteButton({
 }: SiteButtonProps) {
   const className =
     variant === "primary"
-      ? "forgeonix-btn-primary rounded-sm border border-[#c0c0c0] px-6 py-3 text-sm font-semibold tracking-wide text-[#e8e8e8] transition-all duration-500"
-      : "forgeonix-btn-ghost rounded-sm border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#c0c0c0] transition-all duration-500";
+      ? "forgeonix-btn-primary inline-block rounded-sm border border-transparent px-6 py-3 text-sm font-semibold tracking-wide transition-all duration-500"
+      : "forgeonix-btn-ghost inline-block rounded-sm border border-white/20 px-6 py-3 text-sm font-semibold tracking-wide text-[#9aa0aa] transition-all duration-500";
 
   if (href.startsWith("http") || href.startsWith("mailto:") || href.startsWith("#")) {
     return (
