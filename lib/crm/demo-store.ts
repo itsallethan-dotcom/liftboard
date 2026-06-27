@@ -17,6 +17,7 @@ import type {
   Payment,
   Proposal,
   Task,
+  UpdateInput,
 } from "@/lib/crm/types";
 import {
   demoClients,
@@ -41,7 +42,7 @@ export type Collection<T extends CrmRecord> = {
   list(): T[];
   get(id: string): T | null;
   create(data: Omit<T, keyof CrmRecord>): T;
-  update(id: string, patch: Partial<Omit<T, "id" | "created_at">>): T | null;
+  update(id: string, patch: UpdateInput<T>): T | null;
   remove(id: string): boolean;
   reset(): void;
 };
